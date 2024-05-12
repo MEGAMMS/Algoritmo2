@@ -1,5 +1,5 @@
-import tree.Node;
-import Utils.Filereader;
+import Problem1.tree.Node;
+import src.Utils.Filereader;
 public class Forma1 {
 public static Node imp(String s){
     int cnt=0;
@@ -28,7 +28,8 @@ return n;
 }
 
 public static void main(String[] args) throws Exception {
-    String s= Filereader.stringreader(test.txt);
+    String s= Filereader.stringreader("test.txt");
+    System.out.println(s);
     imp(s);
 
 }
