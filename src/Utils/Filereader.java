@@ -1,14 +1,15 @@
-import java.io.*;
+package Utils;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class Filereader {
-    public String stringreader(String path) {
+    static public String stringreader(String path) {
         // Creating a path choosing file from local
         // directory by creating an object of Path class
         Path fileName = Path.of(path);
-
+        System.out.println(fileName);
         // Now calling Files.readString() method to
         // read the file
         String str = "";

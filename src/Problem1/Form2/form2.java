@@ -1,11 +1,10 @@
 package Problem1.Form2;
 
-import java.util.Scanner;
+import Utils.Filereader;
 
 public class form2 {
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        String s = in.next();
-    
+        String s = Filereader.stringreader("src/Problem1/Form2/test.txt");
+        System.out.println(s);
     }
 }
