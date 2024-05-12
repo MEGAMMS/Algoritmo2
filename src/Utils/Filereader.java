@@ -18,7 +18,6 @@ public class Filereader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return str;
     }
 
