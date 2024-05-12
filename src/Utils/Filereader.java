@@ -9,7 +9,6 @@ public class Filereader {
         // Creating a path choosing file from local
         // directory by creating an object of Path class
         Path fileName = Path.of(path);
-        System.out.println(fileName);
         // Now calling Files.readString() method to
         // read the file
         String str = "";
