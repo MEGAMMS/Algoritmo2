@@ -3,9 +3,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-
 public class Filereader {
     public String stringreader(String path) {
         // Creating a path choosing file from local
@@ -14,7 +11,12 @@ public class Filereader {
 
         // Now calling Files.readString() method to
         // read the file
-        String str = Files.readString(fileName);
+        String str = "";
+        try {
+            str = Files.readString(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return str;
     }
