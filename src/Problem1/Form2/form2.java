@@ -19,21 +19,20 @@ public class form2 {
         // System.out.println(a);
 
         a.forEach(ss -> {
-            // if (isFullLine(ss)) {
-            // System.out.println("full");
-            // }
-            for (int i = 0; i < ss.length(); i++) {
-
-                System.out.print(ss.charAt(i) + " ");
+            if (isFullLine(ss)) {
+                System.out.println("full");
             }
+            // for (int i = 0; i < ss.length(); i++) {
+            // System.out.print(ss.charAt(i) + " ");
+            // }
         });
     }
 
     public static Boolean isFullLine(String sss) {
-        for (int i = 0; i < sss.length(); i++)
-            if (sss.charAt(i) == '+' || sss.charAt(i) == '-') {
-                System.out.println(sss.charAt(i) + "this is false");
-                // return false;
+        for (int i = 1; i < sss.length(); i++)
+            if (sss.charAt(i) != '+' || sss.charAt(i) != '-') {
+                // System.out.println("this is false" + sss.charAt(i) + "this is false");
+                return false;
             }
         return true;
     }
