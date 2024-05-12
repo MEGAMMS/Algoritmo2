@@ -29,10 +29,10 @@ public class form2 {
         });
     }
 
-    public static Boolean isFullLine(String s) {
-        for (int i = 0; i < s.length(); i++)
-            if (s.charAt(i) == '+' || s.charAt(i) == '-') {
-                System.out.println(s.charAt(i) + "this is false");
+    public static Boolean isFullLine(String sss) {
+        for (int i = 0; i < sss.length(); i++)
+            if (sss.charAt(i) == '+' || sss.charAt(i) == '-') {
+                System.out.println(sss.charAt(i) + "this is false");
                 // return false;
             }
         return true;
