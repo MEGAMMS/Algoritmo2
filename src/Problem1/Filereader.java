@@ -1,3 +1,6 @@
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 public class Filereader  {
     public String stringreader(String path){
             // Creating a path choosing file from local
