@@ -10,9 +10,13 @@ public class form2 {
         
         ArrayList<String> lines = fromStrToLines(s);
 
+        System.out.println(lines);
+
+        int lineNumber = 0;
         for (String line : lines) {
+            lineNumber++;
             if (isBreakLine(line))
-                System.out.println(line + " : is full");
+                System.out.println(line + "Line number " + lineNumber +" : is full");
         }
     }
 
