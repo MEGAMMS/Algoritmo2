@@ -17,12 +17,17 @@ public class form2 {
         }
         System.out.println(a);
         for (String st : a){
-            if (!st.contains(".")) {
-                System.out.println(st);
+            if (FullLine(st)) {
+                System.out.println("full");
             }
         }
     }
-
+    public static boolean FullLine(String s){
+        for (int i = 0; i < s.length(); i++) 
+            if (s.charAt(i) != '+' || s.charAt(i) != '-') 
+                return false;
+        return true;
+    }
     public void importString(ArrayList<String> in) {
 
     }
