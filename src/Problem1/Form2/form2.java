@@ -44,17 +44,16 @@ public class form2 {
         ArrayList<String> lines = new ArrayList<>();
         int counterForLater = 0;
         for (int i = 0; i < input.length(); i++) {
-            if (input.charAt(i) != '\n'){
-                lines.add(input.charAt(i)+"");
+            if (input.charAt(i) != '\n') {
+                lines.add(input.charAt(i) + "");
                 counterForLater++;
-            }
-            else break;
+            } else
+                break;
         }
-        for (int i = 0; i < counterForLater; i++) {
-            if (input.charAt(i) != '\n'){
-                lines.set();
+        for (int i = counterForLater; i < input.length(); i++) {
+            if (input.charAt(i) != '\n') {
+                lines.set(i, lines.get(i) + input.charAt(i));
             }
-            else break;
         }
         return lines;
     }
