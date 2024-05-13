@@ -10,7 +10,10 @@ public class Data {
         this.length = length;
         this.width = width;
     }
-
+    public String printData(){
+        String s= this.type+"["+String.valueOf(this.length)+","+String.valueOf(this.width)+"]";
+        return s;
+    }
     
 }
 
