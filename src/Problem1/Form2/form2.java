@@ -2,6 +2,9 @@ package Problem1.Form2;
 
 import java.util.ArrayList;
 
+import javax.print.DocFlavor.CHAR_ARRAY;
+
+import Problem1.Tree.Node;
 import Utils.Filereader;
 
 public class form2 {
@@ -106,5 +109,16 @@ public class form2 {
 
     public void Import(ArrayList<String> in) {
 
+    }
+    
+    public static ArrayList<String> g=new ArrayList<>();
+    public static String Export(Node root) {
+
+        if (root == null) {
+            return null;
+        }
+        
+        g.add(root.data.gridbuilder());       
+        return Export(root.left)+Export(root.right);
     }
 }
