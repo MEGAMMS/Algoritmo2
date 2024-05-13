@@ -34,6 +34,12 @@ public class Form1 {
         Node n = new Node(l, r, data);
         return n;
     }
+    public static String Export(Node root){
+        //TODO
+        return "";
+    }
+
+
 
     public static void main(String[] args) throws Exception {
         String s = Filereader.stringreader("src/Problem1/Form1/test.txt");
