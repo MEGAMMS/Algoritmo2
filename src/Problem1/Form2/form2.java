@@ -9,15 +9,15 @@ public class form2 {
         String s = Filereader.stringreader("src/Problem1/Form2/test.txt");
 
         ArrayList<String> lines = fromStrToLines(s);
-        ArrayList<String> Columns = fromStrToColumns(s);
+        ArrayList<String> columns = fromStrToColumns(s);
 
         System.out.println("lines = " + lines);
-        System.out.println("Columns = " + Columns);
+        System.out.println("Columns = " + columns);
 
-        letsDoIt(lines);
+        letsDoIt(lines/*, columns*/);
     }
 
-    public static void letsDoIt(ArrayList<String> lines) {
+    public static void letsDoIt(ArrayList<String> lines/*, ArrayList<String> columns */) {
         int lineNumber = 0;
         for (String line : lines) {
             lineNumber++;
@@ -27,6 +27,16 @@ public class form2 {
                 break;
             }
         }
+
+        // int colNumber = 0;
+        // for (String column : columns) {
+        //     colNumber++;
+        //     if (isBreakLine(column) && colNumber != 1 && colNumber != columns.size()) {
+        //         System.out.println("Column number " + colNumber + " is full");
+        //         cutItAt(columns, colNumber);
+        //         break;
+        //     }
+        // }
     }
 
     public static ArrayList<String> fromStrToLines(String input) {
