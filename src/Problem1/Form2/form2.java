@@ -42,9 +42,19 @@ public class form2 {
 
     public static ArrayList<String> fromStrToColumns(String input) {
         ArrayList<String> lines = new ArrayList<>();
+        int counterForLater = 0;
         for (int i = 0; i < input.length(); i++) {
-            for (int j = 0; i < input.length(); j++)
-                System.out.println(" ");
+            if (input.charAt(i) != '\n'){
+                lines.add(input.charAt(i)+"");
+                counterForLater++;
+            }
+            else break;
+        }
+        for (int i = 0; i < counterForLater; i++) {
+            if (input.charAt(i) != '\n'){
+                lines.set();
+            }
+            else break;
         }
         return lines;
     }
