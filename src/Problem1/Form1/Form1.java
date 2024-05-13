@@ -45,6 +45,12 @@ public class Form1 {
         Node n = new Node(l, r, data);
         return n;
     }
+    public static String Export(Node root){
+        //TODO
+        return "";
+    }
+
+
 
     public static ArrayList<Integer> parseInteger(String input) {
         ArrayList<Integer> para = new ArrayList<>();
