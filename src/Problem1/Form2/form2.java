@@ -9,10 +9,10 @@ public class form2 {
         String s = Filereader.stringreader("src/Problem1/Form2/test.txt");
 
         ArrayList<String> lines = fromStrToLines(s);
-        ArrayList<String> lines1 = fromStrToColumns(s);
+        ArrayList<String> Columns = fromStrToColumns(s);
 
         System.out.println("lines = " + lines);
-        System.out.println("lines1 = " + lines1);
+        System.out.println("Columns = " + Columns);
 
         letsDoIt(lines);
     }
@@ -50,10 +50,13 @@ public class form2 {
             } else
                 break;
         }
+        int trackCounter = 0;
         for (int i = counterForLater; i < input.length(); i++) {
             if (input.charAt(i) != '\n') {
-                lines.set(i, lines.get(i) + input.charAt(i));
-            }
+                lines.set(trackCounter, lines.get(trackCounter) + input.charAt(i));
+                trackCounter++;
+            } else
+                trackCounter = 0;
         }
         return lines;
     }
@@ -68,7 +71,7 @@ public class form2 {
 
     public static Boolean isBreakColumn(String line) {
         for (char c : line.toCharArray()) {
-            if (c != '+' && c != '-')
+            if (c != '+' && c != '|')
                 return false;
         }
         return true;
