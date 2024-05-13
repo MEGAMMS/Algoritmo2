@@ -7,47 +7,48 @@ import Utils.Filereader;
 public class form2 {
     public static void main(String[] args) {
         String s = Filereader.stringreader("src/Problem1/Form2/test.txt");
-
-        ArrayList<String> lines = fromStrToLines(s);
-        ArrayList<String> columns = fromStrToColumns(s);
-
-        System.out.println("lines = " + lines);
-        System.out.println("Columns = " + columns);
-
-        letsDoIt(lines/*, columns*/);
+        System.out.println("s = \n" + s);
+        ArrayList<ArrayList<Character>> lines = fromStrToGrid(s);
+        Import(lines);
     }
+    // int colNumber = 0;
+    // for (String column : columns) {
+    // colNumber++;
+    // if (isBreakLine(column) && colNumber != 1 && colNumber != columns.size()) {
+    // System.out.println("Column number " + colNumber + " is full");
+    // cutItAt(columns, colNumber);
+    // break;
+    // }
+    // }
 
-    public static void letsDoIt(ArrayList<String> lines/*, ArrayList<String> columns */) {
+    public static void letsDoIt(ArrayList<ArrayList<Character>> lines) {
         int lineNumber = 0;
-        for (String line : lines) {
+        for (ArrayList<Character> ArrayList : lines) {
             lineNumber++;
+            String line = String.valueOf(ArrayList);
             if (isBreakLine(line) && lineNumber != 1 && lineNumber != lines.size()) {
                 System.out.println("Line number " + lineNumber + " is full");
                 cutItAt(lines, lineNumber);
                 break;
             }
         }
-
-        // int colNumber = 0;
-        // for (String column : columns) {
-        //     colNumber++;
-        //     if (isBreakLine(column) && colNumber != 1 && colNumber != columns.size()) {
-        //         System.out.println("Column number " + colNumber + " is full");
-        //         cutItAt(columns, colNumber);
-        //         break;
-        //     }
-        // }
     }
 
-    public static ArrayList<String> fromStrToLines(String input) {
-        int lastLineIdx = 0;
-        ArrayList<String> lines = new ArrayList<>();
+    public static ArrayList<ArrayList<Character>> fromStrToGrid(String input) {
+        ArrayList<ArrayList<Character>> grid = new ArrayList<>();
+        int linesCount = 0;
+        ArrayList<Character> c = new ArrayList<>('x');
+        grid.add(c);
         for (int i = 0; i < input.length(); i++)
-            if (input.charAt(i) == '\n') {
-                lines.add(input.substring(lastLineIdx, i - 1));
-                lastLineIdx = i + 1;
+            if (input.charAt(i) != '\n' && input.charAt(i) != ' ') {
+                System.out.println("I will add " + input.charAt(i) + " to the line " + linesCount);
+                grid.get(linesCount).add(input.charAt(i));
+                System.out.println("Line " + linesCount + " now is: " + grid.get(linesCount));
+            } else {
+                linesCount++;
+                grid.add(c);
             }
-        return lines;
+        return grid;
     }
 
     public static ArrayList<String> fromStrToColumns(String input) {
@@ -87,11 +88,11 @@ public class form2 {
         return true;
     }
 
-    public static void cutItAt(ArrayList<String> arrList, int lineNum) {
+    public static void cutItAt(ArrayList<ArrayList<Character>> arrList, int lineNum) {
         int lineNumber = 0;
-        ArrayList<String> aList1 = new ArrayList<>();
-        ArrayList<String> aList2 = new ArrayList<>();
-        for (String line : arrList) {
+        ArrayList<ArrayList<Character>> aList1 = new ArrayList<>();
+        ArrayList<ArrayList<Character>> aList2 = new ArrayList<>();
+        for (ArrayList<Character> line : arrList) {
             lineNumber++;
             if (lineNum >= lineNumber)
                 aList1.add(line);
@@ -104,7 +105,14 @@ public class form2 {
         letsDoIt(aList2);
     }
 
-    public void Import(ArrayList<String> in) {
+    public static void Import(ArrayList<ArrayList<Character>> in) {
 
+        // ArrayList<String> columns = fromStrToColumns(s);
+
+        // System.out.println("lines = " + lines);
+        System.out.println("in = \n" + in);
+        // System.out.println("Columns = " + columns);
+
+        // letsDoIt(lines/* , columns */);
     }
 }
