@@ -1,30 +1,23 @@
 package Problem1.Tree;
 
-public class Node {
-    int key;
-    Node left, right;
-    int length, width;
+class Data {
+    String name;
+    char type;
+    int height;
+    int width;
+}
 
-    public Node(int item, Node left, Node right) {
-        key = item;
+
+public class Node {
+    Node left, right;
+    Data data;
+    public Node(Node left, Node right, Data data) {
         this.left = left;
         this.right = right;
+        this.data = data;
     }
 
-    public Node(int item) {
-        key = item;
-    }
-
-    public Node(int item, int length, int width) {
-        key = item;
-        this.length = length;
-        this.width = width;
-    }
-
-    public Node(int item, int length, int width, Node left, Node right) {
-        key = item;
-        this.length = length;
-        this.width = width;
+    public Node(Node left, Node right){
         this.left = left;
         this.right = right;
     }
