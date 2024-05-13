@@ -27,7 +27,7 @@ public class form2 {
         for (int i = 0; i < input.length(); i++) {
             if (input.charAt(i) == '\n') {
                 lines.add(input.substring(lastLineIdx, i - 1));
-                lastLineIdx = i;
+                lastLineIdx = i + 1;
             }
         }
         return lines;
