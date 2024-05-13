@@ -3,7 +3,7 @@ package Problem1.Tree;
 class Data {
     String name;
     char type;
-    int height;
+    int length;
     int width;
 }
 
