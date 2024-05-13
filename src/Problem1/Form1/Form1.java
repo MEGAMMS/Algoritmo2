@@ -1,4 +1,5 @@
 package Problem1.Form1;
+
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -45,9 +46,20 @@ public class Form1 {
         Node n = new Node(l, r, data);
         return n;
     }
-    public static String Export(Node root){
-        //TODO
-        return "";
+    public static String Export(Node root) {
+        // TODO
+        if (root == null) {
+            return null;
+        }
+        if (root.left != null){
+            return Export(root.left);}
+
+        if (root.right != null){
+            return Export(root.right);
+        }
+        return root.data.printData();
+            
+        
     }
 
 
@@ -74,7 +86,8 @@ public class Form1 {
     public static void main(String[] args) throws Exception {
         String s = Filereader.stringreader("src/Problem1/Form1/test.txt");
         System.out.println(s);
-        Import(s);
+        Node tree = Import(s);
+        System.out.println(tree.data.type);
 
     }
 }
