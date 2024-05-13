@@ -25,8 +25,7 @@ public class form2 {
         int lineNumber = 0;
         for (ArrayList<Character> ArrayList : lines) {
             lineNumber++;
-            String line = String.valueOf(ArrayList);
-            if (isBreakLine(line) && lineNumber != 1 && lineNumber != lines.size()) {
+            if (isBreakLine(ArrayList) && lineNumber != 1 && lineNumber != lines.size()) {
                 System.out.println("Line number " + lineNumber + " is full");
                 cutItAt(lines, lineNumber);
                 break;
@@ -35,53 +34,49 @@ public class form2 {
     }
 
     public static ArrayList<ArrayList<Character>> fromStrToGrid(String input) {
-        ArrayList<ArrayList<Character>> grid = new ArrayList<>();
-        int linesCount = 0;
-        ArrayList<Character> c = new ArrayList<>('x');
-        grid.add(c);
-        for (int i = 0; i < input.length(); i++)
-            if (input.charAt(i) != '\n' && input.charAt(i) != ' ') {
-                System.out.println("I will add " + input.charAt(i) + " to the line " + linesCount);
-                grid.get(linesCount).add(input.charAt(i));
-                System.out.println("Line " + linesCount + " now is: " + grid.get(linesCount));
-            } else {
-                linesCount++;
-                grid.add(c);
+        ArrayList<ArrayList<Character>> grid = new ArrayList<>(new ArrayList<>());
+        grid.add(new ArrayList<>());
+        for (char c : input.toCharArray()) {
+            if (c == '\n') {
+                grid.add(new ArrayList<>());
+                continue;
             }
+            grid.get(grid.size() - 1).add(c);
+        }
         return grid;
     }
 
-    public static ArrayList<String> fromStrToColumns(String input) {
-        ArrayList<String> lines = new ArrayList<>();
-        int counterForLater = 0;
-        for (int i = 0; i < input.length(); i++) {
-            if (input.charAt(i) != '\n') {
-                lines.add(input.charAt(i) + "");
-                counterForLater++;
-            } else
-                break;
-        }
-        int trackCounter = 0;
-        for (int i = counterForLater; i < input.length(); i++) {
-            if (input.charAt(i) != '\n') {
-                lines.set(trackCounter, lines.get(trackCounter) + input.charAt(i));
-                trackCounter++;
-            } else
-                trackCounter = 0;
-        }
-        return lines;
-    }
+    // public static ArrayList<ArrayList<Character>> fromStrToColumns(ArrayList<Character> input) {
+    //     ArrayList<ArrayList<Character>> lines = new ArrayList<>();
+    //     int counterForLater = 0;
+    //     for (int i = 0; i < input.length(); i++) {
+    //         if (input.charAt(i) != '\n') {
+    //             lines.add(input.charAt(i) + "");
+    //             counterForLater++;
+    //         } else
+    //             break;
+    //     }
+    //     int trackCounter = 0;
+    //     for (int i = counterForLater; i < input.length(); i++) {
+    //         if (input.charAt(i) != '\n') {
+    //             lines.set(trackCounter, lines.get(trackCounter) + input.charAt(i));
+    //             trackCounter++;
+    //         } else
+    //             trackCounter = 0;
+    //     }
+    //     return lines;
+    // }
 
-    public static Boolean isBreakLine(String line) {
-        for (char c : line.toCharArray()) {
+    public static Boolean isBreakLine(ArrayList<Character> line) {
+        for (char c : line) {
             if (c != '+' && c != '-')
                 return false;
         }
         return true;
     }
 
-    public static Boolean isBreakColumn(String line) {
-        for (char c : line.toCharArray()) {
+    public static Boolean isBreakColumn(ArrayList<Character> line) {
+        for (char c : line) {
             if (c != '+' && c != '|')
                 return false;
         }
@@ -113,6 +108,6 @@ public class form2 {
         System.out.println("in = \n" + in);
         // System.out.println("Columns = " + columns);
 
-        // letsDoIt(lines/* , columns */);
+        letsDoIt(in/* , columns */);
     }
 }
