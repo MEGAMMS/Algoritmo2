@@ -1,13 +1,5 @@
 package Problem1.Tree;
 
-class Data {
-    String name;
-    char type;
-    int length;
-    int width;
-}
-
-
 public class Node {
     Node left, right;
     Data data;
@@ -17,9 +9,8 @@ public class Node {
         this.data = data;
     }
 
-    public Node(Node left, Node right){
-        this.left = left;
-        this.right = right;
+    public Node(Data data){
+        this.data = data;
     }
 
 }
