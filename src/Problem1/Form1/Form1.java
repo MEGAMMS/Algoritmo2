@@ -13,9 +13,9 @@ public class Form1 {
      */
     public static Node Import(String s) {
         if (s.charAt(s.length() - 1) == ']') {
-            // TODO
             return new Node(new Data(s.charAt(0), parseInteger(s).get(0), parseInteger(s).get(1)));
         }
+        s = s.substring(1, s.length() - 1);
         int cnt = 0;
         int pos = 0;
         for (int i = 0; i < s.length(); i++) {
@@ -32,15 +32,18 @@ public class Form1 {
 
         }
         char c = s.charAt(pos);
-        String sl = s.substring(1, pos - 2);
-        String sr = s.substring(pos + 2, s.length() - 1);
+        String sl = s.substring(0, pos - 1);
+        String sr = s.substring(pos + 2, s.length());
         Node l = Import(sl);
         Node r = Import(sr);
-        // TODO
         Data data;
-        if (c == '|') {
+        if (c == '-') {
             data = new Data(c, l.data.length, l.data.width + r.data.width);
+            assert (l.data.length == r.data.length);
         } else {
+            assert (c == '-');
+            assert (false);
+            assert (l.data.width == r.data.width);
             data = new Data(c, l.data.length + r.data.length, l.data.width);
         }
         Node n = new Node(l, r, data);
@@ -48,19 +51,15 @@ public class Form1 {
     }
 
     public static String Export(Node root) {
-        // TODO
+
         if (root == null) {
             return null;
         }
-        if (root.left != null) {
-            return Export(root.left);
+        if (root.data.type != '-' && root.data.type != '|') {
+            return root.data.toString();
         }
 
-        if (root.right != null) {
-            return Export(root.right);
-        }
-        return root.data.toString();
-
+        return '(' + Export(root.left) + ' ' + root.data.type  + ' ' + Export(root.right) + ')';
     }
 
     public static ArrayList<Integer> parseInteger(String input) {
@@ -85,8 +84,12 @@ public class Form1 {
     public static void main(String[] args) throws Exception {
         String s = Filereader.stringreader("src/Problem1/Form1/test.txt");
         System.out.println(s);
-        Node tree = Import(s);
-        System.out.println(tree.data.type);
+        Node tree = Import("(" + s + ")");
+        System.out.println(tree.data);
+        String out = Export(tree);
+        out = out.substring(1, out.length() - 1);
+        System.out.println(out);
+        
 
     }
 }
