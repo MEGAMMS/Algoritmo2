@@ -7,21 +7,18 @@ import Utils.Filereader;
 public class form2 {
     public static void main(String[] args) {
         String s = Filereader.stringreader("src/Problem1/Form2/test.txt");
-        
-        ArrayList<String> lines = fromStrToLines(s);
 
-        System.out.println(lines);
+        ArrayList<String> lines = fromStrToLines(s);
 
         int lineNumber = 0;
         for (String line : lines) {
             lineNumber++;
-            if (isBreakLine(line))
-                System.out.println(line + "Line number " + lineNumber +" : is full");
+            if (isBreakLine(line) && lineNumber != 1 && lineNumber != lines.size())
+                System.out.println("Line number " + lineNumber + " is full");
         }
     }
 
-
-    public static ArrayList<String> fromStrToLines(String input){
+    public static ArrayList<String> fromStrToLines(String input) {
         int lastLineIdx = 0;
         ArrayList<String> lines = new ArrayList<>();
         for (int i = 0; i < input.length(); i++) {
