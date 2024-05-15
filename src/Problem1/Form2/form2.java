@@ -112,13 +112,39 @@ public class form2 {
     }
     
     public static ArrayList<String> g=new ArrayList<>();
-    public static String Export(Node root) {
+    public static ArrayList<String> Export(Node root) {
 
         if (root == null) {
             return null;
         }
+        if(root.data.type!='-'||root.data.type!='|'){
+            return root.data.gridbuilder();
+        }
+        return Merger(Export(root.left),Export(root.right),root.data.type);
         
-        g.add(root.data.gridbuilder());       
-        return Export(root.left)+Export(root.right);
     }
+    public static ArrayList<String> Merger( ArrayList<String> a, ArrayList<String> b,char type){
+        ArrayList<String> c= new ArrayList<>();
+        int row=a.size()+b.size();
+        if(type=='|'){
+            
+            for(int j=0;j<row;j++){
+                String s=a.get(j)+b.get(j).substring(1);
+                c.add(s);
+            }
+        }else{
+            for(int j=0;j<a.size()-1;j++){
+                c.add(a.get(j));
+            }
+            for(int j=1;j<b.size();j++){
+                c.add(b.get(j));
+            }
+
+
+        }
+
+        return c;
+    }
+
+    
 }

@@ -91,12 +91,12 @@ public class Form1 {
         String out = Export(tree);
         out = out.substring(1, out.length() - 1);
         System.out.println(out);
-
-        form2.Export(tree);
-    
-        for(int i=0;i<form2.g.size();i++){
-            System.out.println(form2.g.get(i));
-        }
+        
+            ArrayList<String> test=form2.Export(tree);
+        
+            for(int i=0;i<test.size();i++){
+                System.out.println(test.get(i));
+            }
         
 
     }
