@@ -44,6 +44,7 @@ public class Data {
                 ans.get(i).add('.');
             }
         }
+        Utils.PrintingArrayList.printCharArrayArray(ans);
         return ans;
     }
 

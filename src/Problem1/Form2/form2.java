@@ -6,7 +6,7 @@ import Problem1.Tree.Node;
 import Utils.Filereader;
 import Utils.PrintingArrayList;
 
-public class form2 {
+public class Form2 {
     public static void main(String[] args) {
         String s = Filereader.stringreader("src/Problem1/Form2/test.txt");
 
@@ -97,9 +97,9 @@ public class form2 {
         // return false;
         // }
         // for (ArrayList<Character> ar : line) {
-        //     for (char c : ar) {
+        // for (char c : ar) {
 
-        //     }
+        // }
         // }
         return true;
     }
@@ -151,34 +151,41 @@ public class form2 {
 
     public static ArrayList<ArrayList<Character>> Merger(ArrayList<ArrayList<Character>> a,
             ArrayList<ArrayList<Character>> b, char type) {
-
-        int col = a.size();
-        ArrayList<ArrayList<Character>> c = new ArrayList<>(col);
+        // Utils.PrintingArrayList.printCharArrayArray(a);
+        // Utils.PrintingArrayList.printCharArrayArray(b);
         if (type == '|') {
-            for (int i = 0; i < col; i++) {
-                int row = a.get(i).size() + b.get(i).size() - 1;
-                c.add(new ArrayList<>(row));
+            int rows = a.size();
+            ArrayList<ArrayList<Character>> c = new ArrayList<>(rows);
 
-                for (int j = 0; j < a.size(); j++) {
+            for (int i = 0; i < rows; i++) {
+                int colm = a.get(i).size() + b.get(i).size() - 1;
+                c.add(new ArrayList<>(colm));
+
+                for (int j = 0; j < a.get(i).size() - 1; j++) {
                     c.get(i).add(a.get(i).get(j));
                 }
-                for (int j = 0; j < b.size(); j++) {
-                    c.get(i).add(a.get(i).get(j));
+                for (int j = 0; j < b.get(i).size(); j++) {
+                    c.get(i).add(b.get(i).get(j));
                 }
 
             }
-        } else {
+            return c;
+        }
+        if (type == '-') {
+            int row = a.size() + b.size() - 1;
+            ArrayList<ArrayList<Character>> c = new ArrayList<>(row);
 
             for (int j = 0; j < a.size() - 1; j++) {
                 c.add(a.get(j));
             }
-            for (int j = 1; j < b.size(); j++) {
+            for (int j = 0; j < b.size(); j++) {
                 c.add(b.get(j));
             }
+            return c;
 
         }
+        return null;
 
-        return c;
     }
 
 }
