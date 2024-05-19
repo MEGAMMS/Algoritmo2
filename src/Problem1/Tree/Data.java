@@ -19,24 +19,30 @@ public class Data {
         return s;
     }
 
-    public ArrayList<String> gridbuilder(){
-        ArrayList<String>ans= new ArrayList<>();
-        String a=String.valueOf(this.type);
-        for(int i=0;i<this.length;i++){
-            a=String.valueOf(this.type);
-            for(int j=0;j<this.width;j=j+1){
-                if(i==0||i==this.length-1){
-                    a=a+"-";
+    public ArrayList<ArrayList<Character>> gridBuilder() {
+        if (type == '-' || type == '|') {
+            System.out.println("here");
+            return null;
+        }
+        ArrayList<ArrayList<Character>> ans = new ArrayList<>(length);
+
+        for (int i = 0; i < this.length; i++) {
+            ans.add(new ArrayList<>(width));
+            for (int j = 0; j < this.width; j = j + 1) {
+                if (i == 0 || i == this.length - 1) {
+                    ans.get(i).add('-');
+                    continue;
                 }
-                else{
-                if(j==0||j==this.width-1){
-                    a=a+"|";
-                }else if(i==1&&j==1){
-                    a=a+String.valueOf(this.type) ;
-                }else  a=a+".";
+                if (j == 0 || j == this.width - 1) {
+                    ans.get(i).add('|');
+                    continue;
+                }
+                if (i == 1 && j == 1) {
+                    ans.get(i).add(this.type);
+                    continue;
+                }
+                ans.get(i).add('.');
             }
-            }
-            ans.add(a);
         }
         return ans;
     }

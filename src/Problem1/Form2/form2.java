@@ -7,7 +7,7 @@ import javax.print.DocFlavor.CHAR_ARRAY;
 import Problem1.Tree.Node;
 import Utils.Filereader;
 
-public class form2 {
+public class Form2 {
     public static void main(String[] args) {
         String s = Filereader.stringreader("src/Problem1/Form2/test.txt");
 
@@ -17,10 +17,10 @@ public class form2 {
         System.out.println("lines = " + lines);
         System.out.println("Columns = " + columns);
 
-        letsDoIt(lines/*, columns*/);
+        letsDoIt(lines/* , columns */);
     }
 
-    public static void letsDoIt(ArrayList<String> lines/*, ArrayList<String> columns */) {
+    public static void letsDoIt(ArrayList<String> lines/* , ArrayList<String> columns */) {
         int lineNumber = 0;
         for (String line : lines) {
             lineNumber++;
@@ -33,12 +33,12 @@ public class form2 {
 
         // int colNumber = 0;
         // for (String column : columns) {
-        //     colNumber++;
-        //     if (isBreakLine(column) && colNumber != 1 && colNumber != columns.size()) {
-        //         System.out.println("Column number " + colNumber + " is full");
-        //         cutItAt(columns, colNumber);
-        //         break;
-        //     }
+        // colNumber++;
+        // if (isBreakLine(column) && colNumber != 1 && colNumber != columns.size()) {
+        // System.out.println("Column number " + colNumber + " is full");
+        // cutItAt(columns, colNumber);
+        // break;
+        // }
         // }
     }
 
@@ -110,41 +110,51 @@ public class form2 {
     public void Import(ArrayList<String> in) {
 
     }
-    
-    public static ArrayList<String> g=new ArrayList<>();
-    public static ArrayList<String> Export(Node root) {
+
+    public static ArrayList<String> g = new ArrayList<>();
+
+    public static ArrayList<ArrayList<Character>> Export(Node root) {
 
         if (root == null) {
             return null;
         }
-        if(root.data.type!='-'||root.data.type!='|'){
-            return root.data.gridbuilder();
+        if (root.data.type != '-' && root.data.type != '|') {
+            return root.data.gridBuilder();
         }
-        return Merger(Export(root.left),Export(root.right),root.data.type);
-        
+        return Merger(Export(root.left), Export(root.right), root.data.type);
+
     }
-    public static ArrayList<String> Merger( ArrayList<String> a, ArrayList<String> b,char type){
-        ArrayList<String> c= new ArrayList<>();
-        int row=a.size()+b.size();
-        if(type=='|'){
-            
-            for(int j=0;j<row;j++){
-                String s=a.get(j)+b.get(j).substring(1);
-                c.add(s);
+
+    public static ArrayList<ArrayList<Character>> Merger(ArrayList<ArrayList<Character>> a,
+            ArrayList<ArrayList<Character>> b, char type) {
+
+        int col = a.size();
+        ArrayList<ArrayList<Character>> c = new ArrayList<>(col);
+        if (type == '|') {
+            for (int i = 0; i < col; i++) {
+                int row = a.get(i).size() + b.get(i).size()-1;
+                c.add(new ArrayList<>(row));
+                
+                for (int j = 0; j < a.size(); j++) {
+                    c.get(i).add(a.get(i).get(j));
+                }
+                for (int j = 0; j < b.size(); j++) {
+                    c.get(i).add(a.get(i).get(j));
+                }
+
             }
-        }else{
-            for(int j=0;j<a.size()-1;j++){
+        } else {
+
+            for (int j = 0; j < a.size() - 1; j++) {
                 c.add(a.get(j));
             }
-            for(int j=1;j<b.size();j++){
+            for (int j = 1; j < b.size(); j++) {
                 c.add(b.get(j));
             }
-
 
         }
 
         return c;
     }
 
-    
 }
