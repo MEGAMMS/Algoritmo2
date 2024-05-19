@@ -27,15 +27,17 @@ public class form2 {
 
     public static void letsDoIt(ArrayList<ArrayList<Character>> lines) {
 
+        letscheck(lines);
+        // PrintingArrayList.printCharArrayArray(lineToColumn(lines));
+        letscheck(lineToColumn(lines));
+
+    }
+
+    public static void letscheck(ArrayList<ArrayList<Character>> lines) {
         int lineNumber = 0;
         for (ArrayList<Character> ArrayList : lines) {
             lineNumber++;
             if (isBreakLine(ArrayList) && lineNumber != 1 && lineNumber != lines.size()) {
-                System.out.println(
-                        "Line number: " + lineNumber + " is full lets cut the arraylist at line number: " + lineNumber);
-                cutItAt(lines, lineNumber);
-                break;
-            } else if (isBreakLine(ArrayList) && lineNumber != 1 && lineNumber != lines.size()) {
                 System.out.println(
                         "Line number: " + lineNumber + " is full lets cut the arraylist at line number: " + lineNumber);
                 cutItAt(lines, lineNumber);
@@ -58,28 +60,6 @@ public class form2 {
         return grid;
     }
 
-    // public static ArrayList<ArrayList<Character>>
-    // fromStrToColumns(ArrayList<Character> input) {
-    // ArrayList<ArrayList<Character>> lines = new ArrayList<>();
-    // int counterForLater = 0;
-    // for (int i = 0; i < input.length(); i++) {
-    // if (input.charAt(i) != '\n') {
-    // lines.add(input.charAt(i) + "");
-    // counterForLater++;
-    // } else
-    // break;
-    // }
-    // int trackCounter = 0;
-    // for (int i = counterForLater; i < input.length(); i++) {
-    // if (input.charAt(i) != '\n') {
-    // lines.set(trackCounter, lines.get(trackCounter) + input.charAt(i));
-    // trackCounter++;
-    // } else
-    // trackCounter = 0;
-    // }
-    // return lines;
-    // }
-
     public static Boolean isBreakLine(ArrayList<Character> line) {
         int cnt = 0;
         for (char c : line) {
@@ -91,17 +71,20 @@ public class form2 {
         return true;
     }
 
-    public static Boolean isBreakColumn(ArrayList<ArrayList<Character>> line) {
-        // for (char c : line) {
-        // if (c != '+' && c != '|')
-        // return false;
-        // }
-        // for (ArrayList<Character> ar : line) {
-        //     for (char c : ar) {
-
-        //     }
-        // }
-        return true;
+    public static ArrayList<ArrayList<Character>> lineToColumn(ArrayList<ArrayList<Character>> line) {
+        int j = 0;
+        ArrayList<ArrayList<Character>> line2 = new ArrayList<>(line.size());
+        for (int i = 0; i < line.size(); i++) {
+            j = 0;
+            for (char c : line.get(i)) {
+                if (i == 0) {
+                    line2.add(new ArrayList<Character>());
+                }
+                line2.get(j).add(c);
+                j++;
+            }
+        }
+        return line2;
     }
 
     public static void cutItAt(ArrayList<ArrayList<Character>> arrList, int lineNum) {
@@ -124,13 +107,6 @@ public class form2 {
     }
 
     public static void Import(ArrayList<ArrayList<Character>> in) {
-
-        // ArrayList<String> columns = fromStrToColumns(s);
-
-        // System.out.println("lines = " + lines);
-        // for (ArrayList<Character> ar : in)
-        // System.out.println("ar = " + ar);
-        // System.out.println("Columns = " + columns);
 
         letsDoIt(in);
     }
