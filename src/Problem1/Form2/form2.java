@@ -8,7 +8,7 @@ import Problem1.Tree.Node;
 import Utils.Filereader;
 import Utils.PrintingArrayList;
 
-public class Form2 {
+public class form2 {
     public static void main(String[] args) {
         String s = Filereader.stringreader("src/Problem1/Form2/test.txt");
 
