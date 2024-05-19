@@ -2,8 +2,6 @@ package Problem1.Form2;
 
 import java.util.ArrayList;
 
-import javax.print.DocFlavor.CHAR_ARRAY;
-
 import Problem1.Tree.Node;
 import Utils.Filereader;
 import Utils.PrintingArrayList;
