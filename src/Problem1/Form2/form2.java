@@ -2,14 +2,19 @@ package Problem1.Form2;
 
 import java.util.ArrayList;
 
+import javax.print.DocFlavor.CHAR_ARRAY;
+
+import Problem1.Tree.Node;
 import Utils.Filereader;
 
-public class form2 {
+public class Form2 {
     public static void main(String[] args) {
         String s = Filereader.stringreader("src/Problem1/Form2/test.txt");
+
         System.out.println("s = \n" + s);
         ArrayList<ArrayList<Character>> lines = fromStrToGrid(s);
         Import(lines);
+
     }
     // int colNumber = 0;
     // for (String column : columns) {
@@ -22,6 +27,7 @@ public class form2 {
     // }
 
     public static void letsDoIt(ArrayList<ArrayList<Character>> lines) {
+
         int lineNumber = 0;
         for (ArrayList<Character> ArrayList : lines) {
             lineNumber++;
@@ -31,6 +37,7 @@ public class form2 {
                 break;
             }
         }
+
     }
 
     public static ArrayList<ArrayList<Character>> fromStrToGrid(String input) {
@@ -110,4 +117,51 @@ public class form2 {
 
         letsDoIt(in/* , columns */);
     }
+
+    public static ArrayList<String> g = new ArrayList<>();
+
+    public static ArrayList<ArrayList<Character>> Export(Node root) {
+
+        if (root == null) {
+            return null;
+        }
+        if (root.data.type != '-' && root.data.type != '|') {
+            return root.data.gridBuilder();
+        }
+        return Merger(Export(root.left), Export(root.right), root.data.type);
+
+    }
+
+    public static ArrayList<ArrayList<Character>> Merger(ArrayList<ArrayList<Character>> a,
+            ArrayList<ArrayList<Character>> b, char type) {
+
+        int col = a.size();
+        ArrayList<ArrayList<Character>> c = new ArrayList<>(col);
+        if (type == '|') {
+            for (int i = 0; i < col; i++) {
+                int row = a.get(i).size() + b.get(i).size()-1;
+                c.add(new ArrayList<>(row));
+                
+                for (int j = 0; j < a.size(); j++) {
+                    c.get(i).add(a.get(i).get(j));
+                }
+                for (int j = 0; j < b.size(); j++) {
+                    c.get(i).add(a.get(i).get(j));
+                }
+
+            }
+        } else {
+
+            for (int j = 0; j < a.size() - 1; j++) {
+                c.add(a.get(j));
+            }
+            for (int j = 1; j < b.size(); j++) {
+                c.add(b.get(j));
+            }
+
+        }
+
+        return c;
+    }
+
 }
