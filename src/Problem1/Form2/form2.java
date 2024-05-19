@@ -3,11 +3,12 @@ package Problem1.Form2;
 import java.util.ArrayList;
 
 import Utils.Filereader;
+import Utils.PrintingArrayList;
 
 public class form2 {
     public static void main(String[] args) {
         String s = Filereader.stringreader("src/Problem1/Form2/test.txt");
-        System.out.println("s = \n" + s);
+        // System.out.println("s = \n" + s);
         ArrayList<ArrayList<Character>> lines = fromStrToGrid(s);
         Import(lines);
     }
@@ -25,16 +26,24 @@ public class form2 {
         int lineNumber = 0;
         for (ArrayList<Character> ArrayList : lines) {
             lineNumber++;
+            // System.out.println("I am here at line number " + lineNumber + " and it is " + isBreakLine(ArrayList) + "  "
+            //         + ArrayList);
             if (isBreakLine(ArrayList) && lineNumber != 1 && lineNumber != lines.size()) {
-                System.out.println("Line number " + lineNumber + " is full");
+                System.out.println("Line number: " + lineNumber + " is full lets cut the arraylist at line number: " + lineNumber);
+                cutItAt(lines, lineNumber);
+                break;
+            }
+            else if (isBreakLine(ArrayList) && lineNumber != 1 && lineNumber != lines.size()) {
+                System.out.println("Line number: " + lineNumber + " is full lets cut the arraylist at line number: " + lineNumber);
                 cutItAt(lines, lineNumber);
                 break;
             }
         }
+        System.out.println("can not to be cut more than this!");
     }
 
     public static ArrayList<ArrayList<Character>> fromStrToGrid(String input) {
-        ArrayList<ArrayList<Character>> grid = new ArrayList<>(new ArrayList<>());
+        ArrayList<ArrayList<Character>> grid = new ArrayList<ArrayList<Character>>(new ArrayList<>());
         grid.add(new ArrayList<>());
         for (char c : input.toCharArray()) {
             if (c == '\n') {
@@ -46,30 +55,34 @@ public class form2 {
         return grid;
     }
 
-    // public static ArrayList<ArrayList<Character>> fromStrToColumns(ArrayList<Character> input) {
-    //     ArrayList<ArrayList<Character>> lines = new ArrayList<>();
-    //     int counterForLater = 0;
-    //     for (int i = 0; i < input.length(); i++) {
-    //         if (input.charAt(i) != '\n') {
-    //             lines.add(input.charAt(i) + "");
-    //             counterForLater++;
-    //         } else
-    //             break;
-    //     }
-    //     int trackCounter = 0;
-    //     for (int i = counterForLater; i < input.length(); i++) {
-    //         if (input.charAt(i) != '\n') {
-    //             lines.set(trackCounter, lines.get(trackCounter) + input.charAt(i));
-    //             trackCounter++;
-    //         } else
-    //             trackCounter = 0;
-    //     }
-    //     return lines;
+    // public static ArrayList<ArrayList<Character>>
+    // fromStrToColumns(ArrayList<Character> input) {
+    // ArrayList<ArrayList<Character>> lines = new ArrayList<>();
+    // int counterForLater = 0;
+    // for (int i = 0; i < input.length(); i++) {
+    // if (input.charAt(i) != '\n') {
+    // lines.add(input.charAt(i) + "");
+    // counterForLater++;
+    // } else
+    // break;
+    // }
+    // int trackCounter = 0;
+    // for (int i = counterForLater; i < input.length(); i++) {
+    // if (input.charAt(i) != '\n') {
+    // lines.set(trackCounter, lines.get(trackCounter) + input.charAt(i));
+    // trackCounter++;
+    // } else
+    // trackCounter = 0;
+    // }
+    // return lines;
     // }
 
     public static Boolean isBreakLine(ArrayList<Character> line) {
+        int cnt = 0;
         for (char c : line) {
-            if (c != '+' && c != '-')
+            cnt++;
+            // System.out.println("char is : " + c);
+            if (c != '+' && c != '-' && cnt != line.size())
                 return false;
         }
         return true;
@@ -94,8 +107,10 @@ public class form2 {
             if (lineNum <= lineNumber)
                 aList2.add(line);
         }
-        System.out.println("aList1 = " + aList1);
-        System.out.println("aList2 = " + aList2);
+        System.out.println("aList1 = ");
+        PrintingArrayList.printCharArrayArray(aList1);
+        System.out.println("aList2 = ");
+        PrintingArrayList.printCharArrayArray(aList2);
         letsDoIt(aList1);
         letsDoIt(aList2);
     }
@@ -105,9 +120,10 @@ public class form2 {
         // ArrayList<String> columns = fromStrToColumns(s);
 
         // System.out.println("lines = " + lines);
-        System.out.println("in = \n" + in);
+        // for (ArrayList<Character> ar : in)
+        // System.out.println("ar = " + ar);
         // System.out.println("Columns = " + columns);
 
-        letsDoIt(in/* , columns */);
+        letsDoIt(in);
     }
 }
