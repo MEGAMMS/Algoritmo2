@@ -6,6 +6,9 @@ import java.util.regex.Pattern;
 import Problem1.Tree.*;
 import Utils.Filereader;
 
+import Problem1.Form2.Form2;
+
+// a function to create the tree
 public class Form1 {
     /**
      * @param s
@@ -50,6 +53,7 @@ public class Form1 {
         return n;
     }
 
+    // a function to create the string of a tree
     public static String Export(Node root) {
 
         if (root == null) {
@@ -59,9 +63,10 @@ public class Form1 {
             return root.data.toString();
         }
 
-        return '(' + Export(root.left) + ' ' + root.data.type  + ' ' + Export(root.right) + ')';
+        return '(' + Export(root.left) + ' ' + root.data.type + ' ' + Export(root.right) + ')';
     }
 
+    // a function to parse integers from a string
     public static ArrayList<Integer> parseInteger(String input) {
         ArrayList<Integer> para = new ArrayList<>();
         Pattern pattern = Pattern.compile("\\[(\\d+),");
@@ -83,13 +88,15 @@ public class Form1 {
 
     public static void main(String[] args) throws Exception {
         String s = Filereader.stringreader("src/Problem1/Form1/test.txt");
-        System.out.println(s);
         Node tree = Import("(" + s + ")");
-        System.out.println(tree.data);
         String out = Export(tree);
         out = out.substring(1, out.length() - 1);
-        System.out.println(out);
+
         
+        ArrayList<ArrayList<Character>> test = Form2.Export(tree);
+        for (int i = 0; i < test.size(); i++) {
+            System.out.println(test.get(i));
+        }
 
     }
 }
