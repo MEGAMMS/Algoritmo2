@@ -30,20 +30,19 @@ public class form2 {
         int lineNumber = 0;
         for (ArrayList<Character> ArrayList : lines) {
             lineNumber++;
-            // System.out.println("I am here at line number " + lineNumber + " and it is " + isBreakLine(ArrayList) + "  "
-            //         + ArrayList);
             if (isBreakLine(ArrayList) && lineNumber != 1 && lineNumber != lines.size()) {
-                System.out.println("Line number: " + lineNumber + " is full lets cut the arraylist at line number: " + lineNumber);
+                System.out.println(
+                        "Line number: " + lineNumber + " is full lets cut the arraylist at line number: " + lineNumber);
                 cutItAt(lines, lineNumber);
                 break;
-            }
-            else if (isBreakLine(ArrayList) && lineNumber != 1 && lineNumber != lines.size()) {
-                System.out.println("Line number: " + lineNumber + " is full lets cut the arraylist at line number: " + lineNumber);
+            } else if (isBreakLine(ArrayList) && lineNumber != 1 && lineNumber != lines.size()) {
+                System.out.println(
+                        "Line number: " + lineNumber + " is full lets cut the arraylist at line number: " + lineNumber);
                 cutItAt(lines, lineNumber);
                 break;
             }
         }
-        System.out.println("can not to be cut more than this!");
+        System.out.println("can not be cut more than this!");
     }
 
     public static ArrayList<ArrayList<Character>> fromStrToGrid(String input) {
@@ -92,11 +91,16 @@ public class form2 {
         return true;
     }
 
-    public static Boolean isBreakColumn(ArrayList<Character> line) {
-        for (char c : line) {
-            if (c != '+' && c != '|')
-                return false;
-        }
+    public static Boolean isBreakColumn(ArrayList<ArrayList<Character>> line) {
+        // for (char c : line) {
+        // if (c != '+' && c != '|')
+        // return false;
+        // }
+        // for (ArrayList<Character> ar : line) {
+        //     for (char c : ar) {
+
+        //     }
+        // }
         return true;
     }
 
@@ -152,9 +156,9 @@ public class form2 {
         ArrayList<ArrayList<Character>> c = new ArrayList<>(col);
         if (type == '|') {
             for (int i = 0; i < col; i++) {
-                int row = a.get(i).size() + b.get(i).size()-1;
+                int row = a.get(i).size() + b.get(i).size() - 1;
                 c.add(new ArrayList<>(row));
-                
+
                 for (int j = 0; j < a.size(); j++) {
                     c.get(i).add(a.get(i).get(j));
                 }
