@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 import Problem1.Tree.*;
 import Utils.Filereader;
 
-import Problem1.Form2.Form2;
+import Problem1.Form2.form2;
 
 // a function to create the tree
 public class Form1 {
@@ -93,7 +93,7 @@ public class Form1 {
         out = out.substring(1, out.length() - 1);
 
         
-        ArrayList<ArrayList<Character>> test = Form2.Export(tree);
+        ArrayList<ArrayList<Character>> test = form2.Export(tree);
         Utils.PrintingArrayList.printCharArrayArray(test);
 
     }
