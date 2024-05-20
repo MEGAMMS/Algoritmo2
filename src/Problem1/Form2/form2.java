@@ -12,22 +12,26 @@ public class form2 {
         Import(lines);
     }
 
+    static int x = 0;
+
     public static void letsDoIt(ArrayList<ArrayList<Character>> lines) {
-        letscheck(lines);
-        letscheck(lineToColumn(lines));
+        if (!letscheck(lines, false)) {
+            letscheck(lineToColumn(lines), true);
+        }
     }
 
-    public static void letscheck(ArrayList<ArrayList<Character>> lines) {
+    public static Boolean letscheck(ArrayList<ArrayList<Character>> lines, Boolean inverted) {
         int lineNumber = 0;
         for (ArrayList<Character> ArrayList : lines) {
             lineNumber++;
-            if (isBreakLine(ArrayList) && lineNumber != 1 && lineNumber != lines.size()) {
-                System.out.println("Line number: " + lineNumber + " is full lets cut it at: " + lineNumber);
-                cutItAt(lines, lineNumber);
-                break;
+            if (isBreakLineOrCol(ArrayList, !inverted) && lineNumber != 1 && lineNumber < lines.size()) {
+                // System.out.println("Line number: " + lineNumber + " is full in lets cut it
+                // at: " + lineNumber + " cause lines.size() = " + lines.size());
+                cutItAt(lines, lineNumber, inverted);
+                return true;
             }
         }
-        System.out.println("Can not be cut more than this!");
+        return false;
     }
 
     public static ArrayList<ArrayList<Character>> fromStrToGrid(String input) {
@@ -40,15 +44,26 @@ public class form2 {
             }
             grid.get(grid.size() - 1).add(c);
         }
+        for (int j = 0; j < grid.size() - 1; j++) {
+            grid.get(j).remove(grid.get(j).size() - 1);
+        }
         return grid;
     }
 
-    public static Boolean isBreakLine(ArrayList<Character> line) {
+    public static Boolean isBreakLineOrCol(ArrayList<Character> line, Boolean isLine) {
         int cnt = 0;
-        for (char c : line) {
-            cnt++;
-            if (c != '+' && c != '-' && cnt != line.size())
-                return false;
+        if (isLine) {
+            for (char c : line) {
+                cnt++;
+                if ((c != '+' && c != '-' && cnt != line.size()))
+                    return false;
+            }
+        } else {
+            for (char c : line) {
+                cnt++;
+                if (c != '+' && c != '|' && cnt != line.size())
+                    return false;
+            }
         }
         return true;
     }
@@ -68,7 +83,7 @@ public class form2 {
         return line2;
     }
 
-    public static void cutItAt(ArrayList<ArrayList<Character>> arrList, int lineNum) {
+    public static void cutItAt(ArrayList<ArrayList<Character>> arrList, int lineNum, Boolean inverted) {
         int lineNumber = 0;
         ArrayList<ArrayList<Character>> aList1 = new ArrayList<>();
         ArrayList<ArrayList<Character>> aList2 = new ArrayList<>();
@@ -79,9 +94,15 @@ public class form2 {
             if (lineNum <= lineNumber)
                 aList2.add(line);
         }
-        System.out.println("aList1 = ");
+        if (inverted) {
+            aList1 = lineToColumn(aList1);
+            aList2 = lineToColumn(aList2);
+        }
+        x++;
+        System.out.println("aList number " + x + " = ");
         PrintingArrayList.printCharArrayArray(aList1);
-        System.out.println("aList2 = ");
+        x++;
+        System.out.println("aList number " + x + " = ");
         PrintingArrayList.printCharArrayArray(aList2);
         letsDoIt(aList1);
         letsDoIt(aList2);
