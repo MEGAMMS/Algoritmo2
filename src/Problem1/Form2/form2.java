@@ -85,7 +85,9 @@ public class Form2 {
             }
         }
         return line2;
-      public static Boolean isBreakColumn(ArrayList<ArrayList<Character>> line) {
+    }
+
+    public static Boolean isBreakColumn(ArrayList<ArrayList<Character>> line) {
         // for (char c : line) {
         // if (c != '+' && c != '|')
         // return false;
