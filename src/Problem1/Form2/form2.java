@@ -16,7 +16,7 @@ public class form2 {
     static int listNumber = 0;
     static ArrayList<Character> finalArrList = new ArrayList<>();
 
-    public static void letsDoIt(ArrayList<ArrayList<Character>> lines, Boolean inverted) {
+    public static void Import(ArrayList<ArrayList<Character>> lines, Boolean inverted) {
         int cnt = 0;
         Character ch = '.';
         for (ArrayList<Character> ar : lines) {
@@ -94,33 +94,37 @@ public class form2 {
         return line2;
     }
 
-    public static void cutItAt(ArrayList<ArrayList<Character>> arrList, int lineNum, Boolean inverted) {
-        int lineNumber = 0;
-        ArrayList<ArrayList<Character>> aList1 = new ArrayList<>();
-        ArrayList<ArrayList<Character>> aList2 = new ArrayList<>();
-        for (ArrayList<Character> line : arrList) {
-            lineNumber++;
-            if (lineNum >= lineNumber)
-                aList1.add(line);
-            if (lineNum <= lineNumber)
-                aList2.add(line);
+    public static ArrayList<ArrayList<ArrayList<Character>>> cutItAt(ArrayList<ArrayList<Character>> beforCut,
+            int cutIdx, Boolean inverted) {
+        ArrayList<ArrayList<ArrayList<Character>>> out = new ArrayList<>();
+        out.add(new ArrayList<>());
+        out.add(new ArrayList<>());
+        cutIdx--;
+        for (int i = 0; i < beforCut.size(); i++) {
+            if (cutIdx >= i)
+                out.get(0).add(beforCut.get(i));
+            if (cutIdx <= i)
+                out.get(1).add(beforCut.get(i));
         }
         if (inverted) {
-            aList1 = invertArrList(aList1);
-            aList2 = invertArrList(aList2);
+            out.set(0, invertArrList(out.get(0)));
+            out.set(1, invertArrList(out.get(1)));
         }
-        listNumber++;
-        System.out.println("aList number " + listNumber + " = ");
-        PrintingArrayList.printCharArrayArray(aList1);
-        listNumber++;
-        System.out.println("aList number " + listNumber + " = ");
-        PrintingArrayList.printCharArrayArray(aList2);
-        letsDoIt(aList1, inverted);
-        letsDoIt(aList2, inverted);
+        //Tmp Debugging
+        System.out.println("Cutting....");
+        PrintingArrayList.printCharArrayArray(beforCut);
+        System.out.println("First Cut = ");
+        PrintingArrayList.printCharArrayArray(out.get(0));
+        System.out.println("Second Cut = ");
+        PrintingArrayList.printCharArrayArray(out.get(1));
+        //
+        Import(out.get(0), inverted);
+        Import(out.get(1), inverted);
+        return out;
     }
 
     public static void Import(ArrayList<ArrayList<Character>> in) {
-        letsDoIt(in, false);
+        Import(in, false);
     }
 
     // Here starts Soud work //
