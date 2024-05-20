@@ -1,36 +1,20 @@
 package Problem1.Form2;
 
 import java.util.ArrayList;
-
 import Problem1.Tree.Node;
 import Utils.Filereader;
 import Utils.PrintingArrayList;
 
-public class Form2 {
+public class form2 {
     public static void main(String[] args) {
         String s = Filereader.stringreader("src/Problem1/Form2/test.txt");
-
-        // System.out.println("s = \n" + s);
         ArrayList<ArrayList<Character>> lines = fromStrToGrid(s);
         Import(lines);
-
     }
-    // int colNumber = 0;
-    // for (String column : columns) {
-    // colNumber++;
-    // if (isBreakLine(column) && colNumber != 1 && colNumber != columns.size()) {
-    // System.out.println("Column number " + colNumber + " is full");
-    // cutItAt(columns, colNumber);
-    // break;
-    // }
-    // }
 
     public static void letsDoIt(ArrayList<ArrayList<Character>> lines) {
-
         letscheck(lines);
-        // PrintingArrayList.printCharArrayArray(lineToColumn(lines));
         letscheck(lineToColumn(lines));
-
     }
 
     public static void letscheck(ArrayList<ArrayList<Character>> lines) {
@@ -38,13 +22,12 @@ public class Form2 {
         for (ArrayList<Character> ArrayList : lines) {
             lineNumber++;
             if (isBreakLine(ArrayList) && lineNumber != 1 && lineNumber != lines.size()) {
-                System.out.println(
-                        "Line number: " + lineNumber + " is full lets cut the arraylist at line number: " + lineNumber);
+                System.out.println("Line number: " + lineNumber + " is full lets cut it at: " + lineNumber);
                 cutItAt(lines, lineNumber);
                 break;
             }
         }
-        System.out.println("can not be cut more than this!");
+        System.out.println("Can not be cut more than this!");
     }
 
     public static ArrayList<ArrayList<Character>> fromStrToGrid(String input) {
@@ -64,7 +47,6 @@ public class Form2 {
         int cnt = 0;
         for (char c : line) {
             cnt++;
-            // System.out.println("char is : " + c);
             if (c != '+' && c != '-' && cnt != line.size())
                 return false;
         }
@@ -77,25 +59,13 @@ public class Form2 {
         for (int i = 0; i < line.size(); i++) {
             j = 0;
             for (char c : line.get(i)) {
-                if (i == 0) {
+                if (i == 0)
                     line2.add(new ArrayList<Character>());
-                }
                 line2.get(j).add(c);
                 j++;
             }
         }
         return line2;
-      public static Boolean isBreakColumn(ArrayList<ArrayList<Character>> line) {
-        // for (char c : line) {
-        // if (c != '+' && c != '|')
-        // return false;
-        // }
-        // for (ArrayList<Character> ar : line) {
-        // for (char c : ar) {
-
-        // }
-        // }
-        return true;
     }
 
     public static void cutItAt(ArrayList<ArrayList<Character>> arrList, int lineNum) {
@@ -118,14 +88,14 @@ public class Form2 {
     }
 
     public static void Import(ArrayList<ArrayList<Character>> in) {
-
         letsDoIt(in);
     }
+
+    // Here starts Soud work //
 
     public static ArrayList<String> g = new ArrayList<>();
 
     public static ArrayList<ArrayList<Character>> Export(Node root) {
-
         if (root == null) {
             return null;
         }
@@ -133,46 +103,34 @@ public class Form2 {
             return root.data.gridBuilder();
         }
         return Merger(Export(root.left), Export(root.right), root.data.type);
-
     }
 
     public static ArrayList<ArrayList<Character>> Merger(ArrayList<ArrayList<Character>> a,
             ArrayList<ArrayList<Character>> b, char type) {
-        // Utils.PrintingArrayList.printCharArrayArray(a);
-        // Utils.PrintingArrayList.printCharArrayArray(b);
         if (type == '|') {
             int rows = a.size();
             ArrayList<ArrayList<Character>> c = new ArrayList<>(rows);
-
             for (int i = 0; i < rows; i++) {
                 int colm = a.get(i).size() + b.get(i).size() - 1;
                 c.add(new ArrayList<>(colm));
-
                 for (int j = 0; j < a.get(i).size() - 1; j++) {
                     c.get(i).add(a.get(i).get(j));
                 }
                 for (int j = 0; j < b.get(i).size(); j++) {
                     c.get(i).add(b.get(i).get(j));
                 }
-
             }
             return c;
         }
         if (type == '-') {
             int row = a.size() + b.size() - 1;
             ArrayList<ArrayList<Character>> c = new ArrayList<>(row);
-
-            for (int j = 0; j < a.size() - 1; j++) {
+            for (int j = 0; j < a.size() - 1; j++)
                 c.add(a.get(j));
-            }
-            for (int j = 0; j < b.size(); j++) {
+            for (int j = 0; j < b.size(); j++)
                 c.add(b.get(j));
-            }
             return c;
-
         }
         return null;
-
     }
-
 }
