@@ -1,6 +1,7 @@
 package Problem1.Form2;
 
 import java.util.ArrayList;
+
 import Problem1.Tree.Node;
 import Utils.Filereader;
 import Utils.PrintingArrayList;
@@ -13,11 +14,27 @@ public class form2 {
     }
 
     static int x = 0;
+    static ArrayList<Character> fin = new ArrayList<>();
 
     public static void letsDoIt(ArrayList<ArrayList<Character>> lines) {
+        int cnt = 0;
+        Character ch = '.';
+        for (ArrayList<Character> ar : lines) {
+            for (Character c : ar) {
+                if (64 < c && c < 91) {
+                    cnt++;
+                    ch = c;
+                }
+            }
+        }
+        if (cnt == 1) {
+            fin.add(ch);
+            Utils.PrintingArrayList.printCharArray(fin);
+        }
         if (!letscheck(lines, false)) {
             letscheck(lineToColumn(lines), true);
         }
+
     }
 
     public static Boolean letscheck(ArrayList<ArrayList<Character>> lines, Boolean inverted) {
@@ -35,7 +52,7 @@ public class form2 {
     }
 
     public static ArrayList<ArrayList<Character>> fromStrToGrid(String input) {
-        ArrayList<ArrayList<Character>> grid = new ArrayList<ArrayList<Character>>(new ArrayList<>());
+        ArrayList<ArrayList<Character>> grid = new ArrayList<>();
         grid.add(new ArrayList<>());
         for (char c : input.toCharArray()) {
             if (c == '\n') {
