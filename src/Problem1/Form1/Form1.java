@@ -94,9 +94,7 @@ public class Form1 {
 
         
         ArrayList<ArrayList<Character>> test = Form2.Export(tree);
-        for (int i = 0; i < test.size(); i++) {
-            System.out.println(test.get(i));
-        }
+        Utils.PrintingArrayList.printCharArrayArray(test);
 
     }
 }
