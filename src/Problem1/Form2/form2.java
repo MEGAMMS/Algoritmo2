@@ -9,8 +9,8 @@ import Utils.PrintingArrayList;
 public class form2 {
     public static void main(String[] args) {
         String s = Filereader.stringreader("src/Problem1/Form2/test.txt");
-        ArrayList<ArrayList<Character>> lines = fromStrToGrid(s);
-        Import(lines);
+        ArrayList<ArrayList<Character>> grid = fromStrToGrid(s);
+        Import(grid);
     }
 
     static int listNumber = 0;
@@ -21,7 +21,7 @@ public class form2 {
         Character ch = '.';
         for (ArrayList<Character> ar : lines) {
             for (Character c : ar) {
-                if (64 < c && c < 91) {
+                if ('A' <= c && c <= 'Z') {
                     cnt++;
                     ch = c;
                 }
@@ -31,8 +31,7 @@ public class form2 {
             finalArrList.add(ch);
             finalArrList.add('|');
             PrintingArrayList.printCharArray(finalArrList);
-        }
-        else if (cnt == 1 && !inverted) {
+        } else if (cnt == 1 && !inverted) {
             finalArrList.add(ch);
             finalArrList.add('-');
             PrintingArrayList.printCharArray(finalArrList);
@@ -47,7 +46,7 @@ public class form2 {
         int lineNumber = 0;
         for (ArrayList<Character> ArrayList : lines) {
             lineNumber++;
-            if (isBreakLineOrCol(ArrayList, !inverted) && lineNumber != 1 && lineNumber < lines.size()) {
+            if (isBreakRowOrCol(ArrayList, !inverted) && lineNumber != 1 && lineNumber < lines.size()) {
                 cutItAt(lines, lineNumber, inverted);
                 return true;
             }
@@ -71,20 +70,11 @@ public class form2 {
         return grid;
     }
 
-    public static Boolean isBreakLineOrCol(ArrayList<Character> line, Boolean isLine) {
-        int cnt = 0;
-        if (isLine) {
-            for (char c : line) {
-                cnt++;
-                if ((c != '+' && c != '-' && cnt != line.size()))
-                    return false;
-            }
-        } else {
-            for (char c : line) {
-                cnt++;
-                if (c != '+' && c != '|' && cnt != line.size())
-                    return false;
-            }
+    public static Boolean isBreakRowOrCol(ArrayList<Character> rowOrCol, Boolean isRow) {
+        char breakerChar = (isRow ? '-' : '|');
+        for (char c : rowOrCol) {
+            if ((c != '+' && c != breakerChar))
+                return false;
         }
         return true;
     }
