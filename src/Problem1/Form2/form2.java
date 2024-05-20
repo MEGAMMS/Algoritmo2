@@ -13,10 +13,10 @@ public class form2 {
         Import(lines);
     }
 
-    static int x = 0;
-    static ArrayList<Character> fin = new ArrayList<>();
+    static int listNumber = 0;
+    static ArrayList<Character> finalArrList = new ArrayList<>();
 
-    public static void letsDoIt(ArrayList<ArrayList<Character>> lines) {
+    public static void letsDoIt(ArrayList<ArrayList<Character>> lines, Boolean inverted) {
         int cnt = 0;
         Character ch = '.';
         for (ArrayList<Character> ar : lines) {
@@ -27,12 +27,18 @@ public class form2 {
                 }
             }
         }
-        if (cnt == 1) {
-            fin.add(ch);
-            Utils.PrintingArrayList.printCharArray(fin);
+        if (cnt == 1 && inverted) {
+            finalArrList.add(ch);
+            finalArrList.add('|');
+            PrintingArrayList.printCharArray(finalArrList);
+        }
+        else if (cnt == 1 && !inverted) {
+            finalArrList.add(ch);
+            finalArrList.add('-');
+            PrintingArrayList.printCharArray(finalArrList);
         }
         if (!letscheck(lines, false)) {
-            letscheck(lineToColumn(lines), true);
+            letscheck(invertArrList(lines), true);
         }
 
     }
@@ -42,8 +48,6 @@ public class form2 {
         for (ArrayList<Character> ArrayList : lines) {
             lineNumber++;
             if (isBreakLineOrCol(ArrayList, !inverted) && lineNumber != 1 && lineNumber < lines.size()) {
-                // System.out.println("Line number: " + lineNumber + " is full in lets cut it
-                // at: " + lineNumber + " cause lines.size() = " + lines.size());
                 cutItAt(lines, lineNumber, inverted);
                 return true;
             }
@@ -85,7 +89,7 @@ public class form2 {
         return true;
     }
 
-    public static ArrayList<ArrayList<Character>> lineToColumn(ArrayList<ArrayList<Character>> line) {
+    public static ArrayList<ArrayList<Character>> invertArrList(ArrayList<ArrayList<Character>> line) {
         int j = 0;
         ArrayList<ArrayList<Character>> line2 = new ArrayList<>(line.size());
         for (int i = 0; i < line.size(); i++) {
@@ -112,21 +116,21 @@ public class form2 {
                 aList2.add(line);
         }
         if (inverted) {
-            aList1 = lineToColumn(aList1);
-            aList2 = lineToColumn(aList2);
+            aList1 = invertArrList(aList1);
+            aList2 = invertArrList(aList2);
         }
-        x++;
-        System.out.println("aList number " + x + " = ");
+        listNumber++;
+        System.out.println("aList number " + listNumber + " = ");
         PrintingArrayList.printCharArrayArray(aList1);
-        x++;
-        System.out.println("aList number " + x + " = ");
+        listNumber++;
+        System.out.println("aList number " + listNumber + " = ");
         PrintingArrayList.printCharArrayArray(aList2);
-        letsDoIt(aList1);
-        letsDoIt(aList2);
+        letsDoIt(aList1, inverted);
+        letsDoIt(aList2, inverted);
     }
 
     public static void Import(ArrayList<ArrayList<Character>> in) {
-        letsDoIt(in);
+        letsDoIt(in, false);
     }
 
     // Here starts Soud work //
