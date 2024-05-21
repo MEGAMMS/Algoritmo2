@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import Problem1.Tree.*;
+import Utils.CGrid;
 import Utils.Filereader;
 
 import Problem1.Form2.form2;
@@ -93,8 +94,8 @@ public class Form1 {
         out = out.substring(1, out.length() - 1);
 
         
-        ArrayList<ArrayList<Character>> test = form2.Export(tree);
-        Utils.PrintingArrayList.printCharArrayArray(test);
+        CGrid test = form2.Export(tree);
+        Utils.PrintingArrayList.printCGrid(test);
 
     }
 }

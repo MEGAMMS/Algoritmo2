@@ -3,19 +3,14 @@ package Problem1.Form2;
 import java.util.ArrayList;
 
 import Problem1.Tree.Node;
-import Utils.Filereader;
-import Utils.PrintingArrayList;
-import Utils.StrToGrid;
-import Utils.CGrid;
-import Utils.CLGrid;
-import Utils.CLine;
+import Utils.*;
 
 public class form2 {
     public static void main(String[] args) {
         String str = Filereader.stringreader("src/Problem1/Form2/test.txt");
         CGrid grid = StrToGrid.strToGrid(str);
-        PrintingArrayList.printCharArrayArray(grid);
-        Import(grid);
+        PrintingArrayList.printCGrid(grid);
+        Import(grid, false);
     }
 
     static int listNumber = 0;
@@ -53,15 +48,17 @@ public class form2 {
             invert = true;
         }
 
-        CLGrid afterCut = cutItAt(grid, cutIdx, invert);
-        CGrid zero = new CGrid(afterCut.get(0));
-        CGrid one = new CGrid(afterCut.get(1));
-        Import(zero);
-        Import(one);
+        CLGrid afterCut = cutItAt(grid, cutIdx, !invert);
+        System.out.println("AfterCut = ");
+        PrintingArrayList.printCLgrid(afterCut);
+        CGrid firstGrid = new CGrid(afterCut.get(0));
+        CGrid secondGrid = new CGrid(afterCut.get(1));
+        Import(firstGrid, !inverted);
+        // Import(secondGrid);
 
     }
 
-    public static Integer lineIdxToBreak(ArrayList<ArrayList<Character>> grid, Boolean inverted) {
+    public static Integer lineIdxToBreak(CGrid grid, Boolean inverted) {
         for (int i = 1; i < grid.size() - 1; i++)
             if (isBreakRowOrCol(grid.get(i), !inverted))
                 return i;
@@ -77,9 +74,9 @@ public class form2 {
         return true;
     }
 
-    public static ArrayList<ArrayList<Character>> invertGrid(ArrayList<ArrayList<Character>> grid) {
+    public static CGrid invertGrid(CGrid grid) {
         int j = 0;
-        ArrayList<ArrayList<Character>> invertedGrid = new ArrayList<>(grid.size());
+        CGrid invertedGrid = new CGrid(grid.size());
         for (int i = 0; i < grid.size(); i++) {
             j = 0;
             for (char c : grid.get(i)) {
@@ -92,8 +89,7 @@ public class form2 {
         return invertedGrid;
     }
 
-    public static CLGrid cutItAt(ArrayList<ArrayList<Character>> beforCut,
-            int cutIdx, Boolean inverted) {
+    public static CLGrid cutItAt(CGrid beforCut, int cutIdx, Boolean inverted) {
         CLGrid out = new CLGrid();
         out.add(new ArrayList<>());
         out.add(new ArrayList<>());
@@ -105,24 +101,18 @@ public class form2 {
         }
         // Tmp Debugging
         System.out.println("Cutting....");
-        PrintingArrayList.printCharArrayArray(beforCut);
+        PrintingArrayList.printCGrid(beforCut);
         System.out.println("First Cut = ");
-        PrintingArrayList.printCharArrayArray(out.get(0));
+        PrintingArrayList.printCGrid(out.get(0));
         System.out.println("Second Cut = ");
-        PrintingArrayList.printCharArrayArray(out.get(1));
+        PrintingArrayList.printCGrid(out.get(1));
         //
         return out;
     }
 
-    public static void Import(CGrid in) {
-        Import(in, false);
-    }
-
     // Here starts Soud work //
 
-    public static ArrayList<String> g = new ArrayList<>();
-
-    public static ArrayList<ArrayList<Character>> Export(Node root) {
+    public static CGrid Export(Node root) {
         if (root == null) {
             return null;
         }
@@ -132,11 +122,11 @@ public class form2 {
         return Merger(Export(root.left), Export(root.right), root.data.type);
     }
 
-    public static ArrayList<ArrayList<Character>> Merger(ArrayList<ArrayList<Character>> a,
-            ArrayList<ArrayList<Character>> b, char type) {
+    public static CGrid Merger(CGrid a,
+            CGrid b, char type) {
         if (type == '|') {
             int rows = a.size();
-            ArrayList<ArrayList<Character>> c = new ArrayList<>(rows);
+            CGrid c = new CGrid(rows);
             for (int i = 0; i < rows; i++) {
                 int colm = a.get(i).size() + b.get(i).size() - 1;
                 c.add(new ArrayList<>(colm));
@@ -151,7 +141,7 @@ public class form2 {
         }
         if (type == '-') {
             int row = a.size() + b.size() - 1;
-            ArrayList<ArrayList<Character>> c = new ArrayList<>(row);
+            CGrid c = new CGrid(row);
             for (int j = 0; j < a.size() - 1; j++)
                 c.add(a.get(j));
             for (int j = 0; j < b.size(); j++)
