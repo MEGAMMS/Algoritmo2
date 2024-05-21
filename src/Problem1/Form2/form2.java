@@ -9,19 +9,19 @@ import Utils.PrintingArrayList;
 public class form2 {
     public static void main(String[] args) {
         String s = Filereader.stringreader("src/Problem1/Form2/test.txt");
-        ArrayList<ArrayList<Character>> lines = fromStrToGrid(s);
-        Import(lines);
+        ArrayList<ArrayList<Character>> grid = fromStrToGrid(s);
+        Import(grid);
     }
 
     static int listNumber = 0;
     static ArrayList<Character> finalArrList = new ArrayList<>();
 
-    public static void letsDoIt(ArrayList<ArrayList<Character>> lines, Boolean inverted) {
+    public static void Import(ArrayList<ArrayList<Character>> lines, Boolean inverted) {
         int cnt = 0;
         Character ch = '.';
         for (ArrayList<Character> ar : lines) {
             for (Character c : ar) {
-                if (64 < c && c < 91) {
+                if ('A' <= c && c <= 'Z') {
                     cnt++;
                     ch = c;
                 }
@@ -31,28 +31,36 @@ public class form2 {
             finalArrList.add(ch);
             finalArrList.add('|');
             PrintingArrayList.printCharArray(finalArrList);
-        }
-        else if (cnt == 1 && !inverted) {
+        } else if (cnt == 1 && !inverted) {
             finalArrList.add(ch);
             finalArrList.add('-');
             PrintingArrayList.printCharArray(finalArrList);
         }
-        if (!letscheck(lines, false)) {
-            letscheck(invertArrList(lines), true);
+        Integer rowIdx = lineIdxToBreak(lines, false);
+        Integer colIdx = lineIdxToBreak(lines, true);
+        int cutIdx = 0;
+        boolean invert = false;
+        if (rowIdx != null) {
+            cutIdx = rowIdx;
+            invert = false;
+        } else if (colIdx != null) {
+            cutIdx = colIdx;
+            invert = true;
         }
+
+        ArrayList<ArrayList<ArrayList<Character>>> afterCut = cutItAt(lines, cutIdx, invert);
+        Import(afterCut.get(0));
+        Import(afterCut.get(1));
 
     }
 
-    public static Boolean letscheck(ArrayList<ArrayList<Character>> lines, Boolean inverted) {
-        int lineNumber = 0;
-        for (ArrayList<Character> ArrayList : lines) {
-            lineNumber++;
-            if (isBreakLineOrCol(ArrayList, !inverted) && lineNumber != 1 && lineNumber < lines.size()) {
-                cutItAt(lines, lineNumber, inverted);
-                return true;
+    public static Integer lineIdxToBreak(ArrayList<ArrayList<Character>> lines, Boolean inverted) {
+        for (int i = 1; i < lines.size() - 1; i++) {
+            if (isBreakRowOrCol(lines.get(i), !inverted)) {
+                return i;
             }
         }
-        return false;
+        return null;
     }
 
     public static ArrayList<ArrayList<Character>> fromStrToGrid(String input) {
@@ -71,20 +79,11 @@ public class form2 {
         return grid;
     }
 
-    public static Boolean isBreakLineOrCol(ArrayList<Character> line, Boolean isLine) {
-        int cnt = 0;
-        if (isLine) {
-            for (char c : line) {
-                cnt++;
-                if ((c != '+' && c != '-' && cnt != line.size()))
-                    return false;
-            }
-        } else {
-            for (char c : line) {
-                cnt++;
-                if (c != '+' && c != '|' && cnt != line.size())
-                    return false;
-            }
+    public static Boolean isBreakRowOrCol(ArrayList<Character> rowOrCol, Boolean isRow) {
+        char breakerChar = (isRow ? '-' : '|');
+        for (char c : rowOrCol) {
+            if ((c != '+' && c != breakerChar))
+                return false;
         }
         return true;
     }
@@ -104,33 +103,30 @@ public class form2 {
         return line2;
     }
 
-    public static void cutItAt(ArrayList<ArrayList<Character>> arrList, int lineNum, Boolean inverted) {
-        int lineNumber = 0;
-        ArrayList<ArrayList<Character>> aList1 = new ArrayList<>();
-        ArrayList<ArrayList<Character>> aList2 = new ArrayList<>();
-        for (ArrayList<Character> line : arrList) {
-            lineNumber++;
-            if (lineNum >= lineNumber)
-                aList1.add(line);
-            if (lineNum <= lineNumber)
-                aList2.add(line);
+    public static ArrayList<ArrayList<ArrayList<Character>>> cutItAt(ArrayList<ArrayList<Character>> beforCut,
+            int cutIdx, Boolean inverted) {
+        ArrayList<ArrayList<ArrayList<Character>>> out = new ArrayList<>();
+        out.add(new ArrayList<>());
+        out.add(new ArrayList<>());
+        for (int i = 0; i < beforCut.size(); i++) {
+            if (cutIdx >= i)
+                out.get(0).add(beforCut.get(i));
+            if (cutIdx <= i)
+                out.get(1).add(beforCut.get(i));
         }
-        if (inverted) {
-            aList1 = invertArrList(aList1);
-            aList2 = invertArrList(aList2);
-        }
-        listNumber++;
-        System.out.println("aList number " + listNumber + " = ");
-        PrintingArrayList.printCharArrayArray(aList1);
-        listNumber++;
-        System.out.println("aList number " + listNumber + " = ");
-        PrintingArrayList.printCharArrayArray(aList2);
-        letsDoIt(aList1, inverted);
-        letsDoIt(aList2, inverted);
+        // Tmp Debugging
+        System.out.println("Cutting....");
+        PrintingArrayList.printCharArrayArray(beforCut);
+        System.out.println("First Cut = ");
+        PrintingArrayList.printCharArrayArray(out.get(0));
+        System.out.println("Second Cut = ");
+        PrintingArrayList.printCharArrayArray(out.get(1));
+        //
+        return out;
     }
 
     public static void Import(ArrayList<ArrayList<Character>> in) {
-        letsDoIt(in, false);
+        Import(in, false);
     }
 
     // Here starts Soud work //
