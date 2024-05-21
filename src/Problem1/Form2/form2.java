@@ -6,18 +6,31 @@ import Problem1.Tree.Node;
 import Utils.Filereader;
 import Utils.PrintingArrayList;
 import Utils.StrToGrid;
+import Utils.CGrid;
+import Utils.CLGrid;
+import Utils.CLine;
 
 public class form2 {
     public static void main(String[] args) {
-        String s = Filereader.stringreader("src/Problem1/Form2/test.txt");
-        ArrayList<ArrayList<Character>> grid = StrToGrid.strToGrid(s);
-        Import(grid);
+        String str = Filereader.stringreader("src/Problem1/Form2/test.txt");
+        CGrid grid = StrToGrid.strToGrid(str);
+        CLine ar = new CLine();
+        for (ArrayList<Character> are : grid) {
+            for (Character character : are) {
+                ar.add(character);
+            }
+        }
+        CLGrid gg = new CLGrid(grid);
+        // CLGrid ggg = new CLGrid(gg.get(listNumber).get(listNumber));
+        PrintingArrayList.printCharArray(ar);
+        PrintingArrayList.printCharArrayArray(grid);
+        // Import(grid);
     }
 
     static int listNumber = 0;
     static ArrayList<Character> finalGrid = new ArrayList<>();
 
-    public static void Import(ArrayList<ArrayList<Character>> grid, Boolean inverted) {
+    public static void Import(CGrid grid, Boolean inverted) {
         int cnt = 0;
         Character ch = '.';
         for (ArrayList<Character> ar : grid) {
@@ -38,20 +51,23 @@ public class form2 {
             PrintingArrayList.printCharArray(finalGrid);
         }
         Integer rowIdx = lineIdxToBreak(grid, false);
-        Integer colIdx = lineIdxToBreak(grid, true);
+        // Integer colIdx = lineIdxToBreak(grid, true);
         int cutIdx = 0;
         boolean invert = false;
         if (rowIdx != null) {
             cutIdx = rowIdx;
             invert = false;
-        } else if (colIdx != null) {
-            cutIdx = colIdx;
-            invert = true;
         }
+        // } else if (colIdx != null) {
+        // cutIdx = colIdx;
+        // invert = true;
+        // }
 
-        ArrayList<ArrayList<ArrayList<Character>>> afterCut = cutItAt(grid, cutIdx, invert);
-        Import(afterCut.get(0));
-        Import(afterCut.get(1));
+        CLGrid afterCut = cutItAt(grid, cutIdx, invert);
+        CGrid zero = new CGrid(afterCut.get(0));
+        CGrid one = new CGrid(afterCut.get(1));
+        Import(zero);
+        Import(one);
 
     }
 
@@ -78,7 +94,7 @@ public class form2 {
             j = 0;
             for (char c : grid.get(i)) {
                 if (i == 0)
-                invertedGrid.add(new ArrayList<Character>());
+                    invertedGrid.add(new ArrayList<Character>());
                 invertedGrid.get(j).add(c);
                 j++;
             }
@@ -86,9 +102,9 @@ public class form2 {
         return invertedGrid;
     }
 
-    public static ArrayList<ArrayList<ArrayList<Character>>> cutItAt(ArrayList<ArrayList<Character>> beforCut,
+    public static CLGrid cutItAt(ArrayList<ArrayList<Character>> beforCut,
             int cutIdx, Boolean inverted) {
-        ArrayList<ArrayList<ArrayList<Character>>> out = new ArrayList<>();
+        CLGrid out = new CLGrid();
         out.add(new ArrayList<>());
         out.add(new ArrayList<>());
         for (int i = 0; i < beforCut.size(); i++) {
@@ -108,7 +124,7 @@ public class form2 {
         return out;
     }
 
-    public static void Import(ArrayList<ArrayList<Character>> in) {
+    public static void Import(CGrid in) {
         Import(in, false);
     }
 
