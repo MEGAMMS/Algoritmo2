@@ -2,8 +2,8 @@ package Utils;
 
 import java.util.ArrayList;
 
-public class FromStrToGrid {
-    public static ArrayList<ArrayList<Character>> fromStrToGrid(String input) {
+public class StrToGrid {
+    public static ArrayList<ArrayList<Character>> strToGrid(String input) {
         ArrayList<ArrayList<Character>> grid = new ArrayList<>();
         grid.add(new ArrayList<>());
         for (char c : input.toCharArray()) {
