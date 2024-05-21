@@ -3,8 +3,8 @@ package Utils;
 import java.util.ArrayList;
 
 public class StrToGrid {
-    public static ArrayList<ArrayList<Character>> strToGrid(String input) {
-        ArrayList<ArrayList<Character>> grid = new ArrayList<>();
+    public static CGrid strToGrid(String input) {
+        CGrid grid = new CGrid();
         grid.add(new ArrayList<>());
         for (char c : input.toCharArray()) {
             if (c == '\n') {
