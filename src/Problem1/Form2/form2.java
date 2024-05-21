@@ -36,22 +36,31 @@ public class form2 {
             finalArrList.add('-');
             PrintingArrayList.printCharArray(finalArrList);
         }
-        if (!letscheck(lines, false)) {
-            letscheck(invertArrList(lines), true);
+        Integer rowIdx = lineIdxToBreak(lines, false);
+        Integer colIdx = lineIdxToBreak(lines, true);
+        int cutIdx = 0;
+        boolean invert = false;
+        if (rowIdx != null) {
+            cutIdx = rowIdx;
+            invert = false;
+        } else if (colIdx != null) {
+            cutIdx = colIdx;
+            invert = true;
         }
+
+        ArrayList<ArrayList<ArrayList<Character>>> afterCut = cutItAt(lines, cutIdx, invert);
+        Import(afterCut.get(0));
+        Import(afterCut.get(1));
 
     }
 
-    public static Boolean letscheck(ArrayList<ArrayList<Character>> lines, Boolean inverted) {
-        int lineNumber = 0;
-        for (ArrayList<Character> ArrayList : lines) {
-            lineNumber++;
-            if (isBreakRowOrCol(ArrayList, !inverted) && lineNumber != 1 && lineNumber < lines.size()) {
-                cutItAt(lines, lineNumber, inverted);
-                return true;
+    public static Integer lineIdxToBreak(ArrayList<ArrayList<Character>> lines, Boolean inverted) {
+        for (int i = 1; i < lines.size() - 1; i++) {
+            if (isBreakRowOrCol(lines.get(i), !inverted)) {
+                return i;
             }
         }
-        return false;
+        return null;
     }
 
     public static ArrayList<ArrayList<Character>> fromStrToGrid(String input) {
@@ -99,18 +108,13 @@ public class form2 {
         ArrayList<ArrayList<ArrayList<Character>>> out = new ArrayList<>();
         out.add(new ArrayList<>());
         out.add(new ArrayList<>());
-        cutIdx--;
         for (int i = 0; i < beforCut.size(); i++) {
             if (cutIdx >= i)
                 out.get(0).add(beforCut.get(i));
             if (cutIdx <= i)
                 out.get(1).add(beforCut.get(i));
         }
-        if (inverted) {
-            out.set(0, invertArrList(out.get(0)));
-            out.set(1, invertArrList(out.get(1)));
-        }
-        //Tmp Debugging
+        // Tmp Debugging
         System.out.println("Cutting....");
         PrintingArrayList.printCharArrayArray(beforCut);
         System.out.println("First Cut = ");
@@ -118,8 +122,6 @@ public class form2 {
         System.out.println("Second Cut = ");
         PrintingArrayList.printCharArrayArray(out.get(1));
         //
-        Import(out.get(0), inverted);
-        Import(out.get(1), inverted);
         return out;
     }
 
