@@ -14,17 +14,8 @@ public class form2 {
     public static void main(String[] args) {
         String str = Filereader.stringreader("src/Problem1/Form2/test.txt");
         CGrid grid = StrToGrid.strToGrid(str);
-        CLine ar = new CLine();
-        for (ArrayList<Character> are : grid) {
-            for (Character character : are) {
-                ar.add(character);
-            }
-        }
-        CLGrid gg = new CLGrid(grid);
-        // CLGrid ggg = new CLGrid(gg.get(listNumber).get(listNumber));
-        PrintingArrayList.printCharArray(ar);
         PrintingArrayList.printCharArrayArray(grid);
-        // Import(grid);
+        Import(grid);
     }
 
     static int listNumber = 0;
@@ -51,17 +42,16 @@ public class form2 {
             PrintingArrayList.printCharArray(finalGrid);
         }
         Integer rowIdx = lineIdxToBreak(grid, false);
-        // Integer colIdx = lineIdxToBreak(grid, true);
+        Integer colIdx = lineIdxToBreak(grid, true);
         int cutIdx = 0;
         boolean invert = false;
         if (rowIdx != null) {
             cutIdx = rowIdx;
             invert = false;
+        } else if (colIdx != null) {
+            cutIdx = colIdx;
+            invert = true;
         }
-        // } else if (colIdx != null) {
-        // cutIdx = colIdx;
-        // invert = true;
-        // }
 
         CLGrid afterCut = cutItAt(grid, cutIdx, invert);
         CGrid zero = new CGrid(afterCut.get(0));
