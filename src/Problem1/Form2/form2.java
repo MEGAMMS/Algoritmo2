@@ -5,11 +5,12 @@ import java.util.ArrayList;
 import Problem1.Tree.Node;
 import Utils.Filereader;
 import Utils.PrintingArrayList;
+import Utils.FromStrToGrid;
 
 public class form2 {
     public static void main(String[] args) {
         String s = Filereader.stringreader("src/Problem1/Form2/test.txt");
-        ArrayList<ArrayList<Character>> grid = fromStrToGrid(s);
+        ArrayList<ArrayList<Character>> grid = FromStrToGrid.fromStrToGrid(s);
         Import(grid);
     }
 
@@ -61,22 +62,6 @@ public class form2 {
             }
         }
         return null;
-    }
-
-    public static ArrayList<ArrayList<Character>> fromStrToGrid(String input) {
-        ArrayList<ArrayList<Character>> grid = new ArrayList<>();
-        grid.add(new ArrayList<>());
-        for (char c : input.toCharArray()) {
-            if (c == '\n') {
-                grid.add(new ArrayList<>());
-                continue;
-            }
-            grid.get(grid.size() - 1).add(c);
-        }
-        for (int j = 0; j < grid.size() - 1; j++) {
-            grid.get(j).remove(grid.get(j).size() - 1);
-        }
-        return grid;
     }
 
     public static Boolean isBreakRowOrCol(ArrayList<Character> rowOrCol, Boolean isRow) {
