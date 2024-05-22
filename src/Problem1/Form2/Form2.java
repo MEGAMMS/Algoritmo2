@@ -41,25 +41,17 @@ public class Form2 {
             finalGrid.add('-');
             PrintingArrayList.printCharArray(finalGrid);
         }
-        Integer rowIdx = lineIdxToBreak(grid, false);
-        Integer colIdx = lineIdxToBreak(grid, true);
-        int cutIdx = 0;
-        boolean invert = false;
-        if (rowIdx != null) {
-            cutIdx = rowIdx;
-            invert = false;
-        } else if (colIdx != null) {
-            cutIdx = colIdx;
-            invert = true;
-        }
 
-        CLGrid afterCut = cutItAt(grid, cutIdx, !invert);
+        Integer rowIdx = lineIdxToBreak(grid, Line.ROW);
+        Integer colIdx = lineIdxToBreak(grid, Line.COL);
+       if(rowIdx != null){
+        cutItAt(grid, cnt, inverted)
+       }
+
         System.out.println("AfterCut = ");
-        // PrintingArrayList.printCLgrid(afterCut);
-        // CGrid firstGrid = new CGrid(afterCut.get(0));
-        // CGrid secondGrid = new CGrid(afterCut.get(1));
-        // Import(firstGrid, !inverted);
-        // Import(secondGrid, !inverted);
+        PrintingArrayList.printCLgrid(afterCut);
+        Grid firstGrid = new Grid(afterCut.get(0));
+        Grid secondGrid = new Grid(afterCut.get(1));
 
     }
 
@@ -93,10 +85,9 @@ public class Form2 {
         return invertedGrid;
     }
 
-    public static CLGrid cutItAt(Grid beforCut, int cutIdx, Boolean inverted) {
-        CLGrid out = new CLGrid();
-        out.add(new ArrayList<>());
-        out.add(new ArrayList<>());
+    public static Grid[] cutItAt(Grid beforCut, int cutIdx, Line line) {
+        Grid[] out = new Grid[2];
+        out[0] = new Grid()
         for (int i = 0; i < beforCut.size(); i++) {
             if (cutIdx >= i)
                 out.get(0).add(beforCut.get(i));
