@@ -2,6 +2,8 @@ package Problem1.Tree;
 
 import java.util.ArrayList;
 
+import Problem1.Form2.Grid;
+
 public class Data {
     public char type;
     public int length;
@@ -13,18 +15,24 @@ public class Data {
         this.width = width;
     }
 
+    public Data(Grid grid) {
+        this.type = grid.get(1).get(1);
+        this.length = grid.getRowsCount();
+        this.width = grid.getColsCount();
+    }
+
     @Override
     public String toString() {
         String s = this.type + "[" + String.valueOf(this.length) + "," + String.valueOf(this.width) + "]";
         return s;
     }
 
-    public ArrayList<ArrayList<Character>> gridBuilder() {
+    public Grid gridBuilder() {
         if (type == '-' || type == '|') {
             System.out.println("here");
             return null;
         }
-        ArrayList<ArrayList<Character>> ans = new ArrayList<>(length);
+        Grid ans = new Grid(length);
 
         for (int i = 0; i < this.length; i++) {
             ans.add(new ArrayList<>(width));
@@ -44,7 +52,7 @@ public class Data {
                 ans.get(i).add('.');
             }
         }
-        Utils.PrintingArrayList.printCharArrayArray(ans);
+        // Utils.PrintingArrayList.printCGrid(ans);
         return ans;
     }
 
