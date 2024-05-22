@@ -135,8 +135,6 @@ public class Form2 {
         letsDoIt(in);
     }
 
-    public static ArrayList<String> g = new ArrayList<>();
-
     public static ArrayList<ArrayList<Character>> Export(Node root) {
 
         if (root == null) {
@@ -174,12 +172,20 @@ public class Form2 {
         if (type == '-') {
             int row = a.size() + b.size() - 1;
             ArrayList<ArrayList<Character>> c = new ArrayList<>(row);
-
-            for (int j = 0; j < a.size() - 1; j++) {
-                c.add(a.get(j));
+            int cols=a.get(0).size();
+            //intialise them rows in the dumb array
+            for (int i = 0; i < row; i++){
+                c.add(new ArrayList<>(cols));
             }
-            for (int j = 0; j < b.size(); j++) {
-                c.add(b.get(j));
+            //go over each column 
+            for (int i = 0; i < cols; i++){
+               
+                for (int j = 0; j < a.size() - 1; j++) {
+                    c.get(j).add(a.get(j).get(i));
+                }
+                for (int j = a.size()-1; j < row; j++) {
+                    c.get(j).add(b.get(j-a.size()+1).get(i));
+                }
             }
             return c;
 
