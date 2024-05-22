@@ -15,6 +15,12 @@ public class Data {
         this.width = width;
     }
 
+    public Data(Grid grid) {
+        this.type = grid.get(1).get(1);
+        this.length = grid.getRowsCount();
+        this.width = grid.getColsCount();
+    }
+
     @Override
     public String toString() {
         String s = this.type + "[" + String.valueOf(this.length) + "," + String.valueOf(this.width) + "]";

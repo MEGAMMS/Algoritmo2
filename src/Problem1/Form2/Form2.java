@@ -2,6 +2,8 @@ package Problem1.Form2;
 
 import java.util.ArrayList;
 
+import Problem1.Form1.Form1;
+import Problem1.Tree.Data;
 import Problem1.Tree.Node;
 import Utils.*;
 
@@ -14,70 +16,61 @@ public class Form2 {
     public static void main(String[] args) {
         String str = Filereader.stringreader("src/Problem1/Form2/test.txt");
         Grid grid = new Grid(str);
-        Import(grid);
+        Node tree = Import(grid);
+        System.out.println(Form1.Export(tree));
     }
 
-    static int listNumber = 0;
     static ArrayList<Character> finalGrid = new ArrayList<>();
 
-    public static void Import(Grid grid) {
-
+    public static Node Import(Grid grid) {
+        System.out.println("________________________");
+        grid.print();
         Integer rowIdx = lineIdxToBreak(grid, Line.ROW);
         Integer colIdx = lineIdxToBreak(grid, Line.COL);
-        Grid[] afterCut = new Grid[2];
-        boolean done = false;
+        if (rowIdx == null && colIdx == null) {
+            System.err.println("done");
+            return new Node(new Data(grid));
+        }
 
-        grid.print();
+        Grid[] afterCut = new Grid[2];
         System.out.println(rowIdx + " " + colIdx);
+        char type = '#';
         if (rowIdx != null) {
             afterCut = cutItAt(grid, rowIdx, Line.ROW);
+            type = '-';
+            
         } else if (colIdx != null) {
             afterCut = cutItAt(grid, colIdx, Line.COL);
-        } else {
-            int cnt = 0;
-            Character ch = '.';
-            System.out.println("heeeeeeeelp  meeeeeeee");
-            for (ArrayList<Character> ar : grid) {
-                for (Character c : ar) {
-                    if ('A' <= c && c <= 'Z') {
-                        cnt++;
-                        ch = c;
-                        done = true;
-                    }
-                }
-            }
-            if (cnt == 1) {
-                finalGrid.add(ch);
-                finalGrid.add('|');
-                PrintingArrayList.printCharArray(finalGrid);
-            }
+            type = '|';
         }
-        
-        System.out.println("AfterCut = ");
-        for (Grid grid2 : afterCut) {
-            grid2.print();
-        }
-        Grid firstGrid = new Grid(afterCut[0]);
-        Grid secondGrid = new Grid(afterCut[1]);
-
-        // if (!done) {
-        //     Import(firstGrid);
-        // }
-        // Import(secondGrid);
+        Data data = new Data(type,grid.getRowsCount(),grid.getColsCount());
+        Node out = new Node(Import(afterCut[0]),Import(afterCut[1]),data);
+        return out;
     }
 
     public static Integer lineIdxToBreak(Grid grid, Line line) {
+        if (line == Line.COL)
+            grid.invert();
         char breakerChar = (line == Line.ROW ? '-' : '|');
-        for (int i = 1; i < grid.getColsCount() - 1; i++) {
+        System.out.println("Checking this grid if it can be Cut by: " + line);
+        System.out.println(grid.getRowsCount() + " " + grid.getColsCount());
+        for (int i = 1; i < grid.getRowsCount() - 1; i++) {
             boolean ok = true;
-            for (int j = 1; j < grid.getRowsCount() - 1; j++) {
-                char c = (line == Line.ROW ? grid.get(i).get(j) : grid.get(j).get(i));
-                if ((c != '+' && c != breakerChar))
+            for (int j = 1; j < grid.getColsCount() - 1; j++) {
+                char c = grid.get(i).get(j);
+                if (c != '+' && c != breakerChar) {
                     ok = false;
+                    break;
+                }
             }
-            if (ok)
+            if (ok) {
+                if (line == Line.COL)
+                    grid.invert();
                 return i;
+            }
         }
+        if (line == Line.COL)
+            grid.invert();
         return null;
     }
 
