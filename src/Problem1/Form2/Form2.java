@@ -20,31 +20,27 @@ public class Form2 {
         System.out.println(Form1.Export(tree));
     }
 
-    static ArrayList<Character> finalGrid = new ArrayList<>();
-
     public static Node Import(Grid grid) {
         System.out.println("________________________");
-        grid.print();
         Integer rowIdx = lineIdxToBreak(grid, Line.ROW);
         Integer colIdx = lineIdxToBreak(grid, Line.COL);
         if (rowIdx == null && colIdx == null) {
-            System.err.println("done");
+            System.out.println("done");
             return new Node(new Data(grid));
         }
 
         Grid[] afterCut = new Grid[2];
-        System.out.println(rowIdx + " " + colIdx);
         char type = '#';
         if (rowIdx != null) {
             afterCut = cutItAt(grid, rowIdx, Line.ROW);
             type = '-';
-            
+
         } else if (colIdx != null) {
             afterCut = cutItAt(grid, colIdx, Line.COL);
             type = '|';
         }
-        Data data = new Data(type,grid.getRowsCount(),grid.getColsCount());
-        Node out = new Node(Import(afterCut[0]),Import(afterCut[1]),data);
+        Data data = new Data(type, grid.getRowsCount(), grid.getColsCount());
+        Node out = new Node(Import(afterCut[0]), Import(afterCut[1]), data);
         return out;
     }
 
@@ -52,8 +48,6 @@ public class Form2 {
         if (line == Line.COL)
             grid.invert();
         char breakerChar = (line == Line.ROW ? '-' : '|');
-        System.out.println("Checking this grid if it can be Cut by: " + line);
-        System.out.println(grid.getRowsCount() + " " + grid.getColsCount());
         for (int i = 1; i < grid.getRowsCount() - 1; i++) {
             boolean ok = true;
             for (int j = 1; j < grid.getColsCount() - 1; j++) {
@@ -74,33 +68,33 @@ public class Form2 {
         return null;
     }
 
-    public static Grid[] cutItAt(Grid beforCut, int cutIdx, Line line) {
+    public static Grid[] cutItAt(Grid beforeCut, int cutIdx, Line line) {
         Grid[] out = new Grid[2];
         out[0] = new Grid();
         out[1] = new Grid();
         if (line == Line.ROW) {
-            for (int i = 0; i < beforCut.size(); i++) {
+            for (int i = 0; i < beforeCut.size(); i++) {
                 if (cutIdx >= i)
-                    out[0].add(beforCut.get(i));
+                    out[0].add(beforeCut.get(i));
                 if (cutIdx <= i)
-                    out[1].add(beforCut.get(i));
+                    out[1].add(beforeCut.get(i));
             }
         } else if (line == Line.COL) {
-            beforCut.invert();
-            for (int i = 0; i < beforCut.size(); i++) {
+            beforeCut.invert();
+            for (int i = 0; i < beforeCut.size(); i++) {
                 if (cutIdx >= i)
-                    out[0].add(beforCut.get(i));
+                    out[0].add(beforeCut.get(i));
                 if (cutIdx <= i)
-                    out[1].add(beforCut.get(i));
+                    out[1].add(beforeCut.get(i));
             }
-            beforCut.invert();
+            beforeCut.invert();
             out[0].invert();
             out[1].invert();
         }
 
         // Tmp Debugging
         System.out.println("Cutting....");
-        beforCut.print();
+        beforeCut.print();
         System.out.println("First Cut = ");
         out[0].print();
         System.out.println("Second Cut = ");
@@ -120,30 +114,29 @@ public class Form2 {
         return Merger(Export(root.left), Export(root.right), root.data.type);
     }
 
-    public static Grid Merger(Grid a,
-            Grid b, char type) {
+    public static Grid Merger(Grid a, Grid b, char type) {
         if (type == '|') {
             int rows = a.size();
+            int colsa = a.get(0).size();
+            int colsb = b.get(0).size();
             Grid c = new Grid(rows);
             for (int i = 0; i < rows; i++) {
-                int colm = a.get(i).size() + b.get(i).size() - 1;
-                c.add(new ArrayList<>(colm));
-                for (int j = 0; j < a.get(i).size() - 1; j++) {
-                    c.get(i).add(a.get(i).get(j));
-                }
-                for (int j = 0; j < b.get(i).size(); j++) {
-                    c.get(i).add(b.get(i).get(j));
-                }
+                ArrayList<Character> row = new ArrayList<>(colsa + colsb - 1);
+                row.addAll(a.get(i));
+                row.addAll(b.get(i).subList(1, colsb));
+                c.add(row);
             }
             return c;
-        }
-        if (type == '-') {
-            int row = a.size() + b.size() - 1;
-            Grid c = new Grid(row);
-            for (int j = 0; j < a.size() - 1; j++)
-                c.add(a.get(j));
-            for (int j = 0; j < b.size(); j++)
-                c.add(b.get(j));
+        } else if (type == '-') {
+            int rowsa = a.size();
+            int rowsb = b.size();
+            Grid c = new Grid(rowsa + rowsb - 1);
+            for (int i = 0; i < rowsa - 1; i++) {
+                c.add(a.get(i));
+            }
+            for (int i = 0; i < rowsb; i++) {
+                c.add(b.get(i));
+            }
             return c;
         }
         return null;
