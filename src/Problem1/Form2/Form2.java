@@ -18,6 +18,8 @@ public class Form2 {
         Grid grid = new Grid(str);
         Node tree = Import(grid);
         System.out.println(Form1.Export(tree));
+        
+
     }
 
     public static Node Import(Grid grid) {
