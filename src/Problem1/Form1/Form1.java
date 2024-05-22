@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import Problem1.Tree.*;
-import Utils.CGrid;
 import Utils.Filereader;
-
+import Problem1.Form2.Grid;
 import Problem1.Form2.form2;
 
 // a function to create the tree
@@ -94,7 +93,7 @@ public class Form1 {
         out = out.substring(1, out.length() - 1);
 
         
-        CGrid test = form2.Export(tree);
+        Grid test = form2.Export(tree);
         Utils.PrintingArrayList.printCGrid(test);
 
     }

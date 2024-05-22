@@ -5,10 +5,15 @@ import java.util.ArrayList;
 import Problem1.Tree.Node;
 import Utils.*;
 
+enum Line {
+    ROW,
+    COL
+}
+
 public class Form2 {
     public static void main(String[] args) {
         String str = Filereader.stringreader("src/Problem1/Form2/test.txt");
-        CGrid grid = StrToGrid.strToGrid(str);
+        Grid grid = new Grid(str);
         grid.print();
         Import(grid, false);
     }
@@ -16,7 +21,7 @@ public class Form2 {
     static int listNumber = 0;
     static ArrayList<Character> finalGrid = new ArrayList<>();
 
-    public static void Import(CGrid grid, Boolean inverted) {
+    public static void Import(Grid grid, Boolean inverted) {
         int cnt = 0;
         Character ch = '.';
         for (ArrayList<Character> ar : grid) {
@@ -58,25 +63,24 @@ public class Form2 {
 
     }
 
-    public static Integer lineIdxToBreak(CGrid grid, Boolean inverted) {
-        for (int i = 1; i < grid.size() - 1; i++)
-            if (isBreakRowOrCol(grid.get(i), !inverted))
+    public static Integer lineIdxToBreak(Grid grid, Line line) {
+        char breakerChar = (line == Line.ROW ? '-' : '|');
+        for (int i = 0; i < grid.getColsCount(); i++) {
+            boolean ok = true;
+            for (int j = 0; j < grid.getRowsCount(); j++) {
+                char c = (line == Line.ROW ? grid.get(i).get(j) : grid.get(j).get(i));
+                if ((c != '+' && c != breakerChar))
+                    ok = false;
+            }
+            if (ok)
                 return i;
+        }
         return null;
     }
 
-    public static Boolean isBreakRowOrCol(ArrayList<Character> rowOrCol, Boolean isRow) {
-        char breakerChar = (isRow ? '-' : '|');
-        for (char c : rowOrCol) {
-            if ((c != '+' && c != breakerChar))
-                return false;
-        }
-        return true;
-    }
-
-    public static CGrid invertGrid(CGrid grid) {
+    public static Grid invertGrid(Grid grid) {
         int j = 0;
-        CGrid invertedGrid = new CGrid(grid.size());
+        Grid invertedGrid = new Grid(grid.size());
         for (int i = 0; i < grid.size(); i++) {
             j = 0;
             for (char c : grid.get(i)) {
@@ -89,7 +93,7 @@ public class Form2 {
         return invertedGrid;
     }
 
-    public static CLGrid cutItAt(CGrid beforCut, int cutIdx, Boolean inverted) {
+    public static CLGrid cutItAt(Grid beforCut, int cutIdx, Boolean inverted) {
         CLGrid out = new CLGrid();
         out.add(new ArrayList<>());
         out.add(new ArrayList<>());
@@ -112,7 +116,7 @@ public class Form2 {
 
     // Here starts Soud work //
 
-    public static CGrid Export(Node root) {
+    public static Grid Export(Node root) {
         if (root == null) {
             return null;
         }
@@ -122,11 +126,11 @@ public class Form2 {
         return Merger(Export(root.left), Export(root.right), root.data.type);
     }
 
-    public static CGrid Merger(CGrid a,
-            CGrid b, char type) {
+    public static Grid Merger(Grid a,
+            Grid b, char type) {
         if (type == '|') {
             int rows = a.size();
-            CGrid c = new CGrid(rows);
+            Grid c = new Grid(rows);
             for (int i = 0; i < rows; i++) {
                 int colm = a.get(i).size() + b.get(i).size() - 1;
                 c.add(new ArrayList<>(colm));
@@ -141,7 +145,7 @@ public class Form2 {
         }
         if (type == '-') {
             int row = a.size() + b.size() - 1;
-            CGrid c = new CGrid(row);
+            Grid c = new Grid(row);
             for (int j = 0; j < a.size() - 1; j++)
                 c.add(a.get(j));
             for (int j = 0; j < b.size(); j++)
