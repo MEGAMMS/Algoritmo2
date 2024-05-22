@@ -119,10 +119,10 @@ public class Form2 {
             int rowsa = a.size();
             int colsa = a.get(0).size();
             int rowsb = b.size();
-            int colsb = b.get(0).size(); 
-            Grid c = new Grid(Math.max(rowsa, rowsb)-1);
-            for (int i = 0; i < Math.max(rowsa, rowsb)-1; i++) {
-                ArrayList<Character> row = new ArrayList<>(colsa + colsb -1);
+            int colsb = b.get(0).size();
+            Grid c = new Grid(Math.max(rowsa, rowsb) - 1);
+            for (int i = 0; i < Math.max(rowsa, rowsb) - 1; i++) {
+                ArrayList<Character> row = new ArrayList<>(colsa + colsb - 1);
                 if (i < rowsa)
                     row.addAll(a.get(i));
                 if (i < rowsb) {
@@ -135,7 +135,7 @@ public class Form2 {
             int rowsa = a.size();
             int rowsb = b.size();
             Grid c = new Grid(rowsa + rowsb - 1);
-            for (int i = 0; i < rowsa-1; i++) {
+            for (int i = 0; i < rowsa - 1; i++) {
                 c.add(a.get(i));
             }
             for (int i = 0; i < rowsb; i++) {
