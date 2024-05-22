@@ -2,7 +2,7 @@ package Problem1.Tree;
 
 import java.util.ArrayList;
 
-import Utils.CGrid;
+import Problem1.Form2.Grid;
 
 public class Data {
     public char type;
@@ -21,12 +21,12 @@ public class Data {
         return s;
     }
 
-    public CGrid gridBuilder() {
+    public Grid gridBuilder() {
         if (type == '-' || type == '|') {
             System.out.println("here");
             return null;
         }
-        CGrid ans = new CGrid(length);
+        Grid ans = new Grid(length);
 
         for (int i = 0; i < this.length; i++) {
             ans.add(new ArrayList<>(width));
