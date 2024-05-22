@@ -37,24 +37,21 @@ public class MyGUI extends JFrame implements ActionListener {
         if (e.getActionCommand().equals("Problem 1")) {
             // Close the first GUI (this frame)
             dispose();
-            if (e.getActionCommand().equals("Problem 2"))
-                dispose();
-
             // Create the second GUI
-            JFrame frame2 = new JFrame("Second page");
+            JFrame frame2 = new JFrame("Problem 1");
             frame2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             frame2.setSize(300, 250);
             frame2.getContentPane().setBackground(new Color(200, 234, 219));
-
-            // Add components to the second GUI (if needed)
-
             frame2.setVisible(true);
-            JFrame frame3 = new JFrame("Second page");
+        }
+        // Add components to the second GUI (if needed)
+        if (e.getActionCommand().equals("Problem 2")) {
+            dispose();
+            JFrame frame3 = new JFrame("Problem 2");
             frame3.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             frame3.setSize(300, 250);
             frame3.getContentPane().setBackground(new Color(200, 234, 219));
-
+            frame3.setVisible(true);
         }
     }
-
 }

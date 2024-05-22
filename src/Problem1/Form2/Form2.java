@@ -45,7 +45,9 @@ public class Form2 {
         Integer rowIdx = lineIdxToBreak(grid, Line.ROW);
         Integer colIdx = lineIdxToBreak(grid, Line.COL);
         if (rowIdx != null) {
-            // cutItAt(grid, cnt, inverted)
+            cutItAt(grid, cnt, Line.ROW);
+        } else if (colIdx != null) {
+            cutItAt(grid, cnt, Line.ROW);
         }
 
         System.out.println("AfterCut = ");
@@ -87,21 +89,21 @@ public class Form2 {
 
     public static Grid[] cutItAt(Grid beforCut, int cutIdx, Line line) {
         Grid[] out = new Grid[2];
-        // out[0] = new Grid()
-        // for (int i = 0; i < beforCut.size(); i++) {
-        // if (cutIdx >= i)
-        // out.get(0).add(beforCut.get(i));
-        // if (cutIdx <= i)
-        // out.get(1).add(beforCut.get(i));
-        // }
+        out[0] = new Grid();
+        out[1] = new Grid();
+        for (int i = 0; i < beforCut.size(); i++) {
+            if (cutIdx >= i)
+                out[0].add(beforCut.get(i));
+            if (cutIdx <= i)
+                out[1].add(beforCut.get(i));
+        }
         // Tmp Debugging
-        // System.out.println("Cutting....");
-        // PrintingArrayList.printCGrid(beforCut);
-        // System.out.println("First Cut = ");
-        // PrintingArrayList.printCGrid(out.get(0));
-        // System.out.println("Second Cut = ");
-        // PrintingArrayList.printCGrid(out.get(1));
-        //
+        System.out.println("Cutting....");
+        beforCut.print();
+        System.out.println("First Cut = ");
+        out[0].print();
+        System.out.println("Second Cut = ");
+        out[1].print();
         return out;
     }
 
