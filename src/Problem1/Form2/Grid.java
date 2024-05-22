@@ -59,4 +59,20 @@ public class Grid extends ArrayList<ArrayList<Character>> {
         }
     }
 
+    public void invert() {
+        int j = 0;
+        Grid invertedGrid = new Grid(this.size());
+        for (int i = 0; i < this.size(); i++) {
+            j = 0;
+            for (char c : this.get(i)) {
+                if (i == 0)
+                    invertedGrid.add(new ArrayList<Character>());
+                invertedGrid.get(j).add(c);
+                j++;
+            }
+        }
+        this.clear();
+        this.addAll(invertedGrid);
+    }
+
 }

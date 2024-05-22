@@ -14,54 +14,63 @@ public class Form2 {
     public static void main(String[] args) {
         String str = Filereader.stringreader("src/Problem1/Form2/test.txt");
         Grid grid = new Grid(str);
-        grid.print();
-        Import(grid, false);
+        Import(grid);
     }
 
     static int listNumber = 0;
     static ArrayList<Character> finalGrid = new ArrayList<>();
 
-    public static void Import(Grid grid, Boolean inverted) {
-        int cnt = 0;
-        Character ch = '.';
-        for (ArrayList<Character> ar : grid) {
-            for (Character c : ar) {
-                if ('A' <= c && c <= 'Z') {
-                    cnt++;
-                    ch = c;
-                }
-            }
-        }
-        if (cnt == 1 && inverted) {
-            finalGrid.add(ch);
-            finalGrid.add('|');
-            PrintingArrayList.printCharArray(finalGrid);
-        } else if (cnt == 1 && !inverted) {
-            finalGrid.add(ch);
-            finalGrid.add('-');
-            PrintingArrayList.printCharArray(finalGrid);
-        }
+    public static void Import(Grid grid) {
 
         Integer rowIdx = lineIdxToBreak(grid, Line.ROW);
         Integer colIdx = lineIdxToBreak(grid, Line.COL);
+        Grid[] afterCut = new Grid[2];
+        boolean done = false;
+
+        grid.print();
+        System.out.println(rowIdx + " " + colIdx);
         if (rowIdx != null) {
-            cutItAt(grid, cnt, Line.ROW);
+            afterCut = cutItAt(grid, rowIdx, Line.ROW);
         } else if (colIdx != null) {
-            cutItAt(grid, cnt, Line.ROW);
+            afterCut = cutItAt(grid, colIdx, Line.COL);
+        } else {
+            int cnt = 0;
+            Character ch = '.';
+            System.out.println("heeeeeeeelp  meeeeeeee");
+            for (ArrayList<Character> ar : grid) {
+                for (Character c : ar) {
+                    if ('A' <= c && c <= 'Z') {
+                        cnt++;
+                        ch = c;
+                        done = true;
+                    }
+                }
+            }
+            if (cnt == 1) {
+                finalGrid.add(ch);
+                finalGrid.add('|');
+                PrintingArrayList.printCharArray(finalGrid);
+            }
         }
-
+        
         System.out.println("AfterCut = ");
-        // PrintingArrayList.printCLgrid(afterCut);
-        // Grid firstGrid = new Grid(afterCut.get(0));
-        // Grid secondGrid = new Grid(afterCut.get(1));
+        for (Grid grid2 : afterCut) {
+            grid2.print();
+        }
+        Grid firstGrid = new Grid(afterCut[0]);
+        Grid secondGrid = new Grid(afterCut[1]);
 
+        // if (!done) {
+        //     Import(firstGrid);
+        // }
+        // Import(secondGrid);
     }
 
     public static Integer lineIdxToBreak(Grid grid, Line line) {
         char breakerChar = (line == Line.ROW ? '-' : '|');
-        for (int i = 0; i < grid.getColsCount(); i++) {
+        for (int i = 1; i < grid.getColsCount() - 1; i++) {
             boolean ok = true;
-            for (int j = 0; j < grid.getRowsCount(); j++) {
+            for (int j = 1; j < grid.getRowsCount() - 1; j++) {
                 char c = (line == Line.ROW ? grid.get(i).get(j) : grid.get(j).get(i));
                 if ((c != '+' && c != breakerChar))
                     ok = false;
@@ -72,31 +81,30 @@ public class Form2 {
         return null;
     }
 
-    public static Grid invertGrid(Grid grid) {
-        int j = 0;
-        Grid invertedGrid = new Grid(grid.size());
-        for (int i = 0; i < grid.size(); i++) {
-            j = 0;
-            for (char c : grid.get(i)) {
-                if (i == 0)
-                    invertedGrid.add(new ArrayList<Character>());
-                invertedGrid.get(j).add(c);
-                j++;
-            }
-        }
-        return invertedGrid;
-    }
-
     public static Grid[] cutItAt(Grid beforCut, int cutIdx, Line line) {
         Grid[] out = new Grid[2];
         out[0] = new Grid();
         out[1] = new Grid();
-        for (int i = 0; i < beforCut.size(); i++) {
-            if (cutIdx >= i)
-                out[0].add(beforCut.get(i));
-            if (cutIdx <= i)
-                out[1].add(beforCut.get(i));
+        if (line == Line.ROW) {
+            for (int i = 0; i < beforCut.size(); i++) {
+                if (cutIdx >= i)
+                    out[0].add(beforCut.get(i));
+                if (cutIdx <= i)
+                    out[1].add(beforCut.get(i));
+            }
+        } else if (line == Line.COL) {
+            beforCut.invert();
+            for (int i = 0; i < beforCut.size(); i++) {
+                if (cutIdx >= i)
+                    out[0].add(beforCut.get(i));
+                if (cutIdx <= i)
+                    out[1].add(beforCut.get(i));
+            }
+            beforCut.invert();
+            out[0].invert();
+            out[1].invert();
         }
+
         // Tmp Debugging
         System.out.println("Cutting....");
         beforCut.print();
