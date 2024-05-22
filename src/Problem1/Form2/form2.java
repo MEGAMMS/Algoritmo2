@@ -9,7 +9,7 @@ public class form2 {
     public static void main(String[] args) {
         String str = Filereader.stringreader("src/Problem1/Form2/test.txt");
         CGrid grid = StrToGrid.strToGrid(str);
-        PrintingArrayList.printCGrid(grid);
+        grid.print();
         Import(grid, false);
     }
 
@@ -50,11 +50,11 @@ public class form2 {
 
         CLGrid afterCut = cutItAt(grid, cutIdx, !invert);
         System.out.println("AfterCut = ");
-        PrintingArrayList.printCLgrid(afterCut);
-        CGrid firstGrid = new CGrid(afterCut.get(0));
-        CGrid secondGrid = new CGrid(afterCut.get(1));
-        Import(firstGrid, !inverted);
-        // Import(secondGrid);
+        // PrintingArrayList.printCLgrid(afterCut);
+        // CGrid firstGrid = new CGrid(afterCut.get(0));
+        // CGrid secondGrid = new CGrid(afterCut.get(1));
+        // Import(firstGrid, !inverted);
+        // Import(secondGrid, !inverted);
 
     }
 
@@ -100,12 +100,12 @@ public class form2 {
                 out.get(1).add(beforCut.get(i));
         }
         // Tmp Debugging
-        System.out.println("Cutting....");
-        PrintingArrayList.printCGrid(beforCut);
-        System.out.println("First Cut = ");
-        PrintingArrayList.printCGrid(out.get(0));
-        System.out.println("Second Cut = ");
-        PrintingArrayList.printCGrid(out.get(1));
+        // System.out.println("Cutting....");
+        // PrintingArrayList.printCGrid(beforCut);
+        // System.out.println("First Cut = ");
+        // PrintingArrayList.printCGrid(out.get(0));
+        // System.out.println("Second Cut = ");
+        // PrintingArrayList.printCGrid(out.get(1));
         //
         return out;
     }

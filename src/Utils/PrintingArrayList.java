@@ -10,16 +10,4 @@ public class PrintingArrayList {
         System.out.println();
     }
 
-    public static void printCGrid(ArrayList<ArrayList<Character>> array) {
-        for (ArrayList<Character> ac : array) {
-            printCharArray(ac);
-        }
-    }
-
-    public static void printCLgrid(ArrayList<ArrayList<ArrayList<Character>>> array) {
-        for (ArrayList<ArrayList<Character>> ac : array) {
-            printCGrid(ac);
-        }
-    }
-    
 }
