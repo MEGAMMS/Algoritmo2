@@ -46,7 +46,7 @@ public class Data {
                 ans.get(i).add('.');
             }
         }
-        Utils.PrintingArrayList.printCGrid(ans);
+        // Utils.PrintingArrayList.printCGrid(ans);
         return ans;
     }
 

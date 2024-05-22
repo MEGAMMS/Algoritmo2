@@ -15,4 +15,10 @@ public class CGrid extends ArrayList<ArrayList<Character>> {
     public CGrid(ArrayList arrayList) {
         super(arrayList);
     }
+
+    public void print() {
+        for (ArrayList<Character> ac : this) {
+            PrintingArrayList.printCharArray(ac);
+        }
+    }
 }

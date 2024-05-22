@@ -22,5 +22,10 @@ public class CLGrid extends ArrayList<ArrayList<ArrayList<Character>>> {
         return super.get(index);
     }
 
-    
+    public void printCLgrid() {
+        for (ArrayList<ArrayList<Character>> ac : this) {
+            CGrid.print();
+        }
+    }
+
 }
