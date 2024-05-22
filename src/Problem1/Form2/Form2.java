@@ -116,14 +116,18 @@ public class Form2 {
 
     public static Grid Merger(Grid a, Grid b, char type) {
         if (type == '|') {
-            int rows = a.size();
+            int rowsa = a.size();
             int colsa = a.get(0).size();
-            int colsb = b.get(0).size();
-            Grid c = new Grid(rows);
-            for (int i = 0; i < rows; i++) {
-                ArrayList<Character> row = new ArrayList<>(colsa + colsb - 1);
-                row.addAll(a.get(i));
-                row.addAll(b.get(i).subList(1, colsb));
+            int rowsb = b.size();
+            int colsb = b.get(0).size(); 
+            Grid c = new Grid(Math.max(rowsa, rowsb)-1);
+            for (int i = 0; i < Math.max(rowsa, rowsb)-1; i++) {
+                ArrayList<Character> row = new ArrayList<>(colsa + colsb -1);
+                if (i < rowsa)
+                    row.addAll(a.get(i));
+                if (i < rowsb) {
+                    row.addAll(b.get(i));
+                }
                 c.add(row);
             }
             return c;
@@ -131,7 +135,7 @@ public class Form2 {
             int rowsa = a.size();
             int rowsb = b.size();
             Grid c = new Grid(rowsa + rowsb - 1);
-            for (int i = 0; i < rowsa - 1; i++) {
+            for (int i = 0; i < rowsa-1; i++) {
                 c.add(a.get(i));
             }
             for (int i = 0; i < rowsb; i++) {
@@ -141,4 +145,5 @@ public class Form2 {
         }
         return null;
     }
+
 }
