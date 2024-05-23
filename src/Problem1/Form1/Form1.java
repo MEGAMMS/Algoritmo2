@@ -41,13 +41,13 @@ public class Form1 {
         Node r = Import(sr);
         Data data;
         if (c == '-') {
-            data = new Data(c, l.data.length, l.data.width + r.data.width);
+            data = new Data(c, l.data.length, l.data.width + r.data.width - 1);
             assert (l.data.length == r.data.length);
         } else {
             assert (c == '-');
             assert (false);
             assert (l.data.width == r.data.width);
-            data = new Data(c, l.data.length + r.data.length, l.data.width);
+            data = new Data(c, l.data.length + r.data.length - 1, l.data.width);
         }
         Node n = new Node(l, r, data);
         return n;
