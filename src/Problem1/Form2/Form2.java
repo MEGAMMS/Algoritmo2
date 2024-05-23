@@ -117,6 +117,9 @@ public class Form2 {
     }
 
     public static Grid Merger(Grid a, Grid b, char type) {
+        if (a == null || b == null) {
+            return null;
+        }
         if (type == '|') {
             int rowsA = a.size();
             int colsA = a.get(0).size();
@@ -128,7 +131,12 @@ public class Form2 {
                 ArrayList<Character> row = new ArrayList<>(colsA + colsB);
                 if (i < rowsA)
                     row.addAll(a.get(i).subList(0, colsA - 1));
-                row.addAll(a.get(i).subList(colsA-2, colsA-1));
+                try {
+                    row.addAll(a.get(i).subList(colsA - 2, colsA - 1));
+                } catch (Exception e) {
+                    System.out.println("Can not draw like that f**** rectangle");
+                    return null;
+                }
                 if (i < rowsB) {
                     row.addAll(b.get(i).subList(0, colsB));
                 }
@@ -142,7 +150,12 @@ public class Form2 {
             for (int i = 0; i < rowsA - 1; i++) {
                 c.add(a.get(i));
             }
-            c.add(a.get(rowsA-2));
+            try {
+                c.add(a.get(rowsA - 2));
+            } catch (Exception e) {
+                System.out.println("Can not draw like that f**** rectangle");
+                return null;
+            }
             for (int i = 0; i < rowsB; i++) {
                 c.add(b.get(i));
             }

@@ -93,7 +93,7 @@ public class Form1 {
         out = out.substring(1, out.length() - 1);
         
         Grid test = Form2.Export(tree);
-        test.print();
+        if(test != null) test.print();
 
     }
 }
