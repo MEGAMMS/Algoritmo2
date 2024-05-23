@@ -31,7 +31,9 @@ public class AppTest {
         tree = Form2.Import(grid);
         grid2 = Form2.Export(tree);
         grid.print();
-        grid2.print();
+        if (grid2 != null) {
+            grid2.print();
+        }
         System.out.println(grid.equals(grid2));
     }
 }
