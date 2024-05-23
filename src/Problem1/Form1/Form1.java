@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import Problem1.Tree.*;
-import Utils.Filereader;
-import Problem1.Form2.Grid;
-import Problem1.Form2.Form2;
 
 // a function to create the tree
 public class Form1 {
@@ -41,13 +38,9 @@ public class Form1 {
         Node r = Import(sr);
         Data data;
         if (c == '-') {
-            data = new Data(c, l.data.length, l.data.width + r.data.width);
-            assert (l.data.length == r.data.length);
+            data = new Data(c, l.data.length, l.data.width + r.data.width - 1);
         } else {
-            assert (c == '-');
-            assert (false);
-            assert (l.data.width == r.data.width);
-            data = new Data(c, l.data.length + r.data.length, l.data.width);
+            data = new Data(c, l.data.length + r.data.length - 1, l.data.width);
         }
         Node n = new Node(l, r, data);
         return n;
@@ -83,17 +76,5 @@ public class Form1 {
             para.add(Integer.parseInt(matcher2.group(1)));
         }
         return para;
-    }
-
-    public static void main(String[] args) throws Exception {
-        String s = Filereader.stringreader("src/Problem1/Form1/test1.txt");
-        Node tree = Import("(" + s + ")");
-        String out = Export(tree);
-        out = out.substring(1, out.length() - 1);
-
-        Grid test = Form2.Export(tree);
-        if (test != null)
-            test.print();
-
     }
 }
