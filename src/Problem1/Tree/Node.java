@@ -14,5 +14,15 @@ public class Node {
     public Node(Data data) {
         this.data = data;
     }
+    public boolean isLeaf(){
+        return data.isLeaf();
+    }
+    public boolean valid(){
+        if(this.isLeaf()){
+            return data.width > 2 && data.length > 2;
+        }
+        return false;
+    }
+
 
 }

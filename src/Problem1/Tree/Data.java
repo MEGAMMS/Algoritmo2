@@ -21,6 +21,10 @@ public class Data {
         this.width = grid.getColsCount();
     }
 
+    public boolean isLeaf(){
+        return this.type != '-' && this.type != '|';
+    }
+
     @Override
     public String toString() {
         String s = this.type + "[" + String.valueOf(this.length) + "," + String.valueOf(this.width) + "]";
@@ -37,7 +41,8 @@ public class Data {
         for (int i = 0; i < this.length; i++) {
             ans.add(new ArrayList<>(this.width));
             for (int j = 0; j < this.width; j = j + 1) {
-                if ((i == 0 && j == 0) || (i == this.length-1 && j == 0) || (i == 0 && j == this.width-1) || (i == this.length-1 && j == this.width-1)) {
+                if ((i == 0 && j == 0) || (i == this.length - 1 && j == 0) || (i == 0 && j == this.width - 1)
+                        || (i == this.length - 1 && j == this.width - 1)) {
                     ans.get(i).add('+');
                     continue;
                 }
@@ -56,7 +61,6 @@ public class Data {
                 ans.get(i).add('.');
             }
         }
-        // Utils.PrintingArrayList.printCGrid(ans);
         return ans;
     }
 
