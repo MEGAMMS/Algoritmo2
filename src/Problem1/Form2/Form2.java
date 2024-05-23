@@ -17,7 +17,7 @@ public class Form2 {
         String str = Filereader.stringreader("src/Problem1/Form2/test1.txt");
         Grid grid = new Grid(str);
         Node tree = Import(grid);
-        System.out.println(Form2.Export(tree));
+        System.out.println(Form1.Export(tree));
 
     }
 
