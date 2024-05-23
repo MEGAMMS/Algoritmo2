@@ -1,6 +1,7 @@
 package Problem1.Form2;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import Problem1.Form1.Form1;
 import Problem1.Tree.Data;
@@ -117,29 +118,33 @@ public class Form2 {
 
     public static Grid Merger(Grid a, Grid b, char type) {
         if (type == '|') {
-            int rowsa = a.size();
-            int colsa = a.get(0).size();
-            int rowsb = b.size();
-            int colsb = b.get(0).size();
-            Grid c = new Grid(Math.max(rowsa, rowsb) - 1);
-            for (int i = 0; i < Math.max(rowsa, rowsb) - 1; i++) {
-                ArrayList<Character> row = new ArrayList<>(colsa + colsb);
-                if (i < rowsa)
+            int rowsA = a.size();
+            int colsA = a.get(0).size();
+            int rowsB = b.size();
+            int colsB = b.get(0).size();
+            int maxRows = Math.max(rowsA, rowsB);
+            Grid c = new Grid(maxRows);
+            for (int i = 0; i < maxRows; i++) {
+                ArrayList<Character> row = new ArrayList<>(colsA + colsB - 1);
+                if (i < rowsA)
                     row.addAll(a.get(i));
-                if (i < rowsb) {
-                    row.addAll(b.get(i));
+                else {
+                    row.addAll(new ArrayList<>(Collections.nCopies(colsA, ' ')));
+                }
+                if (i < rowsB) {
+                    row.addAll(b.get(i).subList(1, colsB));
                 }
                 c.add(row);
             }
             return c;
         } else if (type == '-') {
-            int rowsa = a.size();
-            int rowsb = b.size();
-            Grid c = new Grid(rowsa + rowsb - 1);
-            for (int i = 0; i < rowsa - 1; i++) {
+            int rowsA = a.size();
+            int rowsB = b.size();
+            Grid c = new Grid(rowsA + rowsB - 1);
+            for (int i = 0; i < rowsA - 1; i++) {
                 c.add(a.get(i));
             }
-            for (int i = 0; i < rowsb; i++) {
+            for (int i = 0; i < rowsB; i++) {
                 c.add(b.get(i));
             }
             return c;
