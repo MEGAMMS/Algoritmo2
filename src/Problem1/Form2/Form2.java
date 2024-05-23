@@ -125,14 +125,12 @@ public class Form2 {
             int maxRows = Math.max(rowsA, rowsB);
             Grid c = new Grid(maxRows);
             for (int i = 0; i < maxRows; i++) {
-                ArrayList<Character> row = new ArrayList<>(colsA + colsB - 1);
+                ArrayList<Character> row = new ArrayList<>(colsA + colsB);
                 if (i < rowsA)
-                    row.addAll(a.get(i));
-                else {
-                    row.addAll(new ArrayList<>(Collections.nCopies(colsA, ' ')));
-                }
+                    row.addAll(a.get(i).subList(0, colsA - 1));
+                row.addAll(a.get(i).subList(colsA-2, colsA-1));
                 if (i < rowsB) {
-                    row.addAll(b.get(i).subList(1, colsB));
+                    row.addAll(b.get(i).subList(0, colsB));
                 }
                 c.add(row);
             }
@@ -144,6 +142,7 @@ public class Form2 {
             for (int i = 0; i < rowsA - 1; i++) {
                 c.add(a.get(i));
             }
+            c.add(a.get(rowsA-2));
             for (int i = 0; i < rowsB; i++) {
                 c.add(b.get(i));
             }
