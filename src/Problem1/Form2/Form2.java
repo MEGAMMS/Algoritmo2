@@ -2,10 +2,8 @@ package Problem1.Form2;
 
 import java.util.ArrayList;
 
-import Problem1.Form1.Form1;
 import Problem1.Tree.Data;
 import Problem1.Tree.Node;
-import Utils.*;
 
 enum Line {
     ROW,
@@ -13,14 +11,6 @@ enum Line {
 }
 
 public class Form2 {
-    public static void main(String[] args) {
-        String str = Filereader.stringreader("src/Problem1/Form2/test1.txt");
-        Grid grid = new Grid(str);
-        Node tree = Import(grid);
-        System.out.println(Form2.Export(tree));
-
-    }
-
     public static Node Import(Grid grid) {
         System.out.println("________________________");
         Integer rowIdx = lineIdxToBreak(grid, Line.ROW);
