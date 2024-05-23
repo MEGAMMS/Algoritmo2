@@ -9,7 +9,7 @@ public class Data {
     public int length;
     public int width;
 
-    public Data(char type, int length, int width) {
+    public Data(char type, int width, int length) {
         this.type = type;
         this.length = length;
         this.width = width;
@@ -32,11 +32,15 @@ public class Data {
             System.out.println("here");
             return null;
         }
-        Grid ans = new Grid(length);
+        Grid ans = new Grid(this.length);
 
         for (int i = 0; i < this.length; i++) {
-            ans.add(new ArrayList<>(width));
+            ans.add(new ArrayList<>(this.width));
             for (int j = 0; j < this.width; j = j + 1) {
+                if ((i == 0 && j == 0) || (i == this.length-1 && j == 0) || (i == 0 && j == this.width-1) || (i == this.length-1 && j == this.width-1)) {
+                    ans.get(i).add('+');
+                    continue;
+                }
                 if (i == 0 || i == this.length - 1) {
                     ans.get(i).add('-');
                     continue;
