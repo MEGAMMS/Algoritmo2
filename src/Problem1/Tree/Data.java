@@ -9,7 +9,7 @@ public class Data {
     public int length;
     public int width;
 
-    public Data(char type, int width, int length) {
+    public Data(char type, int length, int width) {
         this.type = type;
         this.length = length;
         this.width = width;
@@ -21,7 +21,7 @@ public class Data {
         this.width = grid.getColsCount();
     }
 
-    public boolean isLeaf(){
+    public boolean isLeaf() {
         return this.type != '-' && this.type != '|';
     }
 
