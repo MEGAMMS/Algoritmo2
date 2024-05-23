@@ -6,18 +6,23 @@ import Utils.Filereader;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        String form1 = Filereader.stringreader("src/Problem1/Form1/test1.txt");
-        Node tree = Form1.Import("(" + form1 + ")");
-        String out = Form1.Export(tree);
+        String s, out;
+        Node tree;
+        Grid grid, grid2;
+        // Test 1
+        s = Filereader.stringreader("src/Problem1/Form1/test1.txt");
+        tree = Form1.Import("(" + s + ")");
+        out = Form1.Export(tree);
         out = out.substring(1, out.length() - 1);
-        System.out.println("test1");
+        System.out.println(out.equals(s));
 
-        Grid test = Form2.Export(tree);
-        if (test != null)
-            test.print();
-        String str = Filereader.stringreader("src/Problem1/Form2/test1.txt");
-        Grid grid = new Grid(str);
-        Node tree2 = Form2.Import(grid);
-        System.out.println(Form2.Export(tree2));
+        // Test 2
+        s = Filereader.stringreader("src/Problem1/Form2/test1.txt");
+        grid = new Grid(s);
+        tree = Form2.Import(grid);
+        grid2 = Form2.Export(tree);
+        grid.print();
+        grid2.print();
+        System.out.println(grid.equals(grid2));
     }
 }
