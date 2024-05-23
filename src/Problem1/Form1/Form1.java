@@ -86,7 +86,7 @@ public class Form1 {
     }
 
     public static void main(String[] args) throws Exception {
-        String s = Filereader.stringreader("src/Problem1/Form1/test.txt");
+        String s = Filereader.stringreader("Algoritmo2\\src\\Problem1\\Form1\\test1.txt");
         Node tree = Import("(" + s + ")");
         String out = Export(tree);
         out = out.substring(1, out.length() - 1);
