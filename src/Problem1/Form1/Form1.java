@@ -91,9 +91,10 @@ public class Form1 {
         Node tree = Import("(" + s + ")");
         String out = Export(tree);
         out = out.substring(1, out.length() - 1);
-        
+
         Grid test = Form2.Export(tree);
-        if(test != null) test.print();
+        if (test != null)
+            test.print();
 
     }
 }
