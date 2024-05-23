@@ -9,7 +9,7 @@ public class Data {
     public int length;
     public int width;
 
-    public Data(char type, int width, int length) {
+    public Data(char type, int length, int width) {
         this.type = type;
         this.length = length;
         this.width = width;
@@ -19,6 +19,10 @@ public class Data {
         this.type = grid.get(1).get(1);
         this.length = grid.getRowsCount();
         this.width = grid.getColsCount();
+    }
+
+    public boolean isLeaf() {
+        return this.type != '-' && this.type != '|';
     }
 
     @Override
@@ -37,7 +41,8 @@ public class Data {
         for (int i = 0; i < this.length; i++) {
             ans.add(new ArrayList<>(this.width));
             for (int j = 0; j < this.width; j = j + 1) {
-                if ((i == 0 && j == 0) || (i == this.length-1 && j == 0) || (i == 0 && j == this.width-1) || (i == this.length-1 && j == this.width-1)) {
+                if ((i == 0 && j == 0) || (i == this.length - 1 && j == 0) || (i == 0 && j == this.width - 1)
+                        || (i == this.length - 1 && j == this.width - 1)) {
                     ans.get(i).add('+');
                     continue;
                 }
@@ -56,7 +61,6 @@ public class Data {
                 ans.get(i).add('.');
             }
         }
-        // Utils.PrintingArrayList.printCGrid(ans);
         return ans;
     }
 
