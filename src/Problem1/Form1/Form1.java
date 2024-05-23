@@ -82,7 +82,6 @@ public class Form1 {
         if (matcher2.find()) {
             para.add(Integer.parseInt(matcher2.group(1)));
         }
-
         return para;
     }
 
