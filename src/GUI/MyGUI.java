@@ -15,24 +15,24 @@ public class MyGUI extends JFrame implements ActionListener {
         getContentPane().setBackground(new Color(234, 219, 200));
         setLayout(null);
 
-        Problem1Button.setBounds(100, 100, 300, 400);
-        Problem1Button.addActionListener(this);
-        add(Problem1Button);
         
-        Problem2Button.setBounds(500, 100, 300, 400);
-        Problem2Button.addActionListener(this);
-        add(Problem2Button);
-
+        for (int i = 0; i < buttons.length; i++) {
+            buttons[i].addActionListener(this);
+            buttons[i].setFocusable(false);
+            if (buttons[i] != returnButton) {
+                add(buttons[i]);
+            }
+        }
+        
+        Problem1Button.setBounds(125, 500, 225, 50);
+        
+        Problem2Button.setBounds(525, 500, 225, 50);
+        
         closeButton.setBounds(850, 0, 50, 50);
         closeButton.setBackground(new Color(255, 80, 80));
-        closeButton.addActionListener(this);
-        closeButton.setFocusable(false);
-        add(closeButton);
-
+        
         returnButton.setBounds(0, 0, 50, 50);
         returnButton.setBackground(new Color(255, 80, 80));
-        returnButton.addActionListener(this);
-        returnButton.setFocusable(false);
         
     }
     
@@ -56,7 +56,7 @@ public class MyGUI extends JFrame implements ActionListener {
             Problem1.getContentPane().setBackground(new Color(234, 219, 200));
             Problem1.setLayout(null);
             Problem1.setVisible(true);
-
+            
         }
         if (e.getActionCommand().equals("Problem 2")) {
             dispose();
@@ -89,4 +89,6 @@ public class MyGUI extends JFrame implements ActionListener {
     JButton Problem2Button = new JButton("Problem 2", new ImageIcon("C:\\Users\\Muhannad\\Desktop\\tree.png"));
     JButton closeButton = new JButton("x");
     JButton returnButton = new JButton("<");
+    JButton[] buttons = {Problem1Button, Problem2Button, closeButton, returnButton};
+    JLabel headerLabel = new JLabel("Trees");
 }
