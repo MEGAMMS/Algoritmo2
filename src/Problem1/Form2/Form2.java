@@ -11,12 +11,11 @@ enum Line {
 }
 
 public class Form2 {
+
     public static Node Import(Grid grid) {
-        System.out.println("________________________");
         Integer rowIdx = lineIdxToBreak(grid, Line.ROW);
         Integer colIdx = lineIdxToBreak(grid, Line.COL);
         if (rowIdx == null && colIdx == null) {
-            System.out.println("done");
             return new Node(new Data(grid));
         }
 
