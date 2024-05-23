@@ -18,7 +18,6 @@ public class Form2 {
         Grid grid = new Grid(str);
         Node tree = Import(grid);
         System.out.println(Form1.Export(tree));
-        
 
     }
 
@@ -124,7 +123,7 @@ public class Form2 {
             int colsb = b.get(0).size();
             Grid c = new Grid(Math.max(rowsa, rowsb) - 1);
             for (int i = 0; i < Math.max(rowsa, rowsb) - 1; i++) {
-                ArrayList<Character> row = new ArrayList<>(colsa + colsb - 1);
+                ArrayList<Character> row = new ArrayList<>(colsa + colsb);
                 if (i < rowsa)
                     row.addAll(a.get(i));
                 if (i < rowsb) {
