@@ -1,7 +1,5 @@
 package Problem1.Tree;
 
-import java.util.ArrayList;
-
 import Problem1.Form2.Grid;
 
 public class Data {
