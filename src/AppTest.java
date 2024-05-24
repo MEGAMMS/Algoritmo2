@@ -5,6 +5,7 @@ import org.junit.Test;
 import Problem1.Form1.Form1;
 import Problem1.Form2.Form2;
 import Problem1.Form2.Grid;
+import Problem1.Tree.Data;
 import Problem1.Tree.Node;
 import Utils.Filereader;
 
@@ -55,5 +56,16 @@ public class AppTest {
         assertEquals(tree.data.length, tree.right.data.length);
         assertEquals(tree.data.width, tree.right.data.width + tree.left.data.width - 1);
 
+    }
+
+    @Test
+    public void test5() {
+        String in = Filereader.stringreader("src/Problem1/Form2/test3.txt");
+        Node n = new Node(new Data('A', 5, 4));
+        Grid grid = n.data.gridBuilder();
+        Grid gridExp = new Grid(in);
+        gridExp.print();
+        grid.print();
+        assertEquals(gridExp, grid);
     }
 }

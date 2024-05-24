@@ -32,33 +32,28 @@ public class Data {
     }
 
     public Grid gridBuilder() {
-        if (type == '-' || type == '|') {
-            System.out.println("here");
-            return null;
-        }
-        Grid ans = new Grid(this.length);
-
+        assert (this.isLeaf());
+        Grid ans = new Grid(this.length, this.width);
         for (int i = 0; i < this.length; i++) {
-            ans.add(new ArrayList<>(this.width));
-            for (int j = 0; j < this.width; j = j + 1) {
+            for (int j = 0; j < this.width; j++) {
                 if ((i == 0 && j == 0) || (i == this.length - 1 && j == 0) || (i == 0 && j == this.width - 1)
                         || (i == this.length - 1 && j == this.width - 1)) {
-                    ans.get(i).add('+');
+                    ans.get(i).set(j, '+');
                     continue;
                 }
                 if (i == 0 || i == this.length - 1) {
-                    ans.get(i).add('-');
+                    ans.get(i).set(j, '-');
                     continue;
                 }
                 if (j == 0 || j == this.width - 1) {
-                    ans.get(i).add('|');
+                    ans.get(i).set(j, '|');
                     continue;
                 }
                 if (i == 1 && j == 1) {
-                    ans.get(i).add(this.type);
+                    ans.get(i).set(j, this.type);
                     continue;
                 }
-                ans.get(i).add('.');
+                ans.get(i).set(j, '.');
             }
         }
         return ans;

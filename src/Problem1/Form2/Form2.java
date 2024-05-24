@@ -98,7 +98,7 @@ public class Form2 {
         if (root == null) {
             return null;
         }
-        if (root.data.type != '-' && root.data.type != '|') {
+        if (root.isLeaf()) {
             return root.data.gridBuilder();
         }
         return Merger(Export(root.left), Export(root.right), root.data.type);
