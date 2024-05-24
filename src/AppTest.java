@@ -80,4 +80,16 @@ public class AppTest {
         grid.print();
         assertEquals(gridEx, grid);
     }
+
+    @Test
+    public void test7() {
+        String ex = Filereader.stringreader("src/Problem1/Form2/test5.txt");
+        Grid gridEx = new Grid(ex);
+        Node a = new Node(new Data('A', 5, 4));
+        Node b = new Node(new Data('B', 5, 3));
+        Grid grid = Form2.Merger(a.data.gridBuilder(), b.data.gridBuilder(), '-');
+        gridEx.print();
+        grid.print();
+        assertEquals(gridEx, grid);
+    }
 }

@@ -106,19 +106,18 @@ public class Form2 {
         if (a == null || b == null) {
             return null;
         }
+        int rowsA = a.size();
+        int colsA = a.get(0).size();
+        int rowsB = b.size();
+        int colsB = b.get(0).size();
         if (type == '|') {
-            int rowsA = a.size();
-            int colsA = a.get(0).size();
-            int rowsB = b.size();
-            int colsB = b.get(0).size();
-
             assert (rowsA == rowsB);
             Grid out = new Grid(rowsA, colsA + colsB - 1);
             for (int i = 0; i < out.getRowsCount(); i++) {
                 for (int j = 0; j < out.getColsCount(); j++) {
                     if (j < colsA - 1) {
-                    out.get(i).set(j, a.get(i).get(j));
-                    continue;
+                        out.get(i).set(j, a.get(i).get(j));
+                        continue;
                     }
                     if (j > colsA - 1) {
                         out.get(i).set(j, b.get(i).get(j - colsA + 1));
@@ -128,24 +127,36 @@ public class Form2 {
                     char atMergeLineA = a.get(i).get(colsA - 1);
                     char atMergeLineB = b.get(i).get(0);
                     if (atMergeLineA == '|' && atMergeLineB == '|')
-                    out.get(i).set(j, '|');
+                        out.get(i).set(j, '|');
                     else
-                    out.get(i).set(j, '+');
+                        out.get(i).set(j, '+');
                 }
             }
-            out.print();
             return out;
         } else if (type == '-') {
-            int rowsA = a.size();
-            int rowsB = b.size();
-            Grid out = new Grid(rowsA + rowsB - 1);
-            for (int i = 0; i < rowsA - 1; i++) {
-                out.add(a.get(i));
+            assert (colsA == colsB);
+            Grid out = new Grid(rowsA + rowsB - 1, colsA);
+
+            for (int i = 0; i < out.getRowsCount(); i++) {
+                for (int j = 0; j < out.getColsCount(); j++) {
+                    if (i < rowsA - 1) {
+                        out.get(i).set(j, a.get(i).get(j));
+                        continue;
+                    }
+                    if (i > rowsA - 1) {
+                        out.get(i).set(j, b.get(i - rowsA + 1).get(j));
+                        continue;
+                    }
+
+                    char atMergeLineA = a.get(rowsA - 1).get(j);
+                    char atMergeLineB = b.get(0).get(j);
+                    if (atMergeLineA == '-' && atMergeLineB == '-')
+                        out.get(i).set(j, '-');
+                    else
+                        out.get(i).set(j, '+');
+                }
             }
-            out.add(a.get(rowsA - 2));
-            for (int i = 0; i < rowsB; i++) {
-                out.add(b.get(i));
-            }
+
             return out;
         }
         return null;
