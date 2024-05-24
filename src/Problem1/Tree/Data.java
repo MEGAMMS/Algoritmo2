@@ -34,11 +34,6 @@ public class Data {
         Grid ans = new Grid(this.length, this.width);
         for (int i = 0; i < this.length; i++) {
             for (int j = 0; j < this.width; j++) {
-                if ((i == 0 && j == 0) || (i == this.length - 1 && j == 0) || (i == 0 && j == this.width - 1)
-                        || (i == this.length - 1 && j == this.width - 1)) {
-                    ans.get(i).set(j, '+');
-                    continue;
-                }
                 if (i == 0 || i == this.length - 1) {
                     ans.get(i).set(j, '-');
                     continue;
@@ -47,13 +42,14 @@ public class Data {
                     ans.get(i).set(j, '|');
                     continue;
                 }
-                if (i == 1 && j == 1) {
-                    ans.get(i).set(j, this.type);
-                    continue;
-                }
                 ans.get(i).set(j, '.');
             }
         }
+        ans.get(0).set(0, '+');
+        ans.get(0).set(this.width - 1, '+');
+        ans.get(this.length - 1).set(0, '+');
+        ans.get(this.length - 1).set(this.width - 1, '+');
+        ans.get(1).set(1, this.type);
         return ans;
     }
 
