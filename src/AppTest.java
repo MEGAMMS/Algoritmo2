@@ -30,11 +30,7 @@ public class AppTest {
         grid = new Grid(in);
         tree = Form2.Import(grid);
         grid2 = Form2.Export(tree);
-        grid.print();
-        if (grid2 != null) {
-            grid2.print();
-        }
-        System.out.println(grid.equals(grid2));
+        assertEquals(grid, grid2);
     }
 
     @Test
@@ -54,10 +50,10 @@ public class AppTest {
         Node tree;
         in = Filereader.stringreader("src/Problem1/Form1/test2.txt");
         tree = Form1.Import("(" + in + ")");
-        assertEquals(tree.data.type , '|');
-        assertEquals(tree.data.length , tree.left.data.length);
-        assertEquals(tree.data.length , tree.right.data.length);
-        assertEquals(tree.data.width , tree.right.data.width +tree.left.data.width -1 );
-        
-    }    
+        assertEquals(tree.data.type, '|');
+        assertEquals(tree.data.length, tree.left.data.length);
+        assertEquals(tree.data.length, tree.right.data.length);
+        assertEquals(tree.data.width, tree.right.data.width + tree.left.data.width - 1);
+
+    }
 }
