@@ -38,9 +38,9 @@ public class Form1 {
         Node r = Import(sr);
         Data data;
         if (c == '-') {
-            data = new Data(c, l.data.length, l.data.width + r.data.width - 1);
+            data = new Data(c, l.data.width + r.data.width - 1, l.data.length);
         } else {
-            data = new Data(c, l.data.length + r.data.length - 1, l.data.width);
+            data = new Data(c, l.data.width, l.data.length + r.data.length - 1);
         }
         Node n = new Node(l, r, data);
         return n;
