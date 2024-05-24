@@ -1,7 +1,5 @@
 package Problem1.Form2;
 
-import java.util.ArrayList;
-
 import Problem1.Tree.Data;
 import Problem1.Tree.Node;
 
@@ -113,41 +111,42 @@ public class Form2 {
             int colsA = a.get(0).size();
             int rowsB = b.size();
             int colsB = b.get(0).size();
-            int maxRows = Math.max(rowsA, rowsB);
-            Grid c = new Grid(maxRows);
-            for (int i = 0; i < maxRows; i++) {
-                ArrayList<Character> row = new ArrayList<>(colsA + colsB);
-                if (i < rowsA)
-                    row.addAll(a.get(i).subList(0, colsA - 1));
-                try {
-                    row.addAll(a.get(i).subList(colsA - 2, colsA - 1));
-                } catch (Exception e) {
-                    System.out.println("Can not draw like that f**** rectangle");
-                    return null;
+
+            assert (rowsA == rowsB);
+            Grid out = new Grid(rowsA, colsA + colsB - 1);
+            for (int i = 0; i < out.getRowsCount(); i++) {
+                for (int j = 0; j < out.getColsCount(); j++) {
+                    if (j < colsA - 1) {
+                    out.get(i).set(j, a.get(i).get(j));
+                    continue;
+                    }
+                    if (j > colsA - 1) {
+                        out.get(i).set(j, b.get(i).get(j - colsA + 1));
+                        continue;
+                    }
+
+                    char atMergeLineA = a.get(i).get(colsA - 1);
+                    char atMergeLineB = b.get(i).get(0);
+                    if (atMergeLineA == '|' && atMergeLineB == '|')
+                    out.get(i).set(j, '|');
+                    else
+                    out.get(i).set(j, '+');
                 }
-                if (i < rowsB) {
-                    row.addAll(b.get(i).subList(0, colsB));
-                }
-                c.add(row);
             }
-            return c;
+            out.print();
+            return out;
         } else if (type == '-') {
             int rowsA = a.size();
             int rowsB = b.size();
-            Grid c = new Grid(rowsA + rowsB - 1);
+            Grid out = new Grid(rowsA + rowsB - 1);
             for (int i = 0; i < rowsA - 1; i++) {
-                c.add(a.get(i));
+                out.add(a.get(i));
             }
-            try {
-                c.add(a.get(rowsA - 2));
-            } catch (Exception e) {
-                System.out.println("Can not draw like that f**** rectangle");
-                return null;
-            }
+            out.add(a.get(rowsA - 2));
             for (int i = 0; i < rowsB; i++) {
-                c.add(b.get(i));
+                out.add(b.get(i));
             }
-            return c;
+            return out;
         }
         return null;
     }
