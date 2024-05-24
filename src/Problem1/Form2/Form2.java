@@ -29,7 +29,7 @@ public class Form2 {
             afterCut = cutItAt(grid, colIdx, Line.COL);
             type = '|';
         }
-        Data data = new Data(type, grid.getRowsCount(), grid.getColsCount());
+        Data data = new Data(type, grid.getColsCount(), grid.getRowsCount());
         Node out = new Node(Import(afterCut[0]), Import(afterCut[1]), data);
         return out;
     }

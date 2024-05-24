@@ -9,7 +9,7 @@ public class Data {
     public int length;
     public int width;
 
-    public Data(char type, int length, int width) {
+    public Data(char type, int width, int length) {
         this.type = type;
         this.length = length;
         this.width = width;
@@ -27,7 +27,7 @@ public class Data {
 
     @Override
     public String toString() {
-        String s = this.type + "[" + String.valueOf(this.length) + "," + String.valueOf(this.width) + "]";
+        String s = this.type + "[" + String.valueOf(this.width) + "," + String.valueOf(this.length) + "]";
         return s;
     }
 
