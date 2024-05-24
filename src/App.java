@@ -21,9 +21,8 @@ public class App {
         String in, out;
         Node tree;
         in = Filereader.stringreader("src/Problem1/Form1/test1.txt");
-        tree = Form1.Import("(" + in + ")");
+        tree = Form1.Import(in);
         out = Form1.Export(tree);
-        out = out.substring(1, out.length() - 1);
         System.out.println(out);
 
         Grid grid;

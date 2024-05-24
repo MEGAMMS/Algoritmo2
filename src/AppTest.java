@@ -15,9 +15,8 @@ public class AppTest {
         String in, out;
         Node tree;
         in = Filereader.stringreader("src/Problem1/Form1/test1.txt");
-        tree = Form1.Import("(" + in + ")");
+        tree = Form1.Import(in);
         out = Form1.Export(tree);
-        out = out.substring(1, out.length() - 1);
         assertEquals(out, in);
     }
 
@@ -39,9 +38,8 @@ public class AppTest {
         String in, out;
         Node tree;
         in = Filereader.stringreader("src/Problem1/Form1/test2.txt");
-        tree = Form1.Import("(" + in + ")");
+        tree = Form1.Import(in);
         out = Form1.Export(tree);
-        out = out.substring(1, out.length() - 1);
         assertEquals(out, in);
     }
 
@@ -50,12 +48,15 @@ public class AppTest {
         String in;
         Node tree;
         in = Filereader.stringreader("src/Problem1/Form1/test2.txt");
-        tree = Form1.Import("(" + in + ")");
+        tree = Form1.Import(in);
+        System.out.println(tree.data);
+        System.out.println(tree.right.data);
+        System.out.println(tree.left.data);
         assertEquals(tree.data.type, '|');
-        assertEquals(tree.data.length, tree.left.data.length);
+        assertEquals(0, tree.left.data.length - tree.data.length);
         assertEquals(tree.data.length, tree.right.data.length);
         assertEquals(tree.data.width, tree.right.data.width + tree.left.data.width - 1);
-
+        assertEquals(tree.valid(), true);
     }
 
     @Test

@@ -7,11 +7,15 @@ import Problem1.Tree.*;
 
 // a function to create the tree
 public class Form1 {
+    public static Node Import(String s) {
+        return _Import("(" + s + ")");
+    }
+
     /**
      * @param s
      * @return
      */
-    public static Node Import(String s) {
+    private static Node _Import(String s) {
         if (s.charAt(s.length() - 1) == ']') {
             return new Node(new Data(s.charAt(0), parseInteger(s).get(0), parseInteger(s).get(1)));
         }
@@ -34,10 +38,10 @@ public class Form1 {
         char c = s.charAt(pos);
         String sl = s.substring(0, pos - 1);
         String sr = s.substring(pos + 2, s.length());
-        Node l = Import(sl);
-        Node r = Import(sr);
+        Node l = _Import(sl);
+        Node r = _Import(sr);
         Data data;
-        if (c == '-') {
+        if (c == '|') {
             data = new Data(c, l.data.width + r.data.width - 1, l.data.length);
         } else {
             data = new Data(c, l.data.width, l.data.length + r.data.length - 1);
@@ -46,8 +50,13 @@ public class Form1 {
         return n;
     }
 
-    // a function to create the string of a tree
     public static String Export(Node root) {
+        String out = _Export(root);
+        return out.substring(1, out.length() - 1);
+    }
+
+    // a function to create the string of a tree
+    private static String _Export(Node root) {
 
         if (root == null) {
             return null;
@@ -56,7 +65,7 @@ public class Form1 {
             return root.data.toString();
         }
 
-        return '(' + Export(root.left) + ' ' + root.data.type + ' ' + Export(root.right) + ')';
+        return '(' + _Export(root.left) + ' ' + root.data.type + ' ' + _Export(root.right) + ')';
     }
 
     // a function to parse integers from a string
