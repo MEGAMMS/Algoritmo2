@@ -22,6 +22,9 @@ public class App {
         Node tree;
         in = Filereader.stringreader("src/Problem1/Form1/test1.txt");
         tree = Form1.Import(in);
+        System.err.println(tree.data);
+        System.err.println(tree.left.data);
+        System.err.println(tree.right.data);
         out = Form1.Export(tree);
         System.out.println(out);
 

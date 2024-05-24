@@ -42,8 +42,10 @@ public class Form1 {
         Node r = _Import(sr);
         Data data;
         if (c == '|') {
+            assert(l.data.length == r.data.length);
             data = new Data(c, l.data.width + r.data.width - 1, l.data.length);
         } else {
+            assert(l.data.width == r.data.width);
             data = new Data(c, l.data.width, l.data.length + r.data.length - 1);
         }
         Node n = new Node(l, r, data);
