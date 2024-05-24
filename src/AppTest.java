@@ -31,8 +31,9 @@ public class AppTest {
         tree = Form2.Import(grid);
         grid2 = Form2.Export(tree);
         assertEquals(grid, grid2);
+        assertEquals(tree.valid(), true);
     }
-
+    
     @Test
     public void test3() {
         String in, out;
@@ -41,8 +42,9 @@ public class AppTest {
         tree = Form1.Import(in);
         out = Form1.Export(tree);
         assertEquals(out, in);
+        assertEquals(tree.valid(), true);
     }
-
+    
     @Test
     public void test4() {
         String in;
@@ -58,7 +60,7 @@ public class AppTest {
         assertEquals(tree.data.width, tree.right.data.width + tree.left.data.width - 1);
         assertEquals(tree.valid(), true);
     }
-
+    
     @Test
     public void test5() {
         String in = Filereader.stringreader("src/Problem1/Form2/test3.txt");
@@ -69,7 +71,7 @@ public class AppTest {
         grid.print();
         assertEquals(gridExp, grid);
     }
-
+    
     @Test
     public void test6() {
         String ex = Filereader.stringreader("src/Problem1/Form2/test4.txt");
