@@ -2,27 +2,29 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MyGUI extends JFrame implements ActionListener {
+
+    JFrame Problem1 = new JFrame("Problem 1");
+    JFrame Problem2 = new JFrame("Problem 2");
+    JFrame[] Frames = { Problem1, Problem2, this };
+    JButton Problem1Button = new JButton("Problem 1", new ImageIcon("C:/Users/Muhannad/Desktop/tree.png"));
+    JButton Problem2Button = new JButton("Problem 2", new ImageIcon("C:/Users/Muhannad/Desktop/tree.png"));
+    JButton closeButton = new JButton("x");
+    JButton returnButton = new JButton("<");
+    JButton[] Buttons = { Problem1Button, Problem2Button, closeButton, returnButton };
+    JLabel headerLabel = new JLabel("Trees");
+
     public MyGUI() {
         setTitle("Trees Problems");
-        setUndecorated(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(900, 600);
-        setLocationRelativeTo(null);
-        getContentPane().setBackground(new Color(234, 219, 200));
         setLayout(null);
+        setLocationRelativeTo(null);
 
-        
-        for (int i = 0; i < buttons.length; i++) {
-            buttons[i].addActionListener(this);
-            buttons[i].setFocusable(false);
-            if (buttons[i] != returnButton) {
-                add(buttons[i]);
-            }
-        }
+        headerLabel.setBounds(400, 50, 900, 70);
+        headerLabel.setFont(new Font("Arial Black", 0, 50));
         
         Problem1Button.setBounds(125, 500, 225, 50);
         
@@ -34,41 +36,48 @@ public class MyGUI extends JFrame implements ActionListener {
         returnButton.setBounds(0, 0, 50, 50);
         returnButton.setBackground(new Color(255, 80, 80));
         
+        for (JButton button : Buttons) {
+            button.addActionListener(this);
+            button.setFocusable(false);
+            if (button != returnButton)
+                add(button);
+        }
+        
+        for (JFrame frame :Frames) {
+            frame.setLayout(null);
+            frame.setUndecorated(true);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(900, 600);
+            frame.getContentPane().setBackground(new Color(234, 219, 200));
+            frame.add(closeButton);
+            frame.add(headerLabel);
+        }
     }
-    
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             MyGUI gui1 = new MyGUI();
             gui1.setVisible(true);
+            gui1.setLocationRelativeTo(null);
         });
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Problem 1")) {
-            dispose();
-            Problem1.add(closeButton);
+            setVisible(false);
             Problem1.add(returnButton);
-            Problem1.setUndecorated(true);
-            Problem1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            Problem1.setSize(900, 600);
-            Problem1.setLocationRelativeTo(null);
-            Problem1.getContentPane().setBackground(new Color(234, 219, 200));
-            Problem1.setLayout(null);
+            headerLabel.setText("Problem1");
             Problem1.setVisible(true);
-            
+            Problem1.setLocationRelativeTo(null);
+
         }
         if (e.getActionCommand().equals("Problem 2")) {
-            dispose();
-            Problem2.add(closeButton);
+            setVisible(false);
             Problem2.add(returnButton);
-            Problem2.setUndecorated(true);
-            Problem2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            Problem2.setSize(900, 600);
-            Problem2.setLocationRelativeTo(null);
-            Problem2.getContentPane().setBackground(new Color(234, 219, 200));
-            Problem2.setLayout(null);
+            headerLabel.setText("Problem2");
             Problem2.setVisible(true);
+            Problem2.setLocationRelativeTo(null);
         }
         if (e.getActionCommand().equals("x")) {
             dispose();
@@ -76,19 +85,11 @@ public class MyGUI extends JFrame implements ActionListener {
             Problem2.dispose();
         }
         if (e.getActionCommand().equals("<")) {
-            add(closeButton);
+            headerLabel.setText("Trees");
             setVisible(true);
-            Problem1.dispose();
-            Problem2.dispose();
+            Problem1.setVisible(false);
+            Problem2.setVisible(false);
         }
     }
-    
-    JFrame Problem1 = new JFrame("Problem 1");
-    JFrame Problem2 = new JFrame("Problem 2");
-    JButton Problem1Button = new JButton("Problem 1", new ImageIcon("C:\\Users\\Muhannad\\Desktop\\tree.png"));
-    JButton Problem2Button = new JButton("Problem 2", new ImageIcon("C:\\Users\\Muhannad\\Desktop\\tree.png"));
-    JButton closeButton = new JButton("x");
-    JButton returnButton = new JButton("<");
-    JButton[] buttons = {Problem1Button, Problem2Button, closeButton, returnButton};
-    JLabel headerLabel = new JLabel("Trees");
+
 }
