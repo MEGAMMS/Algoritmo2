@@ -17,6 +17,7 @@ public class AppTest {
         in = Filereader.stringreader("src/Problem1/Form1/test1.txt");
         tree = Form1.Import(in);
         out = Form1.Export(tree);
+        assertEquals(tree.valid(), true);
         assertEquals(out, in);
     }
 
