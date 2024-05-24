@@ -36,4 +36,28 @@ public class AppTest {
         }
         System.out.println(grid.equals(grid2));
     }
+
+    @Test
+    public void test3() {
+        String in, out;
+        Node tree;
+        in = Filereader.stringreader("src/Problem1/Form1/test2.txt");
+        tree = Form1.Import("(" + in + ")");
+        out = Form1.Export(tree);
+        out = out.substring(1, out.length() - 1);
+        assertEquals(out, in);
+    }
+
+    @Test
+    public void test4() {
+        String in;
+        Node tree;
+        in = Filereader.stringreader("src/Problem1/Form1/test2.txt");
+        tree = Form1.Import("(" + in + ")");
+        assertEquals(tree.data.type , '|');
+        assertEquals(tree.data.length , tree.left.data.length);
+        assertEquals(tree.data.length , tree.right.data.length);
+        assertEquals(tree.data.width , tree.right.data.width +tree.left.data.width -1 );
+        
+    }    
 }
