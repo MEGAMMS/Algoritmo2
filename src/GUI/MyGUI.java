@@ -67,16 +67,18 @@ public class MyGUI extends JFrame implements ActionListener {
         if (e.getActionCommand().equals("Problem 1")) {
             setVisible(false);
             Problem1.add(returnButton);
-            headerLabel.setText("Problem1");
+            Problem1.add(headerLabel);
             Problem1.setVisible(true);
+            headerLabel.setText("Problem1");
             Problem1.setLocationRelativeTo(null);
 
         }
         if (e.getActionCommand().equals("Problem 2")) {
             setVisible(false);
             Problem2.add(returnButton);
-            headerLabel.setText("Problem2");
+            Problem2.add(headerLabel);
             Problem2.setVisible(true);
+            headerLabel.setText("Problem2");
             Problem2.setLocationRelativeTo(null);
         }
         if (e.getActionCommand().equals("x")) {
@@ -85,6 +87,7 @@ public class MyGUI extends JFrame implements ActionListener {
             Problem2.dispose();
         }
         if (e.getActionCommand().equals("<")) {
+            add(headerLabel);
             headerLabel.setText("Trees");
             setVisible(true);
             Problem1.setVisible(false);
