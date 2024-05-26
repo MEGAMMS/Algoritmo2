@@ -119,6 +119,7 @@ public class AppTest {
         Integer acutal = Form2.lineIdxToBreak(grid, Line.ROW);
         assertEquals(Integer.valueOf(3), acutal);
     }
+
     @Test
     public void test10() {
         String s = Filereader.stringreader("src/Problem1/Form2/test4.txt");
@@ -127,6 +128,7 @@ public class AppTest {
         Integer acutal = Form2.lineIdxToBreak(grid, Line.COL);
         assertEquals(Integer.valueOf(4), acutal);
     }
+
     @Test
     public void test11() {
         String s = Filereader.stringreader("src/Problem1/Form2/test3.txt");
@@ -138,4 +140,11 @@ public class AppTest {
         assertEquals(null, acutal2);
     }
 
+    @Test
+    public void test12() {
+        String s = Filereader.stringreader("src/Problem1/Form2/test3.txt");
+        Grid grid = new Grid(s);
+        Data data = new Data(grid);
+        assertEquals(new Data('A', 5, 4).toString(), data.toString());
+    }
 }

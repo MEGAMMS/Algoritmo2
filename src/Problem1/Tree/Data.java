@@ -14,9 +14,9 @@ public class Data {
     }
 
     public Data(Grid grid) {
-        this.type = grid.get(1).get(1);
         this.length = grid.getRowsCount();
         this.width = grid.getColsCount();
+        this.type = grid.get((this.length - 1) / 2).get((this.width - 1) / 2);
     }
 
     public boolean isLeaf() {
