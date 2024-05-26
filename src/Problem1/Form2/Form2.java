@@ -61,7 +61,7 @@ public class Form2 {
             for (int i = 0; i < beforeCut.size(); i++) {
                 if (cutIdx >= i)
                     out[0].add(beforeCut.get(i));
-                if (cutIdx <= i)
+                if (cutIdx < i)
                     out[1].add(beforeCut.get(i));
             }
         } else if (line == Line.COL) {
@@ -69,7 +69,7 @@ public class Form2 {
             for (int i = 0; i < beforeCut.size(); i++) {
                 if (cutIdx >= i)
                     out[0].add(beforeCut.get(i));
-                if (cutIdx <= i)
+                if (cutIdx < i)
                     out[1].add(beforeCut.get(i));
             }
             beforeCut.invert();

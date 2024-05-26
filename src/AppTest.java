@@ -147,4 +147,19 @@ public class AppTest {
         Data data = new Data(grid);
         assertEquals(new Data('A', 5, 4).toString(), data.toString());
     }
+
+    @Test
+    public void test14() {
+        String s = Filereader.stringreader("src/Problem1/Form2/test4.txt");
+        String sa = Filereader.stringreader("src/Problem1/Form2/test3.txt");
+        Grid grid = new Grid(s);
+        Grid grida = new Grid(sa);
+        grid.print();
+        grida.print();
+        int idx = Form2.lineIdxToBreak(grid, Line.COL);
+        Grid[] cuted = Form2.cutItAt(grid, idx, Line.COL);
+        // cuted[0].print();
+        // cuted[1].print();
+        assertEquals(grida, cuted[0]);
+    }
 }
