@@ -1,3 +1,5 @@
+package Problem1;
+
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
@@ -11,7 +13,7 @@ import Utils.Filereader;
 
 import Problem1.Form2.Line;
 
-public class AppTest {
+public class Problem1Tests {
     @Test
     public void test1() {
         String in, out;
