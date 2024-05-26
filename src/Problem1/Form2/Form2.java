@@ -3,11 +3,6 @@ package Problem1.Form2;
 import Problem1.Tree.Data;
 import Problem1.Tree.Node;
 
-enum Line {
-    ROW,
-    COL
-}
-
 public class Form2 {
 
     public static Node Import(Grid grid) {
@@ -36,11 +31,13 @@ public class Form2 {
         if (line == Line.COL)
             grid.invert();
         char breakerChar = (line == Line.ROW ? '-' : '|');
-        for (int i = 1; i < grid.getRowsCount() - 1; i++) {
+        for (int i = 0; i < grid.getRowsCount() - 1; i++) {
             boolean ok = true;
-            for (int j = 1; j < grid.getColsCount() - 1; j++) {
-                char c = grid.get(i).get(j);
-                if (c != '+' && c != breakerChar) {
+
+            for (int j = 0; j < grid.getColsCount() - 1; j++) {
+                char c1 = grid.get(i).get(j);
+                char c2 = grid.get(i + 1).get(j);
+                if ((c1 != '+' && c1 != breakerChar) || (c2 != '+' && c2 != breakerChar)) {
                     ok = false;
                     break;
                 }
