@@ -162,4 +162,24 @@ public class AppTest {
         // cuted[1].print();
         assertEquals(grida, cuted[0]);
     }
+
+    @Test
+    public void test15() {
+        String s = Filereader.stringreader("src/Problem1/Form2/test4.txt");
+        String s2 = Filereader.stringreader("src/Problem1/Form2/test1.txt");
+        Grid grid = new Grid(s);
+        Grid grid2 = new Grid(s2);
+        Form2.Import(grid);
+        Form2.Import(grid2);
+
+    }
+
+    @Test
+    public void test16() {
+        String s = Filereader.stringreader("src/Problem1/Form2/test3.txt");
+        Grid grid = new Grid(s);
+        Grid gridAcu = new Data(grid).gridBuilder();
+        gridAcu.print();
+        assertEquals(gridAcu, grid);
+    }
 }
