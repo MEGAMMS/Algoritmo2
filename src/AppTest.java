@@ -58,7 +58,7 @@ public class AppTest {
         assertEquals(tree.data.type, '|');
         assertEquals(0, tree.left.data.length - tree.data.length);
         assertEquals(tree.data.length, tree.right.data.length);
-        assertEquals(tree.data.width, tree.right.data.width + tree.left.data.width - 1);
+        assertEquals(tree.data.width, tree.right.data.width + tree.left.data.width);
         assertEquals(tree.valid(), true);
     }
     
@@ -96,4 +96,15 @@ public class AppTest {
         grid.print();
         assertEquals(gridEx, grid);
     }
+
+    @Test
+    public void test8() {
+        String in, out;
+        Node tree;
+        in = Filereader.stringreader("src/Problem1/Form1/test1.txt");
+        tree = Form1.Import(in);
+        out = Form1.Export(tree);
+        assertEquals(in, out);
+    }
+
 }

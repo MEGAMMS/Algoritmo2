@@ -42,11 +42,11 @@ public class Form1 {
         Node r = _Import(sr);
         Data data;
         if (c == '|') {
-            assert(l.data.length == r.data.length);
-            data = new Data(c, l.data.width + r.data.width - 1, l.data.length);
+            assert (l.data.length == r.data.length);
+            data = new Data(c, l.data.width + r.data.width, l.data.length);
         } else {
-            assert(l.data.width == r.data.width);
-            data = new Data(c, l.data.width, l.data.length + r.data.length - 1);
+            assert (l.data.width == r.data.width);
+            data = new Data(c, l.data.width, l.data.length + r.data.length);
         }
         Node n = new Node(l, r, data);
         return n;
@@ -63,7 +63,7 @@ public class Form1 {
         if (root == null) {
             return null;
         }
-        if (root.data.type != '-' && root.data.type != '|') {
+        if (root.isLeaf()) {
             return root.data.toString();
         }
 
