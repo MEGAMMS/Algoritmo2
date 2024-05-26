@@ -20,7 +20,7 @@ public class App {
 
         String in, out;
         Node tree;
-        in = Filereader.stringreader("src/Problem1/Form1/test1.txt");
+        in = Filereader.stringreader("src/Problem1/Form1/test3.txt");
         tree = Form1.Import(in);
         System.err.println(tree.data);
         System.err.println(tree.left.data);

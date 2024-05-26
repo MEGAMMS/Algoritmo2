@@ -101,10 +101,12 @@ public class AppTest {
     public void test8() {
         String in, out;
         Node tree;
-        in = Filereader.stringreader("src/Problem1/Form1/test1.txt");
+        in = Filereader.stringreader("src/Problem1/Form1/test3.txt");
         tree = Form1.Import(in);
         out = Form1.Export(tree);
+        System.err.println(out);
         assertEquals(in, out);
+        Form2.Export(tree);
     }
 
 }
