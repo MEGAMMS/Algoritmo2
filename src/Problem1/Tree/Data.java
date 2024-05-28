@@ -14,9 +14,9 @@ public class Data {
     }
 
     public Data(Grid grid) {
-        this.type = grid.get(1).get(1);
         this.length = grid.getRowsCount();
         this.width = grid.getColsCount();
+        this.type = grid.get((this.length - 1) / 2).get((this.width - 1) / 2);
     }
 
     public boolean isLeaf() {
@@ -31,26 +31,26 @@ public class Data {
 
     public Grid gridBuilder() {
         assert (this.isLeaf());
-        Grid ans = new Grid(this.length, this.width);
+        Grid grid = new Grid(this.length, this.width);
         for (int i = 0; i < this.length; i++) {
             for (int j = 0; j < this.width; j++) {
                 if (i == 0 || i == this.length - 1) {
-                    ans.get(i).set(j, '-');
+                    grid.get(i).set(j, '-');
                     continue;
                 }
                 if (j == 0 || j == this.width - 1) {
-                    ans.get(i).set(j, '|');
+                    grid.get(i).set(j, '|');
                     continue;
                 }
-                ans.get(i).set(j, '.');
+                grid.get(i).set(j, ' ');
             }
         }
-        ans.get(0).set(0, '+');
-        ans.get(0).set(this.width - 1, '+');
-        ans.get(this.length - 1).set(0, '+');
-        ans.get(this.length - 1).set(this.width - 1, '+');
-        ans.get(1).set(1, this.type);
-        return ans;
+        grid.get(0).set(0, '+');
+        grid.get(0).set(this.width - 1, '+');
+        grid.get(this.length - 1).set(0, '+');
+        grid.get(this.length - 1).set(this.width - 1, '+');
+        grid.get((this.length - 1) / 2).set((this.width - 1) / 2, type);
+        return grid;
     }
 
 }

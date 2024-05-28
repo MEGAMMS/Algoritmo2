@@ -1,5 +1,5 @@
-A - > B, C, D
+A -> B, C, D
 B -> E, F
-C - > G
-D - > H, I, J
+C -> G
+D -> H, I, J
 J -> K

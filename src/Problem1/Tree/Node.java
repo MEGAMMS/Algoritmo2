@@ -27,12 +27,17 @@ public class Node {
         if (this.data.type == '-')
             ok = this.data.width == this.right.data.width
                     && this.data.width == this.left.data.width
-                    && this.data.length == this.left.data.length + this.right.data.length - 1;
+                    && this.data.length == this.left.data.length + this.right.data.length;
         else
             ok = this.data.length == this.right.data.length
                     && this.data.length == this.left.data.length
-                    && this.data.width == this.left.data.width + this.right.data.width - 1;
+                    && this.data.width == this.left.data.width + this.right.data.width;
         return ok && this.left.valid() && this.right.valid();
+    }
+
+    @Override
+    public String toString() {
+        return "(data: " + this.data + ", left:" + this.left + ",right:" + this.right + ",)";
     }
 
 }

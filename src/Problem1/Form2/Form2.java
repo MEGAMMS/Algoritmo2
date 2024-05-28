@@ -3,11 +3,6 @@ package Problem1.Form2;
 import Problem1.Tree.Data;
 import Problem1.Tree.Node;
 
-enum Line {
-    ROW,
-    COL
-}
-
 public class Form2 {
 
     public static Node Import(Grid grid) {
@@ -36,11 +31,13 @@ public class Form2 {
         if (line == Line.COL)
             grid.invert();
         char breakerChar = (line == Line.ROW ? '-' : '|');
-        for (int i = 1; i < grid.getRowsCount() - 1; i++) {
+        for (int i = 0; i < grid.getRowsCount() - 1; i++) {
             boolean ok = true;
-            for (int j = 1; j < grid.getColsCount() - 1; j++) {
-                char c = grid.get(i).get(j);
-                if (c != '+' && c != breakerChar) {
+
+            for (int j = 0; j < grid.getColsCount() - 1; j++) {
+                char c1 = grid.get(i).get(j);
+                char c2 = grid.get(i + 1).get(j);
+                if ((c1 != '+' && c1 != breakerChar) || (c2 != '+' && c2 != breakerChar)) {
                     ok = false;
                     break;
                 }
@@ -64,7 +61,7 @@ public class Form2 {
             for (int i = 0; i < beforeCut.size(); i++) {
                 if (cutIdx >= i)
                     out[0].add(beforeCut.get(i));
-                if (cutIdx <= i)
+                if (cutIdx < i)
                     out[1].add(beforeCut.get(i));
             }
         } else if (line == Line.COL) {
@@ -72,7 +69,7 @@ public class Form2 {
             for (int i = 0; i < beforeCut.size(); i++) {
                 if (cutIdx >= i)
                     out[0].add(beforeCut.get(i));
-                if (cutIdx <= i)
+                if (cutIdx < i)
                     out[1].add(beforeCut.get(i));
             }
             beforeCut.invert();
@@ -112,48 +109,34 @@ public class Form2 {
         int colsB = b.get(0).size();
         if (type == '|') {
             assert (rowsA == rowsB);
-            Grid out = new Grid(rowsA, colsA + colsB - 1);
+            Grid out = new Grid(rowsA, colsA + colsB);
             for (int i = 0; i < out.getRowsCount(); i++) {
                 for (int j = 0; j < out.getColsCount(); j++) {
-                    if (j < colsA - 1) {
+                    if (j < colsA) {
                         out.get(i).set(j, a.get(i).get(j));
                         continue;
                     }
-                    if (j > colsA - 1) {
-                        out.get(i).set(j, b.get(i).get(j - colsA + 1));
+                    if (j >= colsA) {
+                        out.get(i).set(j, b.get(i).get(j - colsA));
                         continue;
                     }
-
-                    char atMergeLineA = a.get(i).get(colsA - 1);
-                    char atMergeLineB = b.get(i).get(0);
-                    if (atMergeLineA == '|' && atMergeLineB == '|')
-                        out.get(i).set(j, '|');
-                    else
-                        out.get(i).set(j, '+');
                 }
             }
             return out;
         } else if (type == '-') {
             assert (colsA == colsB);
-            Grid out = new Grid(rowsA + rowsB - 1, colsA);
+            Grid out = new Grid(rowsA + rowsB, colsA);
 
             for (int i = 0; i < out.getRowsCount(); i++) {
                 for (int j = 0; j < out.getColsCount(); j++) {
-                    if (i < rowsA - 1) {
+                    if (i < rowsA) {
                         out.get(i).set(j, a.get(i).get(j));
                         continue;
                     }
-                    if (i > rowsA - 1) {
-                        out.get(i).set(j, b.get(i - rowsA + 1).get(j));
+                    if (i >= rowsA) {
+                        out.get(i).set(j, b.get(i - rowsA).get(j));
                         continue;
                     }
-
-                    char atMergeLineA = a.get(rowsA - 1).get(j);
-                    char atMergeLineB = b.get(0).get(j);
-                    if (atMergeLineA == '-' && atMergeLineB == '-')
-                        out.get(i).set(j, '-');
-                    else
-                        out.get(i).set(j, '+');
                 }
             }
 
