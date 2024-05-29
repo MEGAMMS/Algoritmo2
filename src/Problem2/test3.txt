@@ -4,4 +4,5 @@ E -> G
 F -> H
 C -> I
 D -> J, K, L
-L -> M
+L -> M, N, O
+N -> P, Q, R

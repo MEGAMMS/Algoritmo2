@@ -38,6 +38,7 @@ public class Problem2 {
         boolean isnull=true;
         for(int i=0;i<childNodes.length;i++){
             Node child;
+            isnull=true;
             System.out.println(childNodes[i]);
             for(int j=0;j<lines.length;j++){
                 if(childNodes[i].equals(lines[j].substring(0,level).trim())){
