@@ -15,7 +15,7 @@ public class Node {
     }
 
     public boolean isLeaf() {
-        return children == null;
+        return children == null||children.isEmpty();
     }
 
     public Node(String name, Node parent, ArrayList<Node> children) {
@@ -38,6 +38,12 @@ public class Node {
     public void addChild(Node child) {
         children.add(child);
     }
+    public void addParent(Node father){
+        this.parent=father;
+    }
+    public Node getParent() {
+        return parent;
+    }
     
     @Override
     public String toString() {
@@ -53,4 +59,9 @@ public class Node {
         return s;
     }
 
+    public void fatheringChildren(){
+        for(Node child: this.children){
+            child.addParent(this);
+        }
+    }
 }

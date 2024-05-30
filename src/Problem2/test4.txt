@@ -1,0 +1,6 @@
+A -> B
+B -> C, D, E, F
+C -> G, H, I
+D -> J, K
+E -> L
+F -> M, N
