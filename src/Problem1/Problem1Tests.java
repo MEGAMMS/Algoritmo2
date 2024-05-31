@@ -2,6 +2,10 @@ package Problem1;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Test;
 
 import Problem1.Form1.Form1;
@@ -12,6 +16,7 @@ import Problem1.Tree.Node;
 import Utils.Filereader;
 
 import Problem1.Form2.Line;
+import Problem1.SubProblem4.SubProblem4;
 
 public class Problem1Tests {
     @Test
@@ -183,5 +188,18 @@ public class Problem1Tests {
         Grid gridAcu = new Data(grid).gridBuilder();
         gridAcu.print();
         assertEquals(gridAcu, grid);
+    }
+
+    @Test
+    public void test17() {
+        Map<Integer, ArrayList<Node>> map = new HashMap<>();
+        assertEquals(SubProblem4.hasOneNode(map), false);
+        ArrayList<Node> nodeList = new ArrayList<>();
+        map.put(55, nodeList);
+        assertEquals(SubProblem4.hasOneNode(map), false);
+        nodeList.add(new Node(new Data('A', 55, 4)));
+        assertEquals(SubProblem4.hasOneNode(map), true);
+        nodeList.add(new Node(new Data('A', 55, 4)));
+        assertEquals(SubProblem4.hasOneNode(map), false);
     }
 }
