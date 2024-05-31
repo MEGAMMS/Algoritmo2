@@ -1,5 +1,8 @@
 package Problem1.Tree;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Node {
     public Node left;
     public Node right;
@@ -38,6 +41,25 @@ public class Node {
     @Override
     public String toString() {
         return "(data: " + this.data + ", left:" + this.left + ",right:" + this.right + ",)";
+    }
+
+
+    // Method to print the tree structure
+    public void printTree() {
+        printTree("", true);
+    }
+
+    private void printTree(String prefix, boolean isTail) {
+        System.out.println(prefix + (isTail ? "└── " : "├── ") + data);
+        List<Node> children = new ArrayList<>();
+        if (left != null) children.add(left);
+        if (right != null) children.add(right);
+        for (int i = 0; i < children.size() - 1; i++) {
+            children.get(i).printTree(prefix + (isTail ? "    " : "│   "), false);
+        }
+        if (children.size() > 0) {
+            children.get(children.size() - 1).printTree(prefix + (isTail ? "    " : "│   "), true);
+        }
     }
 
 }
