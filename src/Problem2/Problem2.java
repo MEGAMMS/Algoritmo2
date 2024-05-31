@@ -1,6 +1,7 @@
 package Problem2;
 
 import Problem2.Tree.Node;
+import Problem2.Tree.Tree;
 import Utils.Filereader;
 
 public class Problem2 {
