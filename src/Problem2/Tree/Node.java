@@ -6,6 +6,7 @@ public class Node {
     String name;
     Node parent;
     ArrayList<Node> children;
+    public boolean left=false;
 
     public ArrayList<Node> getChildren() {
         return children;
@@ -27,7 +28,7 @@ public class Node {
     public Node(String name, Node parent) {
         this.name = name;
         this.parent = parent;
-        this.children = null;
+        this.children = new ArrayList<>();
     }
     public Node(String name) {
         this.name = name;

@@ -111,6 +111,7 @@ public class Problem2 {
                 }
                 if(i>0){
                     LeftBnode=_BinaryConverter(root.getParent().getChildren().get(i-1));
+                    LeftBnode.left=true;
                     Bnode.addChild(LeftBnode);
                 }
             }
@@ -128,24 +129,30 @@ public class Problem2 {
         if(root==null){
             return null;
         }
-        Node Knode=new Node(root.getName());
         root.fatheringChildren();
+        Node Knode=new Node(root.getName());
         
         System.out.println(root.getName());
-        if(root.getChildren().size()==2){
-            Node child=_KaryTree(root.getChildren().get(0));
-            System.out.println(child.getName());
-            Knode.addChild(child);
-            Node child2=_KaryTree(root.getChildren().get(1));
-            System.out.println(child2.getName());
-            Knode.getParent().addChild(child2);
+        if(!root.isLeaf()){
+            
+            for (Node Child : root.getChildren()) {
+                if(!Child.left){
+                    Knode.addChild(_KaryTree(Child));
+                }
+                if(!Child.getChildren().isEmpty()){
+                    for (int i = 0; i < Child.getChildren().size(); i++) {
+                        if(Child.getChildren().get(i).left){
+                            Knode.addChild(_KaryTree(Child.getChildren().get(i)));
+                        }
+                    }
+
+                }
+                Knode.fatheringChildren();
+            }
+
         }
-        if(root.getChildren().size()==1){
-            Node child=_KaryTree(root.getChildren().get(0));
-            System.out.println(child.getName());
-            Knode.addChild(child);
-        }
-        Knode.fatheringChildren();
+        
+        
         return Knode;
     }
 
