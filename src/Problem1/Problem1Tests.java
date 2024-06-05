@@ -17,7 +17,6 @@ import Utils.Filereader;
 
 import Problem1.Form2.Line;
 import Problem1.SubProblem4.SubProblem4;
-import Problem1.SubProblem4.*;
 
 public class Problem1Tests {
     @Test
