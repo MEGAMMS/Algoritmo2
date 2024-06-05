@@ -1,5 +1,7 @@
 package Problem2;
 
+import java.util.ArrayList;
+
 import Problem2.Tree.Node;
 import Utils.Filereader;
 
@@ -131,20 +133,19 @@ public class Problem2 {
         root.fatheringChildren();
         Node Knode=new Node(root.getName());
         
-        System.out.println(root.getName());
+        //System.out.println(root.getName());
         if(!root.isLeaf()){
             
             for (Node Child : root.getChildren()) {
                 if(!Child.left){
                     Knode.addChild(_KaryTree(Child));
                 }
-                if(!Child.getChildren().isEmpty()){
-                    for (int i = 0; i < Child.getChildren().size(); i++) {
-                        if(Child.getChildren().get(i).left){
-                            Knode.addChild(_KaryTree(Child.getChildren().get(i)));
-                        }
+                if(!Child.getChildren().isEmpty()&&!Child.left){
+                    ArrayList<Node>leftnodes=new ArrayList<>();
+                    Goleft(Child,leftnodes);
+                    for (Node node : leftnodes) {
+                        Knode.addChild(_KaryTree(node));
                     }
-
                 }
                 Knode.fatheringChildren();
             }
@@ -154,5 +155,17 @@ public class Problem2 {
         
         return Knode;
     }
-
+    //a functiion to go over left nodes
+    public static void Goleft(Node root,ArrayList<Node>leftnodes){
+    if(root==null||root.isLeaf()){
+        return;
+    }
+    for (Node node : root.getChildren()) {
+        if(node.left){
+            leftnodes.add(node);
+            Goleft(node,leftnodes);
+        }
+    }
+    
+}
 }
