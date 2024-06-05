@@ -45,6 +45,7 @@ public class SubProblem4 {
         for (ArrayList<Node> ar : widthToNode.values()) {
             newWidth = 0;
             newLength = 0;
+            System.out.println("ar = "+ar);
             for (Node node : ar) {
                 int width = node.data.width;
                 int length = node.data.length;
@@ -52,11 +53,12 @@ public class SubProblem4 {
                 newWidth = width;
             }
             ar.clear();
-            ar.add(new Node(new Data('x', newWidth, newLength)));
+            ar.add(new Node(new Data('-', newWidth, newLength)));
         }
         for (ArrayList<Node> ar : lengthToNode.values()) {
             newWidth = 0;
             newLength = 0;
+            System.out.println("ar = "+ar);
             for (Node node : ar) {
                 int width = node.data.width;
                 int length = node.data.length;
@@ -64,7 +66,7 @@ public class SubProblem4 {
                 newLength = length;
             }
             ar.clear();
-            ar.add(new Node(new Data('x', newWidth, newLength)));
+            ar.add(new Node(new Data('|', newWidth, newLength)));
         }
 
         // for (ArrayList<Node> Lar : lengthToNode.values())
