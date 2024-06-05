@@ -155,7 +155,8 @@ public class Problem2 {
         
         return Knode;
     }
-public static void Goleft(Node root,ArrayList<Node>leftnodes){
+    //a functiion to go over left nodes
+    public static void Goleft(Node root,ArrayList<Node>leftnodes){
     if(root==null||root.isLeaf()){
         return;
     }
