@@ -40,7 +40,7 @@ public class Node {
 
     @Override
     public String toString() {
-        return "(data: " + this.data + ", left:" + this.left + ",right:" + this.right + ",)";
+        return "(data: " + this.data+"" + ", left: " + this.left + ", right: " + this.right + ")";
     }
 
 

@@ -2,16 +2,32 @@ package Problem1.SubProblem4;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
+import Problem1.Tree.Data;
 import Problem1.Tree.Node;
 
 public class SubProblem4 {
-    public static int countValidTrees(ArrayList<Node> nodes) {
-        Map<Integer, ArrayList<Node>> widthToNode = new HashMap<>();
-        Map<Integer, ArrayList<Node>> lengthToNode = new HashMap<>();
-        // TODO: fill the maps with the right values
 
+    public static int countValidTrees(ArrayList<Node> nodes) {
+        Map<Integer, ArrayList<Node>> widthToNode = new HashMap<Integer, ArrayList<Node>>();
+        Map<Integer, ArrayList<Node>> lengthToNode = new HashMap<Integer, ArrayList<Node>>();
+        Set<Integer> widths = new HashSet<>();
+        Set<Integer> lengths = new HashSet<>();
+        for (Node node : nodes) {
+            int width = node.data.width;
+            int length = node.data.length;
+            if (!widthToNode.containsKey(width))
+                widthToNode.put(width, new ArrayList<>());
+            if (!lengthToNode.containsKey(length))
+                lengthToNode.put(length, new ArrayList<>());
+            widthToNode.get(width).add(node);
+            lengthToNode.get(length).add(node);
+            widths.add(width);
+            lengths.add(length);
+        }
         return countFromMaps(widthToNode, lengthToNode);
     }
 
@@ -24,8 +40,6 @@ public class SubProblem4 {
             assert (hasOneNode(lengthToNode));
             return 1;
         }
-        // TODO: creat 2 new maps after a posible merge
-
         return 0;
     }
 
