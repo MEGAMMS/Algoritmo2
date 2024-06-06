@@ -14,7 +14,7 @@ public class Filereader {
         String str = "";
         try {
             str = Files.readString(fileName);
-            // str = str.replace("\r", "");
+            str = str.replace("\r", "");
         } catch (IOException e) {
             e.printStackTrace();
         }

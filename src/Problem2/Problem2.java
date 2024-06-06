@@ -86,10 +86,10 @@ public class Problem2 {
         if (root == null) {
             return null;
         }
-        String out = root.toString() + "\r\n";
+        String out = root.toString() + "\n";
         for (Node child : root.getChildren()) {
             if (!child.isLeaf())
-                out = out + Export(child).trim() + "\r\n";
+                out = out + Export(child).trim() + "\n";
         }
         return out;
     }

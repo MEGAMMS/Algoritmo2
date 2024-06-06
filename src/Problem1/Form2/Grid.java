@@ -30,8 +30,7 @@ public class Grid extends ArrayList<ArrayList<Character>> {
             }
             this.get(this.size() - 1).add(c);
         }
-        for (int j = 0; j < this.size() - 1; j++)
-            this.get(j).remove(this.get(j).size() - 1);
+        
     }
 
     public int getRowsCount() {
