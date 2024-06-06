@@ -6,7 +6,7 @@ public class Node {
     String name;
     Node parent;
     ArrayList<Node> children;
-    public boolean left=false;
+    public boolean left=false;//indicates the left node in the binary tree
 
     public ArrayList<Node> getChildren() {
         return children;
@@ -65,4 +65,5 @@ public class Node {
             child.addParent(this);
         }
     }
+
 }
