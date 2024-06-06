@@ -8,6 +8,9 @@ import Problem1.Tree.*;
 // a function to create the tree
 public class Form1 {
     public static Node Import(String s) {
+        if (stringIsLeaf(s)) {
+            return stringToNode(s);
+        }
         return _Import("(" + s + ")");
     }
 
@@ -16,7 +19,7 @@ public class Form1 {
      * @return
      */
     private static Node _Import(String s) {
-        if (s.charAt(s.length() - 1) == ']') {
+        if (stringIsLeaf(s)) {
             return stringToNode(s);
         }
         s = s.substring(1, s.length() - 1);
@@ -45,6 +48,9 @@ public class Form1 {
 
     public static String Export(Node root) {
         String out = _Export(root);
+        if (stringIsLeaf(out)) {
+            return out;
+        }
         return out.substring(1, out.length() - 1);
     }
 
@@ -82,5 +88,8 @@ public class Form1 {
 
     public static Node stringToNode(String s){
         return new Node(new Data(s.charAt(0), parseInteger(s).get(0), parseInteger(s).get(1)));
+    }
+    private static boolean stringIsLeaf(String s){
+        return s.charAt(s.length() - 1) == ']';
     }
 }
