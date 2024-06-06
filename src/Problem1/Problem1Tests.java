@@ -204,7 +204,7 @@ public class Problem1Tests {
     }
 
     @Test
-    public void test18(){
+    public void test18() {
         ArrayList<Node> nodeList = new ArrayList<>();
         nodeList.add(new Node(new Data('A', 7, 4)));
         nodeList.add(new Node(new Data('B', 7, 2)));

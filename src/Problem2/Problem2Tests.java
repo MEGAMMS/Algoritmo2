@@ -8,15 +8,15 @@ import Problem2.Tree.Node;
 import Utils.Filereader;
 
 public class Problem2Tests {
-    
-        @Test
+
+    @Test
     public void test1() {
         String in, out;
         Node tree;
         in = Filereader.stringreader("src/Problem2/test.txt");
         tree = Problem2.Import(in);
         out = Problem2.Export(tree);
-        assertEquals(out, in);
+        assertEquals(in, out);
     }
 
 }
