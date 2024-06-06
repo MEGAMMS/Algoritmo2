@@ -54,7 +54,8 @@ public class Node {
 
     @Override
     public String toString() {
-        if(isLeaf())return "(data: " + this.data + ")";
+        if (isLeaf())
+            return "(data: " + this.data + ")";
         return "(data: " + this.data + "" + ", left: " + this.left + ", right: " + this.right + ")";
     }
 
@@ -92,4 +93,14 @@ public class Node {
                 && (this.right == other.right || this.right.equals(other.right));
     }
 
+    public void rotate() {
+        int temp = this.data.length;
+        this.data.length = this.data.width;
+        this.data.width = temp;
+        if (this.isLeaf())
+            return;
+        this.data.type = (this.data.type == '-' ? '|' : '-');
+        left.rotate();
+        right.rotate();
+    }
 }
