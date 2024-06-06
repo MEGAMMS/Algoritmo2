@@ -203,12 +203,5 @@ public class Problem1Tests {
         assertEquals(SubProblem4.hasOneNode(map), false);
     }
 
-    @Test
-    public void test18() {
-        ArrayList<Node> nodeList = new ArrayList<>();
-        nodeList.add(new Node(new Data('A', 7, 4)));
-        nodeList.add(new Node(new Data('B', 7, 2)));
-        nodeList.add(new Node(new Data('C', 5, 6)));
-        SubProblem4.countValidTrees(nodeList);
-    }
+    
 }

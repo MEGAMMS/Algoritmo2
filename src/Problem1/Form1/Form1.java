@@ -17,7 +17,7 @@ public class Form1 {
      */
     private static Node _Import(String s) {
         if (s.charAt(s.length() - 1) == ']') {
-            return new Node(new Data(s.charAt(0), parseInteger(s).get(0), parseInteger(s).get(1)));
+            return stringToNode(s);
         }
         s = s.substring(1, s.length() - 1);
         int cnt = 0;
@@ -40,16 +40,7 @@ public class Form1 {
         String sr = s.substring(pos + 2, s.length());
         Node l = _Import(sl);
         Node r = _Import(sr);
-        Data data;
-        if (c == '|') {
-            assert (l.data.length == r.data.length);
-            data = new Data(c, l.data.width + r.data.width, l.data.length);
-        } else {
-            assert (l.data.width == r.data.width);
-            data = new Data(c, l.data.width, l.data.length + r.data.length);
-        }
-        Node n = new Node(l, r, data);
-        return n;
+        return new Node(l,r,c);
     }
 
     public static String Export(Node root) {
@@ -71,7 +62,7 @@ public class Form1 {
     }
 
     // a function to parse integers from a string
-    public static ArrayList<Integer> parseInteger(String input) {
+    private static ArrayList<Integer> parseInteger(String input) {
         ArrayList<Integer> para = new ArrayList<>();
         Pattern pattern = Pattern.compile("\\[(\\d+),");
         Matcher matcher = pattern.matcher(input);
@@ -87,5 +78,9 @@ public class Form1 {
             para.add(Integer.parseInt(matcher2.group(1)));
         }
         return para;
+    }
+
+    public static Node stringToNode(String s){
+        return new Node(new Data(s.charAt(0), parseInteger(s).get(0), parseInteger(s).get(1)));
     }
 }
