@@ -14,20 +14,21 @@ public class Problem2 {
         System.out.println(out);
         System.out.println(BinaryConverter(root));
 
-        Node Binaryroot=_BinaryConverter(root);
-        //Node Kroot=_KaryTree(Binaryroot);
+        Node Binaryroot = _BinaryConverter(root);
+        // Node Kroot=_KaryTree(Binaryroot);
         System.out.println(KaryTreeConverter(Binaryroot));
     }
-    // a function to split the input into an array of lines then save it as a tree of nodes
+    // a function to split the input into an array of lines then save it as a tree
+    // of nodes
 
     public static Node Import(String in) {
         String[] lines = in.split("\n");
         return _Import(lines, 0);
     }
 
-    //a function to save the input as a tree of nodes
-    private static Node _Import(String[] lines,int index){
-        //index refers to line we're at in the array of lines
+    // a function to save the input as a tree of nodes
+    private static Node _Import(String[] lines, int index) {
+        // index refers to line we're at in the array of lines
 
         if (index >= lines.length) {
             return null;
@@ -35,24 +36,24 @@ public class Problem2 {
         // going over each line
         String line = lines[index];
         int level = getLevel(line);
-        
-        String value = line.substring(0,level).trim();
-        //creating the parent node
+
+        String value = line.substring(0, level).trim();
+        // creating the parent node
         Node node = new Node(value);
 
-        //assigning children nodes to an array
-        String[] childNodes=line.substring(level+2,line.length()).trim().split(", ");
-        
-        //fathering children nodes properly 
-        boolean isnull=true;
-        for(int i=0;i<childNodes.length;i++){
-            Node child;//declaring a child node
-            isnull=true;//this variable indicates the state of the node whether it's a leaf or not
+        // assigning children nodes to an array
+        String[] childNodes = line.substring(level + 2, line.length()).trim().split(", ");
 
-            //go over all preceding lines to check if the node is leaf or not 
-            for(int j=0;j<lines.length;j++){
-                if(childNodes[i].equals(lines[j].substring(0,level).trim())){
-                    child=_Import(lines, j);
+        // fathering children nodes properly
+        boolean isnull = true;
+        for (int i = 0; i < childNodes.length; i++) {
+            Node child;// declaring a child node
+            isnull = true;// this variable indicates the state of the node whether it's a leaf or not
+
+            // go over all preceding lines to check if the node is leaf or not
+            for (int j = 0; j < lines.length; j++) {
+                if (childNodes[i].equals(lines[j].substring(0, level).trim())) {
+                    child = _Import(lines, j);
 
                     // add it if succeeded in finding it
                     node.addChild(child);
@@ -137,36 +138,37 @@ public class Problem2 {
         return Bnode;
     }
 
-    //this function returns the k-ary equivalent of the binary tree input as a string
-    public static String KaryTreeConverter(Node in){
-        Node out=_KaryTreeConverter(in);
+    // this function returns the k-ary equivalent of the binary tree input as a
+    // string
+    public static String KaryTreeConverter(Node in) {
+        Node out = _KaryTreeConverter(in);
         return Export(out);
     }
-    //transforms a binary tree to a k-ary tree
-    public static Node _KaryTreeConverter(Node root){
-        if(root==null){
+
+    // transforms a binary tree to a k-ary tree
+    public static Node _KaryTreeConverter(Node root) {
+        if (root == null) {
             return null;
         }
         root.fatheringChildren();// assign the parent to each of his children
-        Node Knode=new Node(root.getName());
-        
-        
-        if(!root.isLeaf()){
-            
-            for (Node Child : root.getChildren()) {
-                if(!Child.left){
-                //start by finding all the left children then proceed to add them
-                if(!Child.getChildren().isEmpty()){
-                    ArrayList<Node>leftnodes=new ArrayList<>();
-                    Goleft(Child,leftnodes);
-                    for (int i = 0; i <leftnodes.size(); i++) {
-                        Knode.addChild(_KaryTreeConverter(leftnodes.get(leftnodes.size()-1-i)));
+        Node Knode = new Node(root.getName());
 
+        if (!root.isLeaf()) {
+
+            for (Node Child : root.getChildren()) {
+                if (!Child.left) {
+                    // start by finding all the left children then proceed to add them
+                    if (!Child.getChildren().isEmpty()) {
+                        ArrayList<Node> leftnodes = new ArrayList<>();
+                        Goleft(Child, leftnodes);
+                        for (int i = 0; i < leftnodes.size(); i++) {
+                            Knode.addChild(_KaryTreeConverter(leftnodes.get(leftnodes.size() - 1 - i)));
+
+                        }
                     }
+                    // added at the end to aline the correspondence of element to the original tree
+                    Knode.addChild(_KaryTreeConverter(Child));
                 }
-                //added at the end to aline the correspondence of element to the original tree
-                Knode.addChild(_KaryTreeConverter(Child));
-            }
                 Knode.fatheringChildren();
 
             }
@@ -176,18 +178,19 @@ public class Problem2 {
         return Knode;
     }
 
-    //a functiion to go over left nodes
-    public static void Goleft(Node root,ArrayList<Node>leftnodes){
-    if(root==null||root.isLeaf()){
-        return;
-    }
-    //keep going left until there is no left nodes left
-    for (Node node : root.getChildren()) {
-        if(node.left){
-            leftnodes.add(node);
-            Goleft(node,leftnodes);
+    // a functiion to go over left nodes
+    public static void Goleft(Node root, ArrayList<Node> leftnodes) {
+        if (root == null || root.isLeaf()) {
+            return;
+        }
+        // keep going left until there is no left nodes left
+        for (Node node : root.getChildren()) {
+            if (node.left) {
+                leftnodes.add(node);
+                Goleft(node, leftnodes);
+
+            }
 
         }
-
     }
 }
