@@ -6,17 +6,18 @@ public class Node {
     String name;
     Node parent;
     ArrayList<Node> children;
-    public boolean left=false;//indicates the left node in the binary tree
+    public boolean left = false;// indicates the left node in the binary tree
 
     public ArrayList<Node> getChildren() {
         return children;
     }
+
     public String getName() {
         return name;
     }
 
     public boolean isLeaf() {
-        return children == null||children.isEmpty();
+        return children == null || children.isEmpty();
     }
 
     public Node(String name, Node parent, ArrayList<Node> children) {
@@ -30,6 +31,7 @@ public class Node {
         this.parent = parent;
         this.children = new ArrayList<>();
     }
+
     public Node(String name) {
         this.name = name;
         this.parent = null;
@@ -39,29 +41,31 @@ public class Node {
     public void addChild(Node child) {
         children.add(child);
     }
-    public void addParent(Node father){
-        this.parent=father;
+
+    public void addParent(Node father) {
+        this.parent = father;
     }
+
     public Node getParent() {
         return parent;
     }
-    
+
     @Override
     public String toString() {
-        String s=this.name+" -> ";
-        int i=0;
-        for(Node child: this.children){
-            s=s+child.name;
-            if(i!=children.size()-1){
-                s+=", ";
+        String s = this.name + " -> ";
+        int i = 0;
+        for (Node child : this.children) {
+            s = s + child.name;
+            if (i != children.size() - 1) {
+                s += ", ";
             }
             i++;
         }
         return s;
     }
 
-    public void fatheringChildren(){
-        for(Node child: this.children){
+    public void fatheringChildren() {
+        for (Node child : this.children) {
             child.addParent(this);
         }
     }
