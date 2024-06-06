@@ -10,27 +10,32 @@ public class Problem2 {
     public static void main(String[] args) {
         String in = Filereader.stringreader("src/Problem2/test.txt");
         Node root = Import(in);
-        String out=Export(root);
+        String out = Export(root);
         System.out.println(out);
         System.out.println(BinaryConverter(root));
+
         Node Binaryroot=_BinaryConverter(root);
         //Node Kroot=_KaryTree(Binaryroot);
         System.out.println(KaryTreeConverter(Binaryroot));
     }
     // a function to split the input into an array of lines then save it as a tree of nodes
+
     public static Node Import(String in) {
         String[] lines = in.split("\n");
         return _Import(lines, 0);
     }
+
     //a function to save the input as a tree of nodes
     private static Node _Import(String[] lines,int index){
         //index refers to line we're at in the array of lines
+
         if (index >= lines.length) {
             return null;
         }
-        //going over each line 
+        // going over each line
         String line = lines[index];
         int level = getLevel(line);
+        
         String value = line.substring(0,level).trim();
         //creating the parent node
         Node node = new Node(value);
@@ -48,15 +53,16 @@ public class Problem2 {
             for(int j=0;j<lines.length;j++){
                 if(childNodes[i].equals(lines[j].substring(0,level).trim())){
                     child=_Import(lines, j);
+
                     // add it if succeeded in finding it
                     node.addChild(child);
-                    isnull=false;
+                    isnull = false;
                     break;
                 }
             }
-            if(isnull){
+            if (isnull) {
                 // this condition is for leaves
-                child= new Node(childNodes[i],node);
+                child = new Node(childNodes[i], node);
                 node.addChild(child);
             }
 
@@ -64,6 +70,7 @@ public class Problem2 {
 
         return node;
     }
+
     // a function to find the index of "-" so we wouldn't count it manually
     public static int getLevel(String line) {
         int level = 0;
@@ -74,55 +81,62 @@ public class Problem2 {
     }
 
     // a function to output the tree
-    public static String Export(Node root){
-        if(root==null){
+    public static String Export(Node root) {
+        if (root == null) {
             return null;
         }
-        String out=root.toString()+"\n";
-        for (Node child :root.getChildren() ) {
-            if(!child.isLeaf())
-            out=out+Export(child).trim()+"\n";
+        String out = root.toString() + "\r\n";
+        for (Node child : root.getChildren()) {
+            if (!child.isLeaf())
+                out = out + Export(child).trim() + "\r\n";
         }
         return out;
-    } 
-    // a function to turn a k-ary tree to a binary tree and return the result as a text
-    public static String BinaryConverter(Node in){
-        Node out =_BinaryConverter(in);
+    }
+
+    // a function to turn a k-ary tree to a binary tree and return the result as a
+    // text
+    public static String BinaryConverter(Node in) {
+        Node out = _BinaryConverter(in);
         return Export(out);
     }
+
     // a function to transform a k-ary tree into a binary tree
-    public static Node _BinaryConverter(Node root){
+    public static Node _BinaryConverter(Node root) {
         // creating a binary equivalent of the current k-ary node
         Node Bnode = new Node(root.getName());
-        //checking if the node is a leaf or not bcz a leaf wouldn't have childern and thus no right node
-        if(!root.isLeaf()){
-            // filling up the missing parent parameter in some nodes due to mg3ms' magnificent node class
+        // checking if the node is a leaf or not bcz a leaf wouldn't have childern and
+        // thus no right node
+        if (!root.isLeaf()) {
+            // filling up the missing parent parameter in some nodes due to mg3ms'
+            // magnificent node class
             root.fatheringChildren();
-            //creating right node
-            int rightward=root.getChildren().size()-1;
-            Node RightBnode=_BinaryConverter(root.getChildren().get(rightward));
+            // creating right node
+            int rightward = root.getChildren().size() - 1;
+            Node RightBnode = _BinaryConverter(root.getChildren().get(rightward));
             Bnode.addChild(RightBnode);
         }
-            // creating a left node if possible
-            Node LeftBnode=null;
-            if(root.getParent()!=null){
-                int i=0;
-                //loop is needed bcz children's structure is an arraylist rather than a hash map
-                for (Node child : root.getParent().getChildren()) {
-                    if(root.equals(child)){break;}
-                    i++;
+        // creating a left node if possible
+        Node LeftBnode = null;
+        if (root.getParent() != null) {
+            int i = 0;
+            // loop is needed bcz children's structure is an arraylist rather than a hash
+            // map
+            for (Node child : root.getParent().getChildren()) {
+                if (root.equals(child)) {
+                    break;
                 }
-                if(i>0){
-                    LeftBnode=_BinaryConverter(root.getParent().getChildren().get(i-1));
-                    LeftBnode.left=true;
-                    Bnode.addChild(LeftBnode);
-                }
+                i++;
             }
-            
-            
-        
+            if (i > 0) {
+                LeftBnode = _BinaryConverter(root.getParent().getChildren().get(i - 1));
+                LeftBnode.left = true;
+                Bnode.addChild(LeftBnode);
+            }
+        }
+
         return Bnode;
     }
+
     //this function returns the k-ary equivalent of the binary tree input as a string
     public static String KaryTreeConverter(Node in){
         Node out=_KaryTreeConverter(in);
@@ -147,6 +161,7 @@ public class Problem2 {
                     Goleft(Child,leftnodes);
                     for (int i = 0; i <leftnodes.size(); i++) {
                         Knode.addChild(_KaryTreeConverter(leftnodes.get(leftnodes.size()-1-i)));
+
                     }
                 }
                 //added at the end to aline the correspondence of element to the original tree
@@ -157,10 +172,10 @@ public class Problem2 {
             }
 
         }
-        
-        
+
         return Knode;
     }
+
     //a functiion to go over left nodes
     public static void Goleft(Node root,ArrayList<Node>leftnodes){
     if(root==null||root.isLeaf()){
@@ -171,8 +186,8 @@ public class Problem2 {
         if(node.left){
             leftnodes.add(node);
             Goleft(node,leftnodes);
+
         }
+
     }
-    
-}
 }
