@@ -2,9 +2,7 @@ package Problem1.SubProblem4;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import Problem1.Form1.Form1;
 import Problem1.Form2.Form2;
@@ -28,8 +26,6 @@ public class SubProblem4 {
     public static ArrayList<Node> validTrees(ArrayList<Node> nodes) {
         Map<Integer, ArrayList<Node>> widthToNode = new HashMap<Integer, ArrayList<Node>>();
         Map<Integer, ArrayList<Node>> lengthToNode = new HashMap<Integer, ArrayList<Node>>();
-        Set<Integer> widths = new HashSet<>();
-        Set<Integer> lengths = new HashSet<>();
         for (Node node : nodes) {
             int width = node.data.width;
             int length = node.data.length;
@@ -39,8 +35,6 @@ public class SubProblem4 {
                 lengthToNode.put(length, new ArrayList<>());
             widthToNode.get(width).add(node);
             lengthToNode.get(length).add(node);
-            widths.add(width);
-            lengths.add(length);
         }
         ArrayList<Node> out = new ArrayList<>();
         countFromMaps(widthToNode, lengthToNode, out);
