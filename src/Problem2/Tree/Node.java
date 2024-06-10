@@ -52,15 +52,20 @@ public class Node {
 
     @Override
     public String toString() {
-        String s = this.name + " -> ";
-        int i = 0;
-        for (Node child : this.children) {
-            s = s + child.name;
-            if (i != children.size() - 1) {
-                s += ", ";
+        String s = this.name;
+        if(!isLeaf()){
+            s+= " -> ";
+            int i = 0;
+            for (Node child : this.children) {
+                s = s + child.name;
+                if (i != children.size() - 1) {
+                    s += ", ";
+                }
+                i++;
             }
-            i++;
-        }
+            
+        } 
+        
         return s;
     }
 

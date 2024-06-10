@@ -70,4 +70,22 @@ public class Problem2Tests {
         out = Problem2.KaryTreeConverter(mid);
         assertEquals(out, in);
     }
+    @Test
+    public void test7() {
+        String in, out;
+        Node tree;
+        in = Filereader.stringreader("src/Problem2/test5.txt");
+        tree = Problem2.Import(in);
+        out = Problem2.Export(tree);
+        assertEquals(in, out);
+    }
+    @Test
+    public void test8() {
+        String in, out;
+        Node tree;
+        in = Filereader.stringreader("src/Problem2/test6.txt");
+        tree = Problem2.Import(in);
+        out = Problem2.Export(tree);
+        assertEquals(in, out);
+    }
 }

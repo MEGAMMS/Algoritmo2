@@ -1,6 +1,7 @@
 package Problem2;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import Problem2.Tree.Node;
 import Utils.Filereader;
@@ -8,7 +9,7 @@ import Utils.Filereader;
 public class Problem2 {
 
     public static void main(String[] args) {
-        String in = Filereader.stringreader("src/Problem2/test.txt");
+        String in = Filereader.stringreader("src/Problem2/test5.txt");
         Node root = Import(in);
         String out = Export(root);
         System.out.println(out);
@@ -22,19 +23,19 @@ public class Problem2 {
     // of nodes
 
     public static Node Import(String in) {
-        String[] lines = in.split("\n");
+        ArrayList<String> lines = new ArrayList<>(Arrays.asList(in.split("\n")));
         return _Import(lines, 0);
     }
 
     // a function to save the input as a tree of nodes
-    private static Node _Import(String[] lines, int index) {
+    private static Node _Import(ArrayList<String> lines, int index) {
         // index refers to line we're at in the array of lines
-
-        if (index >= lines.length) {
+        System.err.println(lines);
+        if (index >= lines.size()) {
             return null;
         }
         // going over each line
-        String line = lines[index];
+        String line = lines.get(index);
         int level = getLevel(line);
 
         String value = line.substring(0, level).trim();
@@ -42,26 +43,29 @@ public class Problem2 {
         Node node = new Node(value);
 
         // assigning children nodes to an array
+        if (level == 1) {
+            return node;
+        }
         String[] childNodes = line.substring(level + 2, line.length()).trim().split(", ");
 
         // fathering children nodes properly
-        boolean isnull = true;
+        boolean isNull = true;
         for (int i = 0; i < childNodes.length; i++) {
             Node child;// declaring a child node
-            isnull = true;// this variable indicates the state of the node whether it's a leaf or not
+            isNull = true;// this variable indicates the state of the node whether it's a leaf or not
 
             // go over all preceding lines to check if the node is leaf or not
-            for (int j = 0; j < lines.length; j++) {
-                if (childNodes[i].equals(lines[j].substring(0, level).trim())) {
+            for (int j = 0; j < lines.size(); j++) {
+                if (childNodes[i].equals(lines.get(j).substring(0, level).trim())) {
                     child = _Import(lines, j);
 
                     // add it if succeeded in finding it
                     node.addChild(child);
-                    isnull = false;
+                    isNull = false;
                     break;
                 }
             }
-            if (isnull) {
+            if (isNull) {
                 // this condition is for leaves
                 child = new Node(childNodes[i], node);
                 node.addChild(child);
