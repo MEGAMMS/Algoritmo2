@@ -78,12 +78,12 @@ public class Form2 {
         }
 
         // Tmp Debugging
-        System.out.println("Cutting....");
-        beforeCut.print();
-        System.out.println("First Cut = ");
-        out[0].print();
-        System.out.println("Second Cut = ");
-        out[1].print();
+        // System.out.println("Cutting....");
+        // beforeCut.print();
+        // System.out.println("First Cut = ");
+        // out[0].print();
+        // System.out.println("Second Cut = ");
+        // out[1].print();
         return out;
     }
 

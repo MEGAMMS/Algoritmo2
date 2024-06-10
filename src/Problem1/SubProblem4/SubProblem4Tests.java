@@ -34,7 +34,7 @@ public class SubProblem4Tests {
         String in = Filereader.stringreader("src/Problem1/SubProblem4/test3.txt");
         ArrayList<Node> rectangels = SubProblem4.Import(in);
         ArrayList<Node> validTrees = SubProblem4.validTrees(rectangels);
-        assertEquals(validTrees.size(), 12);
+        assertEquals(validTrees.size(), 6);
     }
 
     @Test

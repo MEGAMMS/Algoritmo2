@@ -2,10 +2,13 @@ package Problem1.SubProblem4;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import Problem1.Form1.Form1;
 import Problem1.Form2.Form2;
+import Problem1.Form2.Grid;
 import Problem1.Tree.Node;
 import Utils.Filereader;
 
@@ -15,11 +18,10 @@ public class SubProblem4 {
         String in = Filereader.stringreader("src/Problem1/SubProblem4/test4.txt");
         ArrayList<Node> rectangels = Import(in);
         ArrayList<Node> validTrees = SubProblem4.validTrees(rectangels);
-
         for (Node tree : validTrees) {
             tree.printTree();
-            Form2.Export(tree).print();
         }
+
         System.err.println(validTrees.size());
     }
 
@@ -38,6 +40,20 @@ public class SubProblem4 {
         }
         ArrayList<Node> out = new ArrayList<>();
         countFromMaps(widthToNode, lengthToNode, out);
+        out = uniqueTrees(out);
+        return out;
+    }
+
+    private static ArrayList<Node> uniqueTrees(ArrayList<Node> validTrees) {
+        Set<Grid> uniGrids = new HashSet<>();
+        for (Node tree : validTrees) {
+            uniGrids.add(Form2.Export(tree));
+        }
+        ArrayList<Node> out = new ArrayList<>();
+        for (Grid grid : uniGrids) {
+            System.out.println(grid);
+            out.add(Form2.Import(grid));
+        }
         return out;
     }
 

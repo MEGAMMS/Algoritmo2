@@ -2,8 +2,6 @@ package Problem1.Form2;
 
 import java.util.ArrayList;
 
-import Utils.PrintingArrayList;
-
 public class Grid extends ArrayList<ArrayList<Character>> {
     public Grid() {
         super();
@@ -30,7 +28,7 @@ public class Grid extends ArrayList<ArrayList<Character>> {
             }
             this.get(this.size() - 1).add(c);
         }
-        
+
     }
 
     public int getRowsCount() {
@@ -53,9 +51,7 @@ public class Grid extends ArrayList<ArrayList<Character>> {
     }
 
     public void print() {
-        for (ArrayList<Character> ac : this) {
-            PrintingArrayList.printCharArray(ac);
-        }
+        System.out.println(this.toString());
     }
 
     public void invert() {
@@ -72,6 +68,20 @@ public class Grid extends ArrayList<ArrayList<Character>> {
         }
         this.clear();
         this.addAll(invertedGrid);
+    }
+
+    @Override
+    public String toString() {
+        String out = "";
+        for (ArrayList<Character> ar : this) {
+            for (Character c : ar) {
+                out += c;
+            }
+            if (out.charAt(out.length() - 1) != '\n')
+                out += '\n';
+        }
+        out.replace("\r", "");
+        return out;
     }
 
 }
